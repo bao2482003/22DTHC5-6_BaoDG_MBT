@@ -1,14 +1,65 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	<meta name="generator" content="Hugo 0.153.1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <header class="header">
+  <div class="container">
+    <div class="logo">
+      <a href="/">
+        <span class="logo-icon">🏠</span>
+        <span class="logo-text">Profile</span>
+      </a>
+    </div>
+    
+    <nav class="nav">
+      <div class="search-box">
+        <span>Tìm kiếm...</span>
+      </div>
+      
+      <ul class="menu">
+        
+        <li><a href="/#about">Về tôi</a></li>
+        
+        <li><a href="/#experience">Kinh nghiệm</a></li>
+        
+        <li><a href="/#education">Học vấn</a></li>
+        
+        <li><a href="/#projects">Dự án</a></li>
+        
+        <li><a href="/#achievements">Thành tựu</a></li>
+        
+        <li><a href="/#contact">Liên hệ</a></li>
+        
+        <li><a href="/posts">Blog</a></li>
+        
+        <li><a href="/#gallery">Thư viện ảnh</a></li>
+        
+      </ul>
+      
+      <button class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+    </nav>
+  </div>
+</header>
 
-{{ define "main" }}
+  
+  <main>
+    
 
-<!-- Hero Section -->
+
 <section id="hero" class="hero">
   <div class="container hero-content">
     <div class="hero-text">
-      <p class="intro">{{ .Site.Params.hero.intro }}</p>
-      <h1 class="hero-title">{{ .Site.Params.hero.title }}</h1>
-      <h2 class="hero-subtitle">{{ .Site.Params.hero.subtitle }}</h2>
-      <p class="hero-description">{{ .Site.Params.hero.content }}</p>
+      <p class="intro">Xin chào, Tôi tên là</p>
+      <h1 class="hero-title">Dương Gia Bảo.</h1>
+      <h2 class="hero-subtitle">Tôi xây dựng các ứng dụng cho web.</h2>
+      <p class="hero-description">Tôi là một nhà phát triển ứng dụng web đầy đam mê. Tôi thường sử dụng các công nghệ web hiện đại để xây dựng các trang web có giao diện đẹp mắt, trải nghiệm người dùng tuyệt vời và hoạt động chính xác.</p>
       
       <div class="hero-buttons">
         <a href="#" class="btn btn-primary">Sơ yếu lý lịch</a>
@@ -36,15 +87,24 @@
   </div>
 </section>
 
-<!-- About Section -->
+
 <section id="about" class="section">
   <div class="container">
     <h2>Về tôi</h2>
-    {{ .Content }}
+    <h2 id="giới-thiệu-về-tôi">Giới thiệu về tôi</h2>
+<p>Tôi là một web developer đam mê với công nghệ hiện đại. Tôi thích xây dựng những website đẹp, hoạt động tốt và mang lại trải nghiệm tuyệt vời cho người dùng.</p>
+<h3 id="kỹ-năng">Kỹ năng</h3>
+<ul>
+<li>Front-end Development (HTML, CSS, JavaScript)</li>
+<li>Back-end Development (Java, Node.js)</li>
+<li>Database Management</li>
+<li>UI/UX Design</li>
+</ul>
+
   </div>
 </section>
 
-<!-- Experience Section -->
+
 <section id="experience" class="section section-alt">
   <div class="container">
     <h2>Kinh nghiệm</h2>
@@ -52,7 +112,7 @@
   </div>
 </section>
 
-<!-- Education Section -->
+
 <section id="education" class="section">
   <div class="container">
     <h2>Học vấn</h2>
@@ -60,7 +120,7 @@
   </div>
 </section>
 
-<!-- Projects Section -->
+
 <section id="projects" class="section section-alt">
   <div class="container">
     <h2>Dự án</h2>
@@ -68,7 +128,7 @@
   </div>
 </section>
 
-<!-- Achievements Section -->
+
 <section id="achievements" class="section">
   <div class="container">
     <h2>Thành tựu</h2>
@@ -76,7 +136,7 @@
   </div>
 </section>
 
-<!-- Contact Section -->
+
 <section id="contact" class="section section-alt">
   <div class="container">
     <h2>Liên hệ</h2>
@@ -84,7 +144,7 @@
   </div>
 </section>
 
-<!-- Gallery Section -->
+
 <section id="gallery" class="section">
   <div class="container">
     <h2>Thư viện ảnh</h2>
@@ -92,4 +152,14 @@
   </div>
 </section>
 
-{{ end }}
+
+  </main>
+  
+  <footer class="footer">
+  <div class="container">
+    <p>&copy; 2025 Dương Gia Bảo. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

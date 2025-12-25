@@ -1,2 +1,24 @@
-<h1>{{ site.Title }}</h1>
-{{ partial "menu.html" (dict "menuID" "main" "page" .) }}
+<header class="header">
+  <div class="container">
+    <div class="logo">
+      <a href="/">
+        <span class="logo-icon">🏠</span>
+        <span class="logo-text">{{ .Site.Params.title }}</span>
+      </a>
+    </div>
+    
+    <nav class="nav">
+      <div class="search-box">
+        <span>Tìm kiếm...</span>
+      </div>
+      
+      <ul class="menu">
+        {{ range .Site.Menus.main }}
+        <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+        {{ end }}
+      </ul>
+      
+      <button class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+    </nav>
+  </div>
+</header>

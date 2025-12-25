@@ -1,5 +1,7 @@
-baseURL = 'https://example.org/'
-languageCode = 'vi-vn'
+baseURL = 'https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/'
+relativeURLs = true
+canonifyURLs = true
+languageCode = 'en-US'
 title = 'Profile'
 theme = 'mytheme'
 

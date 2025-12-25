@@ -113,11 +113,76 @@
   </div>
 </section>
 
-
 <section id="experience" class="section section-alt">
   <div class="container">
-    <h2>Kinh nghiệm</h2>
-    <p>Kinh nghiệm làm việc chuyên nghiệp...</p>
+    <h2 class="section-title">Kinh nghiệm</h2>
+    
+    <div class="experience-card">
+      <div class="tabs-header">
+        
+          <button class="tab-btn active" 
+                  onclick="openTab(event, 'doan-1')">
+            Đồ án Web
+          </button>
+        
+          <button class="tab-btn " 
+                  onclick="openTab(event, 'du-an-hugo')">
+            Dự án Hugo
+          </button>
+        
+          <button class="tab-btn " 
+                  onclick="openTab(event, 'tu-duy')">
+            Tư duy &amp; Kỹ năng
+          </button>
+        
+      </div>
+
+      <div class="tabs-content-container">
+        
+          <div id="doan-1" class="tab-content active">
+            <h3 class="role">Full-stack Developer <span class="company">@ Đồ án chuyên ngành</span></h3>
+            <p class="duration">09/2025 - hiện tại</p>
+            <ul class="details-list">
+              
+                <li>Xây dựng website bán hàng hoàn chỉnh sử dụng Node.js và MySQL.</li>
+              
+                <li>Thiết kế giao diện Responsive, đảm bảo hiển thị tốt trên mọi thiết bị.</li>
+              
+                <li>Quản lý mã nguồn và làm việc nhóm thông qua Git/GitHub.</li>
+              
+            </ul>
+          </div>
+        
+          <div id="du-an-hugo" class="tab-content ">
+            <h3 class="role">Front-end Developer <span class="company">@ Personal Portfolio</span></h3>
+            <p class="duration">09/2025 - Hiện tại</p>
+            <ul class="details-list">
+              
+                <li>Triển khai Portfolio cá nhân sử dụng Hugo (Static Site Generator).</li>
+              
+                <li>Tích hợp GitHub Pages để hosting và tự động hóa quy trình cập nhật.</li>
+              
+                <li>Tối ưu điểm Lighthouse SEO và Performance đạt tiêu chuẩn cao.</li>
+              
+            </ul>
+          </div>
+        
+          <div id="tu-duy" class="tab-content ">
+            <h3 class="role">Sinh viên IT năm 4 <span class="company">@ Đại học Công nghệ (HUTECH)</span></h3>
+            <p class="duration">Đang rèn luyện</p>
+            <ul class="details-list">
+              
+                <li>Thói quen debug có hệ thống, tìm hiểu nguyên nhân gốc rễ của lỗi.</li>
+              
+                <li>Ưu tiên tính gọn nhẹ (Clean Code) và khả năng bảo trì của dự án.</li>
+              
+                <li>Khả năng đọc hiểu tài liệu tiếng Anh chuyên ngành tốt.</li>
+              
+            </ul>
+          </div>
+        
+      </div>
+    </div>
   </div>
 </section>
 
@@ -160,6 +225,28 @@
     <p>Thư viện ảnh...</p>
   </div>
 </section>
+
+<script>
+  function openTab(evt, tabId) {
+    var i, tabcontent, tablinks;
+    
+    
+    tabcontent = document.getElementsByClassName("tab-content");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].classList.remove("active");
+    }
+    
+    
+    tablinks = document.getElementsByClassName("tab-btn");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].classList.remove("active");
+    }
+    
+    
+    document.getElementById(tabId).classList.add("active");
+    evt.currentTarget.classList.add("active");
+  }
+</script>
 
 
 

@@ -252,6 +252,65 @@ body {
 .tag-used { background: #d1e7ff; color: #004a99; }
 .tag-learning { background: #fff3cd; color: #856404; }
 
+.experience-card {
+  display: flex; /* Chia làm 2 cột: Tab và Content */
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  overflow: hidden;
+  min-height: 300px;
+}
+
+.tabs-header {
+  width: 30%;
+  background: #f8f9fa;
+  display: flex;
+  flex-direction: column; /* Xếp các nút theo chiều dọc */
+  border-right: 1px solid #eee;
+}
+
+.tab-btn {
+  padding: 20px;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+  border-left: 3px solid transparent;
+}
+
+.tab-btn.active {
+  background: #fff;
+  color: #007bff;
+  border-left: 3px solid #007bff;
+}
+
+.tabs-content-container {
+  width: 70%;
+  padding: 30px;
+}
+
+.tab-content { display: none; animation: fadeIn 0.4s; }
+.tab-content.active { display: block; }
+
+.role { margin-bottom: 5px; font-size: 1.4rem; }
+.company { color: #007bff; }
+.duration { color: #888; margin-bottom: 20px; font-size: 0.9rem; }
+.details-list li { margin-bottom: 12px; line-height: 1.5; position: relative; list-style: none; padding-left: 20px; }
+.details-list li::before { content: "▹"; position: absolute; left: 0; color: #007bff; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* Mobile: Xếp chồng lên nhau */
+@media (max-width: 768px) {
+  .experience-card { flex-direction: column; }
+  .tabs-header { width: 100%; flex-direction: row; overflow-x: auto; }
+  .tabs-content-container { width: 100%; }
+}
+
+
+
 /* Footer */
 .footer {
   background: var(--bg-secondary);

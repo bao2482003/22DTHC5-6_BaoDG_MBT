@@ -84,11 +84,34 @@
   </div>
 </section>
 
-<!-- Experience Section -->
 <section id="experience" class="section section-alt">
   <div class="container">
-    <h2>Kinh nghiệm</h2>
-    <p>Kinh nghiệm làm việc chuyên nghiệp...</p>
+    <h2 class="section-title">Kinh nghiệm</h2>
+    
+    <div class="experience-card">
+      <div class="tabs-header">
+        {{ range $index, $element := .Params.experience_data.items }}
+          <button class="tab-btn {{ if eq $index 0 }}active{{ end }}" 
+                  onclick="openTab(event, '{{ .id }}')">
+            {{ .tab_name }}
+          </button>
+        {{ end }}
+      </div>
+
+      <div class="tabs-content-container">
+        {{ range $index, $element := .Params.experience_data.items }}
+          <div id="{{ .id }}" class="tab-content {{ if eq $index 0 }}active{{ end }}">
+            <h3 class="role">{{ .role }} <span class="company">@ {{ .company }}</span></h3>
+            <p class="duration">{{ .time }}</p>
+            <ul class="details-list">
+              {{ range .details }}
+                <li>{{ . }}</li>
+              {{ end }}
+            </ul>
+          </div>
+        {{ end }}
+      </div>
+    </div>
   </div>
 </section>
 
@@ -131,5 +154,27 @@
     <p>Thư viện ảnh...</p>
   </div>
 </section>
+
+<script>
+  function openTab(evt, tabId) {
+    var i, tabcontent, tablinks;
+    
+    // Ẩn tất cả tab-content
+    tabcontent = document.getElementsByClassName("tab-content");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].classList.remove("active");
+    }
+    
+    // Bỏ active khỏi tất cả tab-btn
+    tablinks = document.getElementsByClassName("tab-btn");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].classList.remove("active");
+    }
+    
+    // Hiển thị tab được chọn
+    document.getElementById(tabId).classList.add("active");
+    evt.currentTarget.classList.add("active");
+  }
+</script>
 
 {{ end }}

@@ -1,14 +1,23 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	<meta name="generator" content="Hugo 0.153.1"><script src="/22DTHC5-6_BaoDG_MBT/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=22DTHC5-6_BaoDG_MBT/livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+  <title>Về tôi</title>
+  <link rel="stylesheet" href="http://localhost:1313/22DTHC5-6_BaoDG_MBT/css/style.css">
+</head>
+<body>
 
-{{ define "main" }}
+  
 
-<!-- Hero Section -->
+
 <section id="hero" class="hero">
   <div class="container hero-content">
     <div class="hero-text">
-      <p class="intro">{{ .Site.Params.hero.intro }}</p>
-      <h1 class="hero-title">{{ .Site.Params.hero.title }}</h1>
-      <h2 class="hero-subtitle">{{ .Site.Params.hero.subtitle }}</h2>
-      <p class="hero-description">{{ .Site.Params.hero.content }}</p>
+      <p class="intro">Xin chào, Tôi tên là</p>
+      <h1 class="hero-title">Dương Gia Bảo.</h1>
+      <h2 class="hero-subtitle">Tôi xây dựng các ứng dụng cho web.</h2>
+      <p class="hero-description">Tôi là một nhà phát triển ứng dụng web đầy đam mê. Tôi thường sử dụng các công nghệ web hiện đại để xây dựng các trang web có giao diện đẹp mắt, trải nghiệm người dùng tuyệt vời và hoạt động chính xác.</p>
       
       <div class="hero-buttons">
         <a href="#" class="btn btn-primary">Sơ yếu lý lịch</a>
@@ -31,30 +40,36 @@
     </div>
     
     <div class="hero-image">
-      <img src="/images/avatar.jpg" alt="Ảnh đại diện">
+      <img src="./images/avatar.jpg" alt="Ảnh đại diện">
     </div>
   </div>
 </section>
 
-<!-- About Section -->
+
 <section id="about" class="section">
   <div class="container">
-    <h2 class="section-title">{{ .Title }}</h2>
+    <h2 class="section-title">Về tôi</h2>
 
     <div class="portfolio-grid">
       
       <div class="card card-about">
         <h3>Giới thiệu</h3>
-        <p>{{ .Params.about_data.intro }}</p>
+        <p>Tôi là sinh viên Công nghệ Thông tin, định hướng trở thành Web Developer. Tôi yêu thích việc xây dựng các website hiện đại, tối ưu trải nghiệm người dùng và có khả năng triển khai từ giao diện đến logic xử lý.</p>
         <span class="icon">🚀</span>
       </div>
 
       <div class="card card-strengths">
         <h3>Thế mạnh nổi bật</h3>
         <ul>
-          {{ range .Params.about_data.strengths }}
-            <li>{{ . }}</li>
-          {{ end }}
+          
+            <li>Tư duy logic tốt, tự học cao</li>
+          
+            <li>Xây dựng website tĩnh với Hugo &amp; GitHub Pages</li>
+          
+            <li>Hiểu quy trình làm việc với Git/GitHub</li>
+          
+            <li>Kinh nghiệm xây dựng project thực tế</li>
+          
         </ul>
         <span class="icon">💎</span>
       </div>
@@ -62,21 +77,35 @@
       <div class="card card-skills">
         <h3>Công nghệ & Kỹ năng</h3>
         <div class="skill-tags">
-          {{ range .Params.about_data.skills_used }}
-            <span class="tag tag-used">{{ . }}</span>
-          {{ end }}
+          
+            <span class="tag tag-used">HTML</span>
+          
+            <span class="tag tag-used">CSS</span>
+          
+            <span class="tag tag-used">JavaScript</span>
+          
+            <span class="tag tag-used">Java</span>
+          
+            <span class="tag tag-used">Node.js</span>
+          
+            <span class="tag tag-used">Hugo</span>
+          
         </div>
         <p><small>Đang học:</small></p>
         <div class="skill-tags">
-          {{ range .Params.about_data.skills_learning }}
-            <span class="tag tag-learning">{{ . }}</span>
-          {{ end }}
+          
+            <span class="tag tag-learning">React</span>
+          
+            <span class="tag tag-learning">REST API</span>
+          
+            <span class="tag tag-learning">UI/UX Design</span>
+          
         </div>
       </div>
 
       <div class="card card-mindset">
         <h3>Phong cách làm việc</h3>
-        <p>{{ .Params.about_data.mindset }}</p>
+        <p>Tôi ưu tiên viết code rõ ràng, dễ bảo trì, chú trọng cấu trúc thư mục và khả năng mở rộng dự án.</p>
         <span class="icon">🧠</span>
       </div>
 
@@ -84,7 +113,7 @@
   </div>
 </section>
 
-<!-- Experience Section -->
+
 <section id="experience" class="section section-alt">
   <div class="container">
     <h2>Kinh nghiệm</h2>
@@ -92,7 +121,7 @@
   </div>
 </section>
 
-<!-- Education Section -->
+
 <section id="education" class="section">
   <div class="container">
     <h2>Học vấn</h2>
@@ -100,7 +129,7 @@
   </div>
 </section>
 
-<!-- Projects Section -->
+
 <section id="projects" class="section section-alt">
   <div class="container">
     <h2>Dự án</h2>
@@ -108,7 +137,7 @@
   </div>
 </section>
 
-<!-- Achievements Section -->
+
 <section id="achievements" class="section">
   <div class="container">
     <h2>Thành tựu</h2>
@@ -116,7 +145,7 @@
   </div>
 </section>
 
-<!-- Contact Section -->
+
 <section id="contact" class="section section-alt">
   <div class="container">
     <h2>Liên hệ</h2>
@@ -124,7 +153,7 @@
   </div>
 </section>
 
-<!-- Gallery Section -->
+
 <section id="gallery" class="section">
   <div class="container">
     <h2>Thư viện ảnh</h2>
@@ -132,4 +161,7 @@
   </div>
 </section>
 
-{{ end }}
+
+
+</body>
+</html>

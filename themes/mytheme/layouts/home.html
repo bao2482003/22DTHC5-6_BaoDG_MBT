@@ -145,23 +145,25 @@
       </div>
       {{ end }}
     </div>
+  </div>
+</section>
 
-    <!-- Certificates Section -->
-    <div class="certificates-section">
-      <h3 class="certificates-title">Chứng chỉ & Giấy tờ</h3>
-      <div class="certificate-container">
-        <div class="certificate-text">
-          <h4>Chứng chỉ hoàn thành khóa học</h4>
-          <p>Đây là chứng chỉ chứng nhận tôi đã hoàn thành các khóa học và đào tạo chuyên nghiệp trong lĩnh vực công nghệ thông tin.</p>
-          <ul class="certificate-details">
-            <li>✓ Hoàn thành xuất sắc các bài kiểm tra</li>
-            <li>✓ Tham gia đầy đủ các buổi học</li>
-            <li>✓ Áp dụng kiến thức vào thực tế</li>
-          </ul>
-        </div>
-        <div class="certificate-image">
-          <img src="/images/chungchi.png" alt="Chứng chỉ" class="certificate-img">
-        </div>
+<!-- Certificates Section -->
+<section id="certificates" class="section section-alt">
+  <div class="container">
+    <h2 class="section-title">Chứng chỉ & Giấy tờ</h2>
+    <div class="certificate-container">
+      <div class="certificate-text">
+        <h4>Chứng chỉ hoàn thành khóa học</h4>
+        <p>Đây là chứng chỉ chứng nhận tôi đã hoàn thành các khóa học và đào tạo chuyên nghiệp trong lĩnh vực công nghệ thông tin.</p>
+        <ul class="certificate-details">
+          <li>✓ Hoàn thành xuất sắc các bài kiểm tra</li>
+          <li>✓ Tham gia đầy đủ các buổi học</li>
+          <li>✓ Áp dụng kiến thức vào thực tế</li>
+        </ul>
+      </div>
+      <div class="certificate-image">
+        <img src="/images/chungchi.png" alt="Chứng chỉ" class="certificate-img">
       </div>
     </div>
   </div>
@@ -282,10 +284,89 @@
 <!-- Gallery Section -->
 <section id="gallery" class="section">
   <div class="container">
-    <h2>Thư viện ảnh</h2>
-    <p>Thư viện ảnh...</p>
+    <h2 class="section-title">Thư viện ảnh</h2>
+    <p class="gallery-subtitle">Một số khoảnh khắc đáng nhớ trong hành trình của tôi</p>
+    
+    <div class="gallery-grid">
+      <!-- Gallery Item 1 -->
+      <div class="gallery-item" onclick="openLightbox(0)">
+        <img src="/images/gallery/image1.jpg" alt="Dự án 1" loading="lazy">
+        <div class="gallery-overlay">
+          <div class="gallery-text">
+            <h4>Dự án Website</h4>
+            <p>Phát triển ứng dụng web hiện đại</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gallery Item 2 -->
+      <div class="gallery-item" onclick="openLightbox(1)">
+        <img src="/images/gallery/image2.jpg" alt="Học tập" loading="lazy">
+        <div class="gallery-overlay">
+          <div class="gallery-text">
+            <h4>Học tập</h4>
+            <p>Các buổi học và workshop</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gallery Item 3 -->
+      <div class="gallery-item" onclick="openLightbox(2)">
+        <img src="/images/gallery/image3.jpg" alt="Team work" loading="lazy">
+        <div class="gallery-overlay">
+          <div class="gallery-text">
+            <h4>Làm việc nhóm</h4>
+            <p>Hợp tác cùng đồng đội</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gallery Item 4 -->
+      <div class="gallery-item" onclick="openLightbox(3)">
+        <img src="/images/gallery/image4.jpg" alt="Sự kiện" loading="lazy">
+        <div class="gallery-overlay">
+          <div class="gallery-text">
+            <h4>Sự kiện công nghệ</h4>
+            <p>Tham gia các tech event</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gallery Item 5 -->
+      <div class="gallery-item" onclick="openLightbox(4)">
+        <img src="/images/gallery/image5.jpg" alt="Giải thưởng" loading="lazy">
+        <div class="gallery-overlay">
+          <div class="gallery-text">
+            <h4>Thành tựu</h4>
+            <p>Những giải thưởng và chứng nhận</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gallery Item 6 -->
+      <div class="gallery-item" onclick="openLightbox(5)">
+        <img src="/images/gallery/image6.jpg" alt="Coding" loading="lazy">
+        <div class="gallery-overlay">
+          <div class="gallery-text">
+            <h4>Lập trình</h4>
+            <p>Đam mê với code mỗi ngày</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
+<!-- Lightbox Modal -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close">&times;</span>
+  <span class="lightbox-prev" onclick="changeSlide(-1); event.stopPropagation();">&#10094;</span>
+  <span class="lightbox-next" onclick="changeSlide(1); event.stopPropagation();">&#10095;</span>
+  <div class="lightbox-content" onclick="event.stopPropagation()">
+    <img id="lightbox-img" src="" alt="">
+    <div id="lightbox-caption"></div>
+  </div>
+</div>
 
 <script>
   function openTab(evt, tabId) {
@@ -337,6 +418,66 @@
       }
     }
   });
+
+  // Gallery Lightbox
+  let currentSlide = 0;
+  const galleryImages = [
+    { src: '/images/gallery/image1.jpg', caption: 'Dự án Website - Phát triển ứng dụng web hiện đại' },
+    { src: '/images/gallery/image2.jpg', caption: 'Học tập - Các buổi học và workshop' },
+    { src: '/images/gallery/image3.jpg', caption: 'Làm việc nhóm - Hợp tác cùng đồng đội' },
+    { src: '/images/gallery/image4.jpg', caption: 'Sự kiện công nghệ - Tham gia các tech event' },
+    { src: '/images/gallery/image5.jpg', caption: 'Thành tựu - Những giải thưởng và chứng nhận' },
+    { src: '/images/gallery/image6.jpg', caption: 'Lập trình - Đam mê với code mỗi ngày' }
+  ];
+
+  function openLightbox(index) {
+    currentSlide = index;
+    const lightbox = document.getElementById('lightbox');
+    const img = document.getElementById('lightbox-img');
+    const caption = document.getElementById('lightbox-caption');
+    
+    img.src = galleryImages[currentSlide].src;
+    caption.textContent = galleryImages[currentSlide].caption;
+    lightbox.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    lightbox.style.display = 'none';
+    document.body.style.overflow = 'auto';
+  }
+
+  function changeSlide(direction) {
+    currentSlide += direction;
+    
+    if (currentSlide < 0) {
+      currentSlide = galleryImages.length - 1;
+    } else if (currentSlide >= galleryImages.length) {
+      currentSlide = 0;
+    }
+    
+    const img = document.getElementById('lightbox-img');
+    const caption = document.getElementById('lightbox-caption');
+    
+    img.style.opacity = '0';
+    setTimeout(() => {
+      img.src = galleryImages[currentSlide].src;
+      caption.textContent = galleryImages[currentSlide].caption;
+      img.style.opacity = '1';
+    }, 200);
+  }
+
+  // Keyboard navigation for lightbox
+  document.addEventListener('keydown', function(e) {
+    const lightbox = document.getElementById('lightbox');
+    if (lightbox.style.display === 'flex') {
+      if (e.key === 'ArrowLeft') changeSlide(-1);
+      if (e.key === 'ArrowRight') changeSlide(1);
+      if (e.key === 'Escape') closeLightbox();
+    }
+  });
+
 </script>
 
 {{ end }}

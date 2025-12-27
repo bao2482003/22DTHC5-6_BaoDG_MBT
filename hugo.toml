@@ -36,16 +36,21 @@ publishDir = 'docs'
   weight = 3
 
 [[menu.main]]
+  name = "Chứng chỉ"
+  url = "/#certificates"
+  weight = 4
+
+[[menu.main]]
   name = "Liên hệ"
   url = "/#contact"
-  weight = 4
+  weight = 5
 
 [[menu.main]]
   name = "Blog"
   url = "/posts"
-  weight = 7
+  weight = 6
 
 [[menu.main]]
   name = "Thư viện ảnh"
   url = "/#gallery"
-  weight = 8
+  weight = 7

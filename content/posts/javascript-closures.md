@@ -1,6 +1,6 @@
 ---
 title: "JavaScript Closures: Hiểu sâu về Scope và Memory"
-date: 2024-11-22
+date: 2025-12-27
 tags: ["JavaScript", "Advanced"]
 description: "Closure là gì và tại sao nó quan trọng trong JavaScript"
 image: "/images/blog/js-closures.png"

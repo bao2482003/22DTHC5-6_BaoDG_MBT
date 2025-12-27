@@ -1,163 +1,485 @@
-<!doctype html><html lang=vi><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Java Generics: Type Safety cho Collection | Profile</title><link rel=stylesheet href=../../css/style.css><link rel=icon href=../../favicon.ico type=image/x-icon></head><body><header class=header><div class=container><div class=logo><a href=../../><span class=logo-icon>🏠</span>
-<span class=logo-text>Profile</span></a></div><nav class=nav><div class=search-box><span>Tìm kiếm...</span></div><ul class=menu><li><a href=../../#about>Về tôi</a></li><li><a href=../../#experience>Kinh nghiệm</a></li><li><a href=../../#education>Học vấn</a></li><li><a href=../../#certificates>Chứng chỉ</a></li><li><a href=../../#contact>Liên hệ</a></li><li><a href=../../posts>Blog</a></li><li><a href=../../#gallery>Thư viện ảnh</a></li></ul><button class=theme-toggle aria-label="Toggle dark mode">🌙</button></nav></div></header><main><h1>Java Generics: Type Safety cho Collection</h1><time datetime=2024-11-25T00:00:00+00:00>November 25, 2024</time><h2 id=vấn-đề-trước-generics>Vấn đề trước Generics</h2><p>Trước Java 5, collection không type-safe:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>// Trước Java 5</span>
-</span></span><span style=display:flex><span>List list <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ArrayList();
-</span></span><span style=display:flex><span>list.<span style=color:#a6e22e>add</span>(<span style=color:#e6db74>&#34;Hello&#34;</span>);
-</span></span><span style=display:flex><span>list.<span style=color:#a6e22e>add</span>(123);
-</span></span><span style=display:flex><span>list.<span style=color:#a6e22e>add</span>(<span style=color:#66d9ef>new</span> Date());
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>String text <span style=color:#f92672>=</span> (String) list.<span style=color:#a6e22e>get</span>(0); <span style=color:#75715e>// OK</span>
-</span></span><span style=display:flex><span>String num <span style=color:#f92672>=</span> (String) list.<span style=color:#a6e22e>get</span>(1);  <span style=color:#75715e>// Runtime error!</span>
-</span></span></code></pre></div><h2 id=generics-giải-quyết-vấn-đề>Generics giải quyết vấn đề</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>// Với Generics</span>
-</span></span><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>String<span style=color:#f92672>&gt;</span> list <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ArrayList<span style=color:#f92672>&lt;&gt;</span>();
-</span></span><span style=display:flex><span>list.<span style=color:#a6e22e>add</span>(<span style=color:#e6db74>&#34;Hello&#34;</span>);
-</span></span><span style=display:flex><span>list.<span style=color:#a6e22e>add</span>(<span style=color:#e6db74>&#34;World&#34;</span>);
-</span></span><span style=display:flex><span><span style=color:#75715e>// list.add(123); // Compile error - Type safety!</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>String text <span style=color:#f92672>=</span> list.<span style=color:#a6e22e>get</span>(0); <span style=color:#75715e>// Không cần cast</span>
-</span></span></code></pre></div><h2 id=generic-class>Generic Class</h2><h3 id=tạo-generic-class>Tạo Generic class</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Box</span><span style=color:#f92672>&lt;</span>T<span style=color:#f92672>&gt;</span> {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>private</span> T value;
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>set</span>(T value) {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>value</span> <span style=color:#f92672>=</span> value;
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> T <span style=color:#a6e22e>get</span>() {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> value;
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// Sử dụng</span>
-</span></span><span style=display:flex><span>Box<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>&gt;</span> intBox <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Box<span style=color:#f92672>&lt;&gt;</span>();
-</span></span><span style=display:flex><span>intBox.<span style=color:#a6e22e>set</span>(123);
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> num <span style=color:#f92672>=</span> intBox.<span style=color:#a6e22e>get</span>(); <span style=color:#75715e>// Không cần cast</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>Box<span style=color:#f92672>&lt;</span>String<span style=color:#f92672>&gt;</span> strBox <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Box<span style=color:#f92672>&lt;&gt;</span>();
-</span></span><span style=display:flex><span>strBox.<span style=color:#a6e22e>set</span>(<span style=color:#e6db74>&#34;Hello&#34;</span>);
-</span></span><span style=display:flex><span>String text <span style=color:#f92672>=</span> strBox.<span style=color:#a6e22e>get</span>();
-</span></span></code></pre></div><h3 id=multiple-type-parameters>Multiple type parameters</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Pair</span><span style=color:#f92672>&lt;</span>K, V<span style=color:#f92672>&gt;</span> {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>private</span> K key;
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>private</span> V value;
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>Pair</span>(K key, V value) {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>key</span> <span style=color:#f92672>=</span> key;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>value</span> <span style=color:#f92672>=</span> value;
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> K <span style=color:#a6e22e>getKey</span>() { <span style=color:#66d9ef>return</span> key; }
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> V <span style=color:#a6e22e>getValue</span>() { <span style=color:#66d9ef>return</span> value; }
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// Sử dụng</span>
-</span></span><span style=display:flex><span>Pair<span style=color:#f92672>&lt;</span>String, Integer<span style=color:#f92672>&gt;</span> pair <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Pair<span style=color:#f92672>&lt;&gt;</span>(<span style=color:#e6db74>&#34;Age&#34;</span>, 22);
-</span></span><span style=display:flex><span>String key <span style=color:#f92672>=</span> pair.<span style=color:#a6e22e>getKey</span>();
-</span></span><span style=display:flex><span>Integer value <span style=color:#f92672>=</span> pair.<span style=color:#a6e22e>getValue</span>();
-</span></span></code></pre></div><h2 id=generic-methods>Generic Methods</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Utils</span> {
-</span></span><span style=display:flex><span>  <span style=color:#75715e>// Generic method</span>
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#f92672>&lt;</span>T<span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>printArray</span>(T<span style=color:#f92672>[]</span> array) {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (T element : array) {
-</span></span><span style=display:flex><span>      System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(element);
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#75715e>// Multiple type parameters</span>
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#f92672>&lt;</span>K, V<span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>printPair</span>(K key, V value) {
-</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(key <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;: &#34;</span> <span style=color:#f92672>+</span> value);
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// Sử dụng</span>
-</span></span><span style=display:flex><span>Integer<span style=color:#f92672>[]</span> intArray <span style=color:#f92672>=</span> {1, 2, 3};
-</span></span><span style=display:flex><span>String<span style=color:#f92672>[]</span> strArray <span style=color:#f92672>=</span> {<span style=color:#e6db74>&#34;A&#34;</span>, <span style=color:#e6db74>&#34;B&#34;</span>, <span style=color:#e6db74>&#34;C&#34;</span>};
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>Utils.<span style=color:#a6e22e>printArray</span>(intArray);
-</span></span><span style=display:flex><span>Utils.<span style=color:#a6e22e>printArray</span>(strArray);
-</span></span><span style=display:flex><span>Utils.<span style=color:#a6e22e>printPair</span>(<span style=color:#e6db74>&#34;Name&#34;</span>, <span style=color:#e6db74>&#34;Bảo&#34;</span>);
-</span></span></code></pre></div><h2 id=bounded-type-parameters>Bounded Type Parameters</h2><h3 id=upper-bound>Upper bound</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>// Chỉ chấp nhận Number và các subclass</span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Calculator</span><span style=color:#f92672>&lt;</span>T <span style=color:#66d9ef>extends</span> Number<span style=color:#f92672>&gt;</span> {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>private</span> T value;
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>Calculator</span>(T value) {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>value</span> <span style=color:#f92672>=</span> value;
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>double</span> <span style=color:#a6e22e>getDoubleValue</span>() {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> value.<span style=color:#a6e22e>doubleValue</span>();
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>Calculator<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>&gt;</span> intCalc <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Calculator<span style=color:#f92672>&lt;&gt;</span>(10);
-</span></span><span style=display:flex><span>Calculator<span style=color:#f92672>&lt;</span>Double<span style=color:#f92672>&gt;</span> doubleCalc <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Calculator<span style=color:#f92672>&lt;&gt;</span>(10.<span style=color:#a6e22e>5</span>);
-</span></span><span style=display:flex><span><span style=color:#75715e>// Calculator&lt;String&gt; strCalc = new Calculator&lt;&gt;(&#34;10&#34;); // Compile error!</span>
-</span></span></code></pre></div><h3 id=multiple-bounds>Multiple bounds</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>Drawable</span> {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>draw</span>();
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// T phải implement cả Comparable và Drawable</span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Shape</span><span style=color:#f92672>&lt;</span>T <span style=color:#66d9ef>extends</span> Comparable<span style=color:#f92672>&lt;</span>T<span style=color:#f92672>&gt;</span> <span style=color:#f92672>&amp;</span> Drawable<span style=color:#f92672>&gt;</span> {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>private</span> T shape;
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>compare</span>(T other) {
-</span></span><span style=display:flex><span>    shape.<span style=color:#a6e22e>compareTo</span>(other);
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>display</span>() {
-</span></span><span style=display:flex><span>    shape.<span style=color:#a6e22e>draw</span>();
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h2 id=wildcards>Wildcards</h2><h3 id=unbounded-wildcard->Unbounded wildcard (?)</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>printList</span>(List<span style=color:#f92672>&lt;?&gt;</span> list) {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>for</span> (Object element : list) {
-</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(element);
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>&gt;</span> intList <span style=color:#f92672>=</span> Arrays.<span style=color:#a6e22e>asList</span>(1, 2, 3);
-</span></span><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>String<span style=color:#f92672>&gt;</span> strList <span style=color:#f92672>=</span> Arrays.<span style=color:#a6e22e>asList</span>(<span style=color:#e6db74>&#34;A&#34;</span>, <span style=color:#e6db74>&#34;B&#34;</span>, <span style=color:#e6db74>&#34;C&#34;</span>);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>printList(intList);
-</span></span><span style=display:flex><span>printList(strList);
-</span></span></code></pre></div><h3 id=upper-bounded-wildcard--extends>Upper bounded wildcard (? extends)</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>// Chấp nhận List của Number hoặc subclass</span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>double</span> <span style=color:#a6e22e>sumList</span>(List<span style=color:#f92672>&lt;?</span> <span style=color:#66d9ef>extends</span> Number<span style=color:#f92672>&gt;</span> list) {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>double</span> sum <span style=color:#f92672>=</span> 0;
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>for</span> (Number num : list) {
-</span></span><span style=display:flex><span>    sum <span style=color:#f92672>+=</span> num.<span style=color:#a6e22e>doubleValue</span>();
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> sum;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>&gt;</span> ints <span style=color:#f92672>=</span> Arrays.<span style=color:#a6e22e>asList</span>(1, 2, 3);
-</span></span><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>Double<span style=color:#f92672>&gt;</span> doubles <span style=color:#f92672>=</span> Arrays.<span style=color:#a6e22e>asList</span>(1.<span style=color:#a6e22e>5</span>, 2.<span style=color:#a6e22e>5</span>);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(sumList(ints));    <span style=color:#75715e>// 6.0</span>
-</span></span><span style=display:flex><span>System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(sumList(doubles)); <span style=color:#75715e>// 4.0</span>
-</span></span></code></pre></div><h3 id=lower-bounded-wildcard--super>Lower bounded wildcard (? super)</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>// Chấp nhận List của Integer hoặc superclass</span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>addIntegers</span>(List<span style=color:#f92672>&lt;?</span> <span style=color:#66d9ef>super</span> Integer<span style=color:#f92672>&gt;</span> list) {
-</span></span><span style=display:flex><span>  list.<span style=color:#a6e22e>add</span>(1);
-</span></span><span style=display:flex><span>  list.<span style=color:#a6e22e>add</span>(2);
-</span></span><span style=display:flex><span>  list.<span style=color:#a6e22e>add</span>(3);
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>Number<span style=color:#f92672>&gt;</span> numbers <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ArrayList<span style=color:#f92672>&lt;&gt;</span>();
-</span></span><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>Object<span style=color:#f92672>&gt;</span> objects <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ArrayList<span style=color:#f92672>&lt;&gt;</span>();
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>addIntegers(numbers);
-</span></span><span style=display:flex><span>addIntegers(objects);
-</span></span></code></pre></div><h2 id=pecs-principle>PECS Principle</h2><p><strong>Producer Extends, Consumer Super</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>// Producer - dùng extends</span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>copy</span>(
-</span></span><span style=display:flex><span>  List<span style=color:#f92672>&lt;?</span> <span style=color:#66d9ef>extends</span> Number<span style=color:#f92672>&gt;</span> source,  <span style=color:#75715e>// Producer</span>
-</span></span><span style=display:flex><span>  List<span style=color:#f92672>&lt;?</span> <span style=color:#66d9ef>super</span> Number<span style=color:#f92672>&gt;</span> dest       <span style=color:#75715e>// Consumer</span>
-</span></span><span style=display:flex><span>) {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>for</span> (Number num : source) {
-</span></span><span style=display:flex><span>    dest.<span style=color:#a6e22e>add</span>(num);
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h2 id=type-erasure>Type Erasure</h2><p>Generics chỉ tồn tại ở compile-time, bị xóa ở runtime:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>String<span style=color:#f92672>&gt;</span> strings <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ArrayList<span style=color:#f92672>&lt;&gt;</span>();
-</span></span><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>&gt;</span> ints <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ArrayList<span style=color:#f92672>&lt;&gt;</span>();
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// Runtime: cả 2 đều là ArrayList</span>
-</span></span><span style=display:flex><span>System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(strings.<span style=color:#a6e22e>getClass</span>() <span style=color:#f92672>==</span> ints.<span style=color:#a6e22e>getClass</span>()); <span style=color:#75715e>// true</span>
-</span></span></code></pre></div><h2 id=best-practices>Best Practices</h2><ol><li><strong>Dùng generics thay vì raw types</strong></li><li><strong>Dùng bounded types khi cần constraint</strong></li><li><strong>Nhớ PECS principle</strong> khi dùng wildcards</li><li><strong>Tránh dùng generic arrays</strong> - có thể gây vấn đề</li><li><strong>Document type parameters</strong> rõ ràng</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/**
-</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param &lt;T&gt; the type of elements in this container
-</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param &lt;K&gt; the type of keys
-</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param &lt;V&gt; the type of values
-</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
-</span></span></code></pre></div><h2 id=kết-luận>Kết luận</h2><p>Generics là công cụ mạnh mẽ giúp code type-safe, tái sử dụng được và ít lỗi runtime. Hiểu rõ generics là bước quan trọng để master Java!</p><div><div>Tags:</div><ul><li><a href=../../tags/java/>Java</a></li><li><a href=../../tags/generics/>Generics</a></li></ul></div></main><footer class=footer><div class=container><p>&copy; 2025 Dương Gia Bảo. All rights reserved.</p></div></footer></body></html>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Java Generics: Type Safety cho Collection | Profile</title>
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <header class="header">
+  <div class="container">
+    <div class="logo">
+      <a href="../../">
+        <span class="logo-icon">🏠</span>
+        <span class="logo-text">Profile</span>
+      </a>
+    </div>
+    
+    <nav class="nav">
+      <div class="search-box">
+        <span>Tìm kiếm...</span>
+      </div>
+      
+      <ul class="menu">
+        
+        <li><a href="../../#about">Về tôi</a></li>
+        
+        <li><a href="../../#experience">Kinh nghiệm</a></li>
+        
+        <li><a href="../../#education">Học vấn</a></li>
+        
+        <li><a href="../../#certificates">Chứng chỉ</a></li>
+        
+        <li><a href="../../#contact">Liên hệ</a></li>
+        
+        <li><a href="../../posts">Blog</a></li>
+        
+        <li><a href="../../#gallery">Thư viện ảnh</a></li>
+        
+      </ul>
+      
+      <button class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+    </nav>
+  </div>
+</header>
+
+  
+  <main>
+    <article class="blog-post">
+  <div class="post-header">
+    <div class="post-breadcrumb">
+      <a href="../../posts">← Tất cả bài viết</a>
+    </div>
+    
+    <h1 class="post-title">Java Generics: Type Safety cho Collection</h1>
+    
+    
+    <p class="post-description">Hiểu về Generics trong Java và cách sử dụng hiệu quả</p>
+    
+    
+    <div class="post-meta">
+      <div class="meta-left">
+        <span class="post-date">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          27/12/2025
+        </span>
+        <span class="reading-time">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          3 phút đọc
+        </span>
+      </div>
+      
+      <div class="post-tags">
+        
+        <span class="post-tag">Java</span>
+        
+        <span class="post-tag">Generics</span>
+        
+      </div>
+      
+    </div>
+  </div>
+
+  <div class="post-content">
+    <h2 id="vấn-đề-trước-generics">Vấn đề trước Generics</h2>
+<p>Trước Java 5, collection không type-safe:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// Trước Java 5</span>
+</span></span><span style="display:flex;"><span>List list <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList();
+</span></span><span style="display:flex;"><span>list.<span style="color:#a6e22e">add</span>(<span style="color:#e6db74">&#34;Hello&#34;</span>);
+</span></span><span style="display:flex;"><span>list.<span style="color:#a6e22e">add</span>(123);
+</span></span><span style="display:flex;"><span>list.<span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">new</span> Date());
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>String text <span style="color:#f92672">=</span> (String) list.<span style="color:#a6e22e">get</span>(0); <span style="color:#75715e">// OK</span>
+</span></span><span style="display:flex;"><span>String num <span style="color:#f92672">=</span> (String) list.<span style="color:#a6e22e">get</span>(1);  <span style="color:#75715e">// Runtime error!</span>
+</span></span></code></pre></div><h2 id="generics-giải-quyết-vấn-đề">Generics giải quyết vấn đề</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// Với Generics</span>
+</span></span><span style="display:flex;"><span>List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> list <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>list.<span style="color:#a6e22e">add</span>(<span style="color:#e6db74">&#34;Hello&#34;</span>);
+</span></span><span style="display:flex;"><span>list.<span style="color:#a6e22e">add</span>(<span style="color:#e6db74">&#34;World&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// list.add(123); // Compile error - Type safety!</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>String text <span style="color:#f92672">=</span> list.<span style="color:#a6e22e">get</span>(0); <span style="color:#75715e">// Không cần cast</span>
+</span></span></code></pre></div><h2 id="generic-class">Generic Class</h2>
+<h3 id="tạo-generic-class">Tạo Generic class</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Box</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">private</span> T value;
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">set</span>(T value) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> value;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">public</span> T <span style="color:#a6e22e">get</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> value;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Sử dụng</span>
+</span></span><span style="display:flex;"><span>Box<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> intBox <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Box<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>intBox.<span style="color:#a6e22e">set</span>(123);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> num <span style="color:#f92672">=</span> intBox.<span style="color:#a6e22e">get</span>(); <span style="color:#75715e">// Không cần cast</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Box<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> strBox <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Box<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>strBox.<span style="color:#a6e22e">set</span>(<span style="color:#e6db74">&#34;Hello&#34;</span>);
+</span></span><span style="display:flex;"><span>String text <span style="color:#f92672">=</span> strBox.<span style="color:#a6e22e">get</span>();
+</span></span></code></pre></div><h3 id="multiple-type-parameters">Multiple type parameters</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Pair</span><span style="color:#f92672">&lt;</span>K, V<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">private</span> K key;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">private</span> V value;
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Pair</span>(K key, V value) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">key</span> <span style="color:#f92672">=</span> key;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> value;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">public</span> K <span style="color:#a6e22e">getKey</span>() { <span style="color:#66d9ef">return</span> key; }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">public</span> V <span style="color:#a6e22e">getValue</span>() { <span style="color:#66d9ef">return</span> value; }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Sử dụng</span>
+</span></span><span style="display:flex;"><span>Pair<span style="color:#f92672">&lt;</span>String, Integer<span style="color:#f92672">&gt;</span> pair <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Pair<span style="color:#f92672">&lt;&gt;</span>(<span style="color:#e6db74">&#34;Age&#34;</span>, 22);
+</span></span><span style="display:flex;"><span>String key <span style="color:#f92672">=</span> pair.<span style="color:#a6e22e">getKey</span>();
+</span></span><span style="display:flex;"><span>Integer value <span style="color:#f92672">=</span> pair.<span style="color:#a6e22e">getValue</span>();
+</span></span></code></pre></div><h2 id="generic-methods">Generic Methods</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Utils</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// Generic method</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">printArray</span>(T<span style="color:#f92672">[]</span> array) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (T element : array) {
+</span></span><span style="display:flex;"><span>      System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(element);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// Multiple type parameters</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#f92672">&lt;</span>K, V<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">printPair</span>(K key, V value) {
+</span></span><span style="display:flex;"><span>    System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(key <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;: &#34;</span> <span style="color:#f92672">+</span> value);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Sử dụng</span>
+</span></span><span style="display:flex;"><span>Integer<span style="color:#f92672">[]</span> intArray <span style="color:#f92672">=</span> {1, 2, 3};
+</span></span><span style="display:flex;"><span>String<span style="color:#f92672">[]</span> strArray <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;A&#34;</span>, <span style="color:#e6db74">&#34;B&#34;</span>, <span style="color:#e6db74">&#34;C&#34;</span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Utils.<span style="color:#a6e22e">printArray</span>(intArray);
+</span></span><span style="display:flex;"><span>Utils.<span style="color:#a6e22e">printArray</span>(strArray);
+</span></span><span style="display:flex;"><span>Utils.<span style="color:#a6e22e">printPair</span>(<span style="color:#e6db74">&#34;Name&#34;</span>, <span style="color:#e6db74">&#34;Bảo&#34;</span>);
+</span></span></code></pre></div><h2 id="bounded-type-parameters">Bounded Type Parameters</h2>
+<h3 id="upper-bound">Upper bound</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// Chỉ chấp nhận Number và các subclass</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Calculator</span><span style="color:#f92672">&lt;</span>T <span style="color:#66d9ef">extends</span> Number<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">private</span> T value;
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Calculator</span>(T value) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> value;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">getDoubleValue</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> value.<span style="color:#a6e22e">doubleValue</span>();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Calculator<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> intCalc <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Calculator<span style="color:#f92672">&lt;&gt;</span>(10);
+</span></span><span style="display:flex;"><span>Calculator<span style="color:#f92672">&lt;</span>Double<span style="color:#f92672">&gt;</span> doubleCalc <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Calculator<span style="color:#f92672">&lt;&gt;</span>(10.<span style="color:#a6e22e">5</span>);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Calculator&lt;String&gt; strCalc = new Calculator&lt;&gt;(&#34;10&#34;); // Compile error!</span>
+</span></span></code></pre></div><h3 id="multiple-bounds">Multiple bounds</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Drawable</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">draw</span>();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// T phải implement cả Comparable và Drawable</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Shape</span><span style="color:#f92672">&lt;</span>T <span style="color:#66d9ef">extends</span> Comparable<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#f92672">&amp;</span> Drawable<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">private</span> T shape;
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">compare</span>(T other) {
+</span></span><span style="display:flex;"><span>    shape.<span style="color:#a6e22e">compareTo</span>(other);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">display</span>() {
+</span></span><span style="display:flex;"><span>    shape.<span style="color:#a6e22e">draw</span>();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="wildcards">Wildcards</h2>
+<h3 id="unbounded-wildcard-">Unbounded wildcard (?)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">printList</span>(List<span style="color:#f92672">&lt;?&gt;</span> list) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> (Object element : list) {
+</span></span><span style="display:flex;"><span>    System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(element);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> intList <span style="color:#f92672">=</span> Arrays.<span style="color:#a6e22e">asList</span>(1, 2, 3);
+</span></span><span style="display:flex;"><span>List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> strList <span style="color:#f92672">=</span> Arrays.<span style="color:#a6e22e">asList</span>(<span style="color:#e6db74">&#34;A&#34;</span>, <span style="color:#e6db74">&#34;B&#34;</span>, <span style="color:#e6db74">&#34;C&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>printList(intList);
+</span></span><span style="display:flex;"><span>printList(strList);
+</span></span></code></pre></div><h3 id="upper-bounded-wildcard--extends">Upper bounded wildcard (? extends)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// Chấp nhận List của Number hoặc subclass</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">sumList</span>(List<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">extends</span> Number<span style="color:#f92672">&gt;</span> list) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">double</span> sum <span style="color:#f92672">=</span> 0;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> (Number num : list) {
+</span></span><span style="display:flex;"><span>    sum <span style="color:#f92672">+=</span> num.<span style="color:#a6e22e">doubleValue</span>();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> sum;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> ints <span style="color:#f92672">=</span> Arrays.<span style="color:#a6e22e">asList</span>(1, 2, 3);
+</span></span><span style="display:flex;"><span>List<span style="color:#f92672">&lt;</span>Double<span style="color:#f92672">&gt;</span> doubles <span style="color:#f92672">=</span> Arrays.<span style="color:#a6e22e">asList</span>(1.<span style="color:#a6e22e">5</span>, 2.<span style="color:#a6e22e">5</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(sumList(ints));    <span style="color:#75715e">// 6.0</span>
+</span></span><span style="display:flex;"><span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(sumList(doubles)); <span style="color:#75715e">// 4.0</span>
+</span></span></code></pre></div><h3 id="lower-bounded-wildcard--super">Lower bounded wildcard (? super)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// Chấp nhận List của Integer hoặc superclass</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">addIntegers</span>(List<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">super</span> Integer<span style="color:#f92672">&gt;</span> list) {
+</span></span><span style="display:flex;"><span>  list.<span style="color:#a6e22e">add</span>(1);
+</span></span><span style="display:flex;"><span>  list.<span style="color:#a6e22e">add</span>(2);
+</span></span><span style="display:flex;"><span>  list.<span style="color:#a6e22e">add</span>(3);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>List<span style="color:#f92672">&lt;</span>Number<span style="color:#f92672">&gt;</span> numbers <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>List<span style="color:#f92672">&lt;</span>Object<span style="color:#f92672">&gt;</span> objects <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>addIntegers(numbers);
+</span></span><span style="display:flex;"><span>addIntegers(objects);
+</span></span></code></pre></div><h2 id="pecs-principle">PECS Principle</h2>
+<p><strong>Producer Extends, Consumer Super</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// Producer - dùng extends</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">copy</span>(
+</span></span><span style="display:flex;"><span>  List<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">extends</span> Number<span style="color:#f92672">&gt;</span> source,  <span style="color:#75715e">// Producer</span>
+</span></span><span style="display:flex;"><span>  List<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">super</span> Number<span style="color:#f92672">&gt;</span> dest       <span style="color:#75715e">// Consumer</span>
+</span></span><span style="display:flex;"><span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> (Number num : source) {
+</span></span><span style="display:flex;"><span>    dest.<span style="color:#a6e22e">add</span>(num);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="type-erasure">Type Erasure</h2>
+<p>Generics chỉ tồn tại ở compile-time, bị xóa ở runtime:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> strings <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> ints <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Runtime: cả 2 đều là ArrayList</span>
+</span></span><span style="display:flex;"><span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(strings.<span style="color:#a6e22e">getClass</span>() <span style="color:#f92672">==</span> ints.<span style="color:#a6e22e">getClass</span>()); <span style="color:#75715e">// true</span>
+</span></span></code></pre></div><h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>Dùng generics thay vì raw types</strong></li>
+<li><strong>Dùng bounded types khi cần constraint</strong></li>
+<li><strong>Nhớ PECS principle</strong> khi dùng wildcards</li>
+<li><strong>Tránh dùng generic arrays</strong> - có thể gây vấn đề</li>
+<li><strong>Document type parameters</strong> rõ ràng</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @param &lt;T&gt; the type of elements in this container
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @param &lt;K&gt; the type of keys
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @param &lt;V&gt; the type of values
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span></code></pre></div><h2 id="kết-luận">Kết luận</h2>
+<p>Generics là công cụ mạnh mẽ giúp code type-safe, tái sử dụng được và ít lỗi runtime. Hiểu rõ generics là bước quan trọng để master Java!</p>
+
+  </div>
+
+  
+  <div class="comments-section">
+    <h3 class="comments-title">💬 Bình luận <span id="commentCount"></span></h3>
+    
+    
+    <div class="comment-form">
+      <input type="text" id="commentName" placeholder="Tên của bạn" maxlength="50">
+      <textarea id="commentText" placeholder="Viết bình luận của bạn..." rows="3" maxlength="500"></textarea>
+      <button onclick="addComment()" class="submit-comment">Gửi bình luận</button>
+    </div>
+
+    
+    <div class="comment-filter">
+      <button onclick="filterComments('top')" class="filter-btn active" id="filter-top">👍 Chất lượng nhất</button>
+      <button onclick="filterComments('newest')" class="filter-btn" id="filter-newest">🕐 Mới nhất</button>
+    </div>
+
+    
+    <div id="commentsList" class="comments-list"></div>
+    
+    <button id="showAllBtn" class="show-all-btn" onclick="showAllComments()" style="display:none;">
+      Xem tất cả bình luận
+    </button>
+  </div>
+
+  <script>
+    const POST_ID = '\/posts\/java-generics\/';
+    let currentFilter = 'top';
+    let showAll = false;
+
+    function getComments() {
+      const comments = localStorage.getItem('comments_' + POST_ID);
+      return comments ? JSON.parse(comments) : [];
+    }
+
+    function saveComments(comments) {
+      localStorage.setItem('comments_' + POST_ID, JSON.stringify(comments));
+    }
+
+    function addComment() {
+      const name = document.getElementById('commentName').value.trim();
+      const text = document.getElementById('commentText').value.trim();
+      
+      if (!name || !text) {
+        alert('Vui lòng nhập tên và nội dung bình luận!');
+        return;
+      }
+
+      const comments = getComments();
+      const newComment = {
+        id: Date.now(),
+        name: name,
+        text: text,
+        likes: 0,
+        timestamp: new Date().toISOString(),
+        likedBy: []
+      };
+
+      comments.push(newComment);
+      saveComments(comments);
+
+      document.getElementById('commentName').value = '';
+      document.getElementById('commentText').value = '';
+      
+      renderComments();
+    }
+
+    function likeComment(commentId) {
+      const comments = getComments();
+      const comment = comments.find(c => c.id === commentId);
+      
+      if (comment) {
+        const userId = getUserId();
+        const likedIndex = comment.likedBy.indexOf(userId);
+        
+        if (likedIndex > -1) {
+          comment.likedBy.splice(likedIndex, 1);
+          comment.likes--;
+        } else {
+          comment.likedBy.push(userId);
+          comment.likes++;
+        }
+        
+        saveComments(comments);
+        renderComments();
+      }
+    }
+
+    function getUserId() {
+      let userId = localStorage.getItem('userId');
+      if (!userId) {
+        userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('userId', userId);
+      }
+      return userId;
+    }
+
+    function formatDate(timestamp) {
+      const date = new Date(timestamp);
+      const now = new Date();
+      const diff = Math.floor((now - date) / 1000);
+
+      if (diff < 60) return 'vừa xong';
+      if (diff < 3600) return Math.floor(diff / 60) + ' phút trước';
+      if (diff < 86400) return Math.floor(diff / 3600) + ' giờ trước';
+      if (diff < 2592000) return Math.floor(diff / 86400) + ' ngày trước';
+      
+      return date.toLocaleDateString('vi-VN');
+    }
+
+    function filterComments(filter) {
+      currentFilter = filter;
+      
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      document.getElementById('filter-' + filter).classList.add('active');
+      
+      renderComments();
+    }
+
+    function showAllComments() {
+      showAll = true;
+      renderComments();
+    }
+
+    function renderComments() {
+      let comments = getComments();
+      
+      
+      const countSpan = document.getElementById('commentCount');
+      if (comments.length > 0) {
+        countSpan.textContent = `(${comments.length})`;
+      } else {
+        countSpan.textContent = '';
+      }
+      
+      if (currentFilter === 'top') {
+        comments.sort((a, b) => b.likes - a.likes);
+      } else {
+        comments.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+      }
+
+      const userId = getUserId();
+      const displayComments = showAll ? comments : comments.slice(0, 3);
+      
+      const html = displayComments.map(comment => {
+        const hasLiked = comment.likedBy.includes(userId);
+        return `
+          <div class="comment-item">
+            <div class="comment-avatar">${comment.name.charAt(0).toUpperCase()}</div>
+            <div class="comment-content">
+              <div class="comment-header">
+                <strong>${comment.name}</strong>
+                <span class="comment-time">${formatDate(comment.timestamp)}</span>
+              </div>
+              <p class="comment-text">${comment.text}</p>
+              <button onclick="likeComment(${comment.id})" class="like-btn ${hasLiked ? 'liked' : ''}">
+                ❤️ ${comment.likes}
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('commentsList').innerHTML = html || '<p class="no-comments">Chưa có bình luận nào. Hãy là người đầu tiên!</p>';
+      
+      const showAllBtn = document.getElementById('showAllBtn');
+      if (comments.length > 3 && !showAll) {
+        showAllBtn.style.display = 'block';
+        showAllBtn.textContent = `Xem tất cả ${comments.length} bình luận`;
+      } else {
+        showAllBtn.style.display = 'none';
+      }
+    }
+
+    
+    renderComments();
+  </script>
+
+  <div class="post-footer">
+    <a href="../../posts" class="back-to-blog">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      Xem tất cả bài viết
+    </a>
+  </div>
+</article>
+  </main>
+  
+  <footer class="footer">
+  <div class="container">
+    <p>&copy; 2025 Dương Gia Bảo. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

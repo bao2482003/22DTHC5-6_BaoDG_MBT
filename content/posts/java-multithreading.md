@@ -1,6 +1,6 @@
 ---
 title: "Java Multithreading: Lập trình đa luồng cơ bản"
-date: 2024-11-18
+date: 2025-12-27
 tags: ["Java", "Concurrency"]
 description: "Tìm hiểu về multithreading và concurrency trong Java"
 image: "/images/blog/java-multithreading.png"

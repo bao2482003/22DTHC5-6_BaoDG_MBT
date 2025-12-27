@@ -1,6 +1,6 @@
 ---
 title: "Java Stream API: Xử lý Collection hiện đại"
-date: 2024-12-08
+date: 2025-12-27
 tags: ["Java", "Stream API"]
 description: "Làm chủ Stream API để xử lý dữ liệu hiệu quả trong Java"
 image: "/images/blog/java-stream.png"

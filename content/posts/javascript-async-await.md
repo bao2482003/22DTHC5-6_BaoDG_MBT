@@ -1,6 +1,6 @@
 ---
 title: "JavaScript Async/Await: Promise nhưng dễ đọc hơn"
-date: 2024-12-05
+date: 2025-12-27
 tags: ["JavaScript", "Async"]
 description: "Xử lý bất đồng bộ trong JavaScript với async/await"
 image: "/images/blog/js-async-await.png"

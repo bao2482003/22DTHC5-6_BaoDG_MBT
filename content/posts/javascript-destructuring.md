@@ -1,6 +1,6 @@
 ---
 title: "JavaScript Destructuring: Giải nén dữ liệu dễ dàng"
-date: 2024-11-28
+date: 2025-12-27
 tags: ["JavaScript", "ES6"]
 description: "Destructuring assignment trong JavaScript ES6 và các use cases thực tế"
 image: "/images/blog/js-destructuring.png"

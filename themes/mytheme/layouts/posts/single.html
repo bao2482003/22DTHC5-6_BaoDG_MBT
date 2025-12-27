@@ -1,61 +1,15 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Post 3 | Profile</title>
-  <link rel="stylesheet" href="../../css/style.css">
-  <link rel="icon" href="../../favicon.ico" type="image/x-icon">
-</head>
-<body>
-  <header class="header">
-  <div class="container">
-    <div class="logo">
-      <a href="../../">
-        <span class="logo-icon">🏠</span>
-        <span class="logo-text">Profile</span>
-      </a>
-    </div>
-    
-    <nav class="nav">
-      <div class="search-box">
-        <span>Tìm kiếm...</span>
-      </div>
-      
-      <ul class="menu">
-        
-        <li><a href="../../#about">Về tôi</a></li>
-        
-        <li><a href="../../#experience">Kinh nghiệm</a></li>
-        
-        <li><a href="../../#education">Học vấn</a></li>
-        
-        <li><a href="../../#certificates">Chứng chỉ</a></li>
-        
-        <li><a href="../../#contact">Liên hệ</a></li>
-        
-        <li><a href="../../posts">Blog</a></li>
-        
-        <li><a href="../../#gallery">Thư viện ảnh</a></li>
-        
-      </ul>
-      
-      <button class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
-    </nav>
-  </div>
-</header>
-
-  
-  <main>
-    <article class="blog-post">
+{{- define "main" -}}
+<article class="blog-post">
   <div class="post-header">
     <div class="post-breadcrumb">
-      <a href="../../posts">← Tất cả bài viết</a>
+      <a href="/posts">← Tất cả bài viết</a>
     </div>
     
-    <h1 class="post-title">Post 3</h1>
+    <h1 class="post-title">{{ .Title }}</h1>
     
-    
+    {{ if .Params.description }}
+    <p class="post-description">{{ .Params.description }}</p>
+    {{ end }}
     
     <div class="post-meta">
       <div class="meta-left">
@@ -66,55 +20,48 @@
             <line x1="8" y1="2" x2="8" y2="6"></line>
             <line x1="3" y1="10" x2="21" y2="10"></line>
           </svg>
-          15/03/2023
+          {{ .Date.Format "02/01/2006" }}
         </span>
         <span class="reading-time">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="10"></circle>
             <polyline points="12 6 12 12 16 14"></polyline>
           </svg>
-          1 phút đọc
+          {{ math.Round (div (countwords .Content) 200.0) }} phút đọc
         </span>
       </div>
-      
+      {{ if .Params.tags }}
       <div class="post-tags">
-        
-        <span class="post-tag">red</span>
-        
-        <span class="post-tag">green</span>
-        
-        <span class="post-tag">blue</span>
-        
+        {{ range .Params.tags }}
+        <span class="post-tag">{{ . }}</span>
+        {{ end }}
       </div>
-      
+      {{ end }}
     </div>
   </div>
 
   <div class="post-content">
-    <p>Occaecat aliqua consequat laborum ut ex aute aliqua culpa quis irure esse magna dolore quis. Proident fugiat labore eu laboris officia Lorem enim. Ipsum occaecat cillum ut tempor id sint aliqua incididunt nisi incididunt reprehenderit. Voluptate ad minim sint est aute aliquip esse occaecat tempor officia qui sunt. Aute ex ipsum id ut in est velit est laborum incididunt. Aliqua qui id do esse sunt eiusmod id deserunt eu nostrud aute sit ipsum. Deserunt esse cillum Lorem non magna adipisicing mollit amet consequat.</p>
-<p><img src="bryce-canyon.jpg" alt="Bryce Canyon National Park"></p>
-<p>Sit excepteur do velit veniam mollit in nostrud laboris incididunt ea. Amet eu cillum ut reprehenderit culpa aliquip labore laborum amet sit sit duis. Laborum id proident nostrud dolore laborum reprehenderit quis mollit nulla amet veniam officia id id. Aliquip in deserunt qui magna duis qui pariatur officia sunt deserunt.</p>
-
+    {{ .Content }}
   </div>
 
-  
+  <!-- Comments Section -->
   <div class="comments-section">
     <h3 class="comments-title">💬 Bình luận <span id="commentCount"></span></h3>
     
-    
+    <!-- Comment Form -->
     <div class="comment-form">
       <input type="text" id="commentName" placeholder="Tên của bạn" maxlength="50">
       <textarea id="commentText" placeholder="Viết bình luận của bạn..." rows="3" maxlength="500"></textarea>
       <button onclick="addComment()" class="submit-comment">Gửi bình luận</button>
     </div>
 
-    
+    <!-- Filter & Sort -->
     <div class="comment-filter">
       <button onclick="filterComments('top')" class="filter-btn active" id="filter-top">👍 Chất lượng nhất</button>
       <button onclick="filterComments('newest')" class="filter-btn" id="filter-newest">🕐 Mới nhất</button>
     </div>
 
-    
+    <!-- Comments List -->
     <div id="commentsList" class="comments-list"></div>
     
     <button id="showAllBtn" class="show-all-btn" onclick="showAllComments()" style="display:none;">
@@ -123,7 +70,7 @@
   </div>
 
   <script>
-    const POST_ID = '\/posts\/post-3\/';
+    const POST_ID = '{{ .RelPermalink }}';
     let currentFilter = 'top';
     let showAll = false;
 
@@ -226,7 +173,7 @@
     function renderComments() {
       let comments = getComments();
       
-      
+      // Update comment count in title
       const countSpan = document.getElementById('commentCount');
       if (comments.length > 0) {
         countSpan.textContent = `(${comments.length})`;
@@ -273,12 +220,12 @@
       }
     }
 
-    
+    // Initial render
     renderComments();
   </script>
 
   <div class="post-footer">
-    <a href="../../posts" class="back-to-blog">
+    <a href="/posts" class="back-to-blog">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <line x1="19" y1="12" x2="5" y2="12"></line>
         <polyline points="12 19 5 12 12 5"></polyline>
@@ -287,13 +234,4 @@
     </a>
   </div>
 </article>
-  </main>
-  
-  <footer class="footer">
-  <div class="container">
-    <p>&copy; 2025 Dương Gia Bảo. All rights reserved.</p>
-  </div>
-</footer>
-
-</body>
-</html>
+{{- end -}}

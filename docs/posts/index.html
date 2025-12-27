@@ -1,736 +1,419 @@
-<!doctype html><html lang=vi><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Blog | Profile</title><link rel=stylesheet href=../css/style.css><link rel=icon href=../favicon.ico type=image/x-icon></head><body><header class=header><div class=container><div class=logo><a href=../><span class=logo-icon>🏠</span>
-<span class=logo-text>Profile</span></a></div><nav class=nav><div class=search-box><span>Tìm kiếm...</span></div><ul class=menu><li><a href=../#about>Về tôi</a></li><li><a href=../#experience>Kinh nghiệm</a></li><li><a href=../#education>Học vấn</a></li><li><a href=../#certificates>Chứng chỉ</a></li><li><a href=../#contact>Liên hệ</a></li><li><a href=../posts>Blog</a></li><li><a href=../#gallery>Thư viện ảnh</a></li></ul><button class=theme-toggle aria-label="Toggle dark mode">🌙</button></nav></div></header><main><h1>Blog</h1><section><h2><a href=../posts/java-arraylist-vs-linkedlist/>Java Collections Framework: ArrayList vs LinkedList</a></h2><h2 id=giới-thiệu>Giới thiệu</h2><p>Java Collections Framework cung cấp nhiều cấu trúc dữ liệu khác nhau, trong đó ArrayList và LinkedList là hai lựa chọn phổ biến nhất cho danh sách động.</p><h2 id=arraylist>ArrayList</h2><p>ArrayList sử dụng mảng động bên trong để lưu trữ phần tử:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span>ArrayList<span style=color:#f92672>&lt;</span>String<span style=color:#f92672>&gt;</span> list <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ArrayList<span style=color:#f92672>&lt;&gt;</span>();
-</span></span><span style=display:flex><span>list.<span style=color:#a6e22e>add</span>(<span style=color:#e6db74>&#34;Java&#34;</span>);
-</span></span><span style=display:flex><span>list.<span style=color:#a6e22e>add</span>(<span style=color:#e6db74>&#34;Python&#34;</span>);
-</span></span><span style=display:flex><span>list.<span style=color:#a6e22e>add</span>(<span style=color:#e6db74>&#34;JavaScript&#34;</span>);
-</span></span></code></pre></div><h3 id=ưu-điểm>Ưu điểm:</h3><ul><li>Truy cập nhanh theo index O(1)</li><li>Tiết kiệm bộ nhớ hơn</li><li>Hiệu quả cho việc duyệt qua các phần tử</li></ul><h3 id=nhược-điểm>Nhược điểm:</h3><ul><li>Chèn/xóa phần tử ở giữa chậm O(n)</li><li>Phải tái cấp phát bộ nhớ khi vượt quá capacity</li></ul><h2 id=linkedlist>LinkedList</h2><p>LinkedList sử dụng cấu trúc danh sách liên kết đôi:</p></section><section><h2><a href=../posts/javascript-arrow-functions/>JavaScript ES6+: Arrow Functions và This Binding</a></h2><h2 id=arrow-functions-là-gì>Arrow Functions là gì?</h2><p>Arrow Functions (hàm mũi tên) là cú pháp ngắn gọn để định nghĩa hàm trong ES6:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>// Cú pháp truyền thống
-</span></span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>sum</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>function</span>(<span style=color:#a6e22e>a</span>, <span style=color:#a6e22e>b</span>) {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>a</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>b</span>;
-</span></span><span style=display:flex><span>};
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// Arrow function
-</span></span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>sum</span> <span style=color:#f92672>=</span> (<span style=color:#a6e22e>a</span>, <span style=color:#a6e22e>b</span>) =&gt; <span style=color:#a6e22e>a</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>b</span>;
-</span></span></code></pre></div><h2 id=đặc-điểm-nổi-bật>Đặc điểm nổi bật</h2><h3 id=1-cú-pháp-ngắn-gọn>1. Cú pháp ngắn gọn</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>// Một tham số, không cần ngoặc đơn
-</span></span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>square</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>x</span> =&gt; <span style=color:#a6e22e>x</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>x</span>;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// Nhiều tham số
-</span></span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>multiply</span> <span style=color:#f92672>=</span> (<span style=color:#a6e22e>a</span>, <span style=color:#a6e22e>b</span>) =&gt; <span style=color:#a6e22e>a</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>b</span>;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// Nhiều dòng code, cần return
-</span></span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>calculate</span> <span style=color:#f92672>=</span> (<span style=color:#a6e22e>a</span>, <span style=color:#a6e22e>b</span>) =&gt; {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>sum</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>a</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>b</span>;
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>sum</span> <span style=color:#f92672>*</span> <span style=color:#ae81ff>2</span>;
-</span></span><span style=display:flex><span>};
-</span></span></code></pre></div><h3 id=2-this-binding>2. This Binding</h3><p>Arrow function <strong>không</strong> có <code>this</code> riêng, nó kế thừa <code>this</code> từ context bên ngoài:</p></section><section><h2><a href=../posts/java-stream-api/>Java Stream API: Xử lý Collection hiện đại</a></h2><h2 id=stream-api-là-gì>Stream API là gì?</h2><p>Stream API (từ Java 8) cho phép xử lý collection theo phong cách functional programming:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>&gt;</span> numbers <span style=color:#f92672>=</span> Arrays.<span style=color:#a6e22e>asList</span>(1, 2, 3, 4, 5);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// Cách cũ</span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> sum <span style=color:#f92672>=</span> 0;
-</span></span><span style=display:flex><span><span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> num : numbers) {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (num <span style=color:#f92672>%</span> 2 <span style=color:#f92672>==</span> 0) {
-</span></span><span style=display:flex><span>    sum <span style=color:#f92672>+=</span> num <span style=color:#f92672>*</span> 2;
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// Với Stream API</span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> sum <span style=color:#f92672>=</span> numbers.<span style=color:#a6e22e>stream</span>()
-</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>filter</span>(n <span style=color:#f92672>-&gt;</span> n <span style=color:#f92672>%</span> 2 <span style=color:#f92672>==</span> 0)
-</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>map</span>(n <span style=color:#f92672>-&gt;</span> n <span style=color:#f92672>*</span> 2)
-</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>reduce</span>(0, Integer::sum);
-</span></span></code></pre></div><h2 id=các-thao-tác-phổ-biến>Các thao tác phổ biến</h2><h3 id=1-filter---lọc-phần-tử>1. Filter - Lọc phần tử</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>String<span style=color:#f92672>&gt;</span> names <span style=color:#f92672>=</span> Arrays.<span style=color:#a6e22e>asList</span>(<span style=color:#e6db74>&#34;An&#34;</span>, <span style=color:#e6db74>&#34;Bình&#34;</span>, <span style=color:#e6db74>&#34;Chi&#34;</span>, <span style=color:#e6db74>&#34;Dung&#34;</span>);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>String<span style=color:#f92672>&gt;</span> filtered <span style=color:#f92672>=</span> names.<span style=color:#a6e22e>stream</span>()
-</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>filter</span>(name <span style=color:#f92672>-&gt;</span> name.<span style=color:#a6e22e>length</span>() <span style=color:#f92672>&gt;</span> 2)
-</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>collect</span>(Collectors.<span style=color:#a6e22e>toList</span>());
-</span></span><span style=display:flex><span><span style=color:#75715e>// Kết quả: [&#34;Bình&#34;, &#34;Dung&#34;]</span>
-</span></span></code></pre></div><h3 id=2-map---biến-đổi-phần-tử>2. Map - Biến đổi phần tử</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>&gt;</span> numbers <span style=color:#f92672>=</span> Arrays.<span style=color:#a6e22e>asList</span>(1, 2, 3, 4);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>&gt;</span> squared <span style=color:#f92672>=</span> numbers.<span style=color:#a6e22e>stream</span>()
-</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>map</span>(n <span style=color:#f92672>-&gt;</span> n <span style=color:#f92672>*</span> n)
-</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>collect</span>(Collectors.<span style=color:#a6e22e>toList</span>());
-</span></span><span style=display:flex><span><span style=color:#75715e>// Kết quả: [1, 4, 9, 16]</span>
-</span></span></code></pre></div><h3 id=3-reduce---tổng-hợp-kết-quả>3. Reduce - Tổng hợp kết quả</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>&gt;</span> numbers <span style=color:#f92672>=</span> Arrays.<span style=color:#a6e22e>asList</span>(1, 2, 3, 4, 5);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> sum <span style=color:#f92672>=</span> numbers.<span style=color:#a6e22e>stream</span>()
-</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>reduce</span>(0, (a, b) <span style=color:#f92672>-&gt;</span> a <span style=color:#f92672>+</span> b);
-</span></span><span style=display:flex><span><span style=color:#75715e>// Kết quả: 15</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>Optional<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>&gt;</span> max <span style=color:#f92672>=</span> numbers.<span style=color:#a6e22e>stream</span>()
-</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>reduce</span>(Integer::max);
-</span></span></code></pre></div><h3 id=4-collect---thu-thập-kết-quả>4. Collect - Thu thập kết quả</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>String<span style=color:#f92672>&gt;</span> names <span style=color:#f92672>=</span> Arrays.<span style=color:#a6e22e>asList</span>(<span style=color:#e6db74>&#34;An&#34;</span>, <span style=color:#e6db74>&#34;Bình&#34;</span>, <span style=color:#e6db74>&#34;Chi&#34;</span>);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// Thành List</span>
-</span></span><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>String<span style=color:#f92672>&gt;</span> list <span style=color:#f92672>=</span> names.<span style=color:#a6e22e>stream</span>()
-</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>collect</span>(Collectors.<span style=color:#a6e22e>toList</span>());
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// Thành Set</span>
-</span></span><span style=display:flex><span>Set<span style=color:#f92672>&lt;</span>String<span style=color:#f92672>&gt;</span> set <span style=color:#f92672>=</span> names.<span style=color:#a6e22e>stream</span>()
-</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>collect</span>(Collectors.<span style=color:#a6e22e>toSet</span>());
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// Thành Map</span>
-</span></span><span style=display:flex><span>Map<span style=color:#f92672>&lt;</span>String, Integer<span style=color:#f92672>&gt;</span> map <span style=color:#f92672>=</span> names.<span style=color:#a6e22e>stream</span>()
-</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>collect</span>(Collectors.<span style=color:#a6e22e>toMap</span>(
-</span></span><span style=display:flex><span>    name <span style=color:#f92672>-&gt;</span> name,
-</span></span><span style=display:flex><span>    String::length
-</span></span><span style=display:flex><span>  ));
-</span></span></code></pre></div><h2 id=parallel-stream>Parallel Stream</h2><p>Xử lý song song để tăng hiệu suất:</p></section><section><h2><a href=../posts/javascript-async-await/>JavaScript Async/Await: Promise nhưng dễ đọc hơn</a></h2><h2 id=vấn-đề-với-callback-hell>Vấn đề với Callback Hell</h2><p>Trước đây, xử lý bất đồng bộ trong JavaScript rất khó đọc:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#a6e22e>getData</span>(<span style=color:#66d9ef>function</span>(<span style=color:#a6e22e>a</span>) {
-</span></span><span style=display:flex><span>  <span style=color:#a6e22e>getMoreData</span>(<span style=color:#a6e22e>a</span>, <span style=color:#66d9ef>function</span>(<span style=color:#a6e22e>b</span>) {
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>getMoreData</span>(<span style=color:#a6e22e>b</span>, <span style=color:#66d9ef>function</span>(<span style=color:#a6e22e>c</span>) {
-</span></span><span style=display:flex><span>      <span style=color:#a6e22e>getMoreData</span>(<span style=color:#a6e22e>c</span>, <span style=color:#66d9ef>function</span>(<span style=color:#a6e22e>d</span>) {
-</span></span><span style=display:flex><span>        <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>d</span>);
-</span></span><span style=display:flex><span>      });
-</span></span><span style=display:flex><span>    });
-</span></span><span style=display:flex><span>  });
-</span></span><span style=display:flex><span>});
-</span></span></code></pre></div><h2 id=promise-giải-quyết-phần-nào>Promise giải quyết phần nào</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#a6e22e>getData</span>()
-</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>then</span>(<span style=color:#a6e22e>a</span> =&gt; <span style=color:#a6e22e>getMoreData</span>(<span style=color:#a6e22e>a</span>))
-</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>then</span>(<span style=color:#a6e22e>b</span> =&gt; <span style=color:#a6e22e>getMoreData</span>(<span style=color:#a6e22e>b</span>))
-</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>then</span>(<span style=color:#a6e22e>c</span> =&gt; <span style=color:#a6e22e>getMoreData</span>(<span style=color:#a6e22e>c</span>))
-</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>then</span>(<span style=color:#a6e22e>d</span> =&gt; <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>d</span>))
-</span></span><span style=display:flex><span>  .<span style=color:#66d9ef>catch</span>(<span style=color:#a6e22e>error</span> =&gt; <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>error</span>(<span style=color:#a6e22e>error</span>));
-</span></span></code></pre></div><h2 id=asyncawait---giải-pháp-tối-ưu>Async/Await - Giải pháp tối ưu</h2><p>Async/await giúp code bất đồng bộ trông như đồng bộ:</p></section><section><h2><a href=../posts/java-exception-handling/>Java Exception Handling: Try-Catch và Best Practices</a></h2><h2 id=exception-là-gì>Exception là gì?</h2><p>Exception là các sự kiện bất thường xảy ra trong quá trình chạy chương trình, làm gián đoạn luồng thực thi bình thường.</p><h2 id=phân-loại-exception>Phân loại Exception</h2><h3 id=1-checked-exception>1. Checked Exception</h3><p>Phải được xử lý tại compile-time:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>// IOException là checked exception</span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>readFile</span>(String path) <span style=color:#66d9ef>throws</span> IOException {
-</span></span><span style=display:flex><span>  FileReader file <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> FileReader(path);
-</span></span><span style=display:flex><span>  BufferedReader reader <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> BufferedReader(file);
-</span></span><span style=display:flex><span>  String line <span style=color:#f92672>=</span> reader.<span style=color:#a6e22e>readLine</span>();
-</span></span><span style=display:flex><span>  reader.<span style=color:#a6e22e>close</span>();
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h3 id=2-unchecked-exception>2. Unchecked Exception</h3><p>Runtime exceptions, không bắt buộc phải xử lý:</p></section><section><h2><a href=../posts/javascript-destructuring/>JavaScript Destructuring: Giải nén dữ liệu dễ dàng</a></h2><h2 id=destructuring-là-gì>Destructuring là gì?</h2><p>Destructuring cho phép &ldquo;giải nén&rdquo; giá trị từ arrays hoặc properties từ objects thành các biến riêng biệt.</p><h2 id=array-destructuring>Array Destructuring</h2><h3 id=cú-pháp-cơ-bản>Cú pháp cơ bản</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>// Cách cũ
-</span></span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>arr</span> <span style=color:#f92672>=</span> [<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>3</span>];
-</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>first</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>arr</span>[<span style=color:#ae81ff>0</span>];
-</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>second</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>arr</span>[<span style=color:#ae81ff>1</span>];
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// Destructuring
-</span></span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> [<span style=color:#a6e22e>first</span>, <span style=color:#a6e22e>second</span>, <span style=color:#a6e22e>third</span>] <span style=color:#f92672>=</span> [<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>3</span>];
-</span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>first</span>);  <span style=color:#75715e>// 1
-</span></span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>second</span>); <span style=color:#75715e>// 2
-</span></span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>third</span>);  <span style=color:#75715e>// 3
-</span></span></span></code></pre></div><h3 id=skip-elements>Skip elements</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>const</span> [<span style=color:#a6e22e>first</span>, , <span style=color:#a6e22e>third</span>] <span style=color:#f92672>=</span> [<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>3</span>];
-</span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>first</span>); <span style=color:#75715e>// 1
-</span></span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>third</span>); <span style=color:#75715e>// 3
-</span></span></span></code></pre></div><h3 id=default-values>Default values</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>const</span> [<span style=color:#a6e22e>a</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>, <span style=color:#a6e22e>b</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>2</span>, <span style=color:#a6e22e>c</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>3</span>] <span style=color:#f92672>=</span> [<span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>20</span>];
-</span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>a</span>); <span style=color:#75715e>// 10
-</span></span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>b</span>); <span style=color:#75715e>// 20
-</span></span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>c</span>); <span style=color:#75715e>// 3 (default)
-</span></span></span></code></pre></div><h3 id=rest-operator>Rest operator</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>const</span> [<span style=color:#a6e22e>first</span>, ...<span style=color:#a6e22e>rest</span>] <span style=color:#f92672>=</span> [<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>3</span>, <span style=color:#ae81ff>4</span>, <span style=color:#ae81ff>5</span>];
-</span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>first</span>); <span style=color:#75715e>// 1
-</span></span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>rest</span>);  <span style=color:#75715e>// [2, 3, 4, 5]
-</span></span></span></code></pre></div><h3 id=swap-variables>Swap variables</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>a</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
-</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>b</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>2</span>;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// Không cần biến tạm
-</span></span></span><span style=display:flex><span>[<span style=color:#a6e22e>a</span>, <span style=color:#a6e22e>b</span>] <span style=color:#f92672>=</span> [<span style=color:#a6e22e>b</span>, <span style=color:#a6e22e>a</span>];
-</span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>a</span>); <span style=color:#75715e>// 2
-</span></span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>b</span>); <span style=color:#75715e>// 1
-</span></span></span></code></pre></div><h2 id=object-destructuring>Object Destructuring</h2><h3 id=cú-pháp-cơ-bản-1>Cú pháp cơ bản</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>user</span> <span style=color:#f92672>=</span> {
-</span></span><span style=display:flex><span>  <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Bảo&#39;</span>,
-</span></span><span style=display:flex><span>  <span style=color:#a6e22e>age</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>22</span>,
-</span></span><span style=display:flex><span>  <span style=color:#a6e22e>email</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;bao@example.com&#39;</span>
-</span></span><span style=display:flex><span>};
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// Cách cũ
-</span></span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>name</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>user</span>.<span style=color:#a6e22e>name</span>;
-</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>age</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>user</span>.<span style=color:#a6e22e>age</span>;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// Destructuring
-</span></span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> { <span style=color:#a6e22e>name</span>, <span style=color:#a6e22e>age</span>, <span style=color:#a6e22e>email</span> } <span style=color:#f92672>=</span> <span style=color:#a6e22e>user</span>;
-</span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>name</span>);  <span style=color:#75715e>// &#39;Bảo&#39;
-</span></span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>age</span>);   <span style=color:#75715e>// 22
-</span></span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>email</span>); <span style=color:#75715e>// &#39;bao@example.com&#39;
-</span></span></span></code></pre></div><h3 id=đổi-tên-biến>Đổi tên biến</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>const</span> { <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>userName</span>, <span style=color:#a6e22e>age</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>userAge</span> } <span style=color:#f92672>=</span> <span style=color:#a6e22e>user</span>;
-</span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>userName</span>); <span style=color:#75715e>// &#39;Bảo&#39;
-</span></span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>userAge</span>);  <span style=color:#75715e>// 22
-</span></span></span></code></pre></div><h3 id=default-values-1>Default values</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>const</span> { <span style=color:#a6e22e>name</span>, <span style=color:#a6e22e>age</span>, <span style=color:#a6e22e>country</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;Vietnam&#39;</span> } <span style=color:#f92672>=</span> <span style=color:#a6e22e>user</span>;
-</span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>country</span>); <span style=color:#75715e>// &#39;Vietnam&#39;
-</span></span></span></code></pre></div><h3 id=nested-destructuring>Nested destructuring</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>user</span> <span style=color:#f92672>=</span> {
-</span></span><span style=display:flex><span>  <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Bảo&#39;</span>,
-</span></span><span style=display:flex><span>  <span style=color:#a6e22e>address</span><span style=color:#f92672>:</span> {
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>city</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;TP.HCM&#39;</span>,
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>district</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Quận 1&#39;</span>
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>};
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> {
-</span></span><span style=display:flex><span>  <span style=color:#a6e22e>name</span>,
-</span></span><span style=display:flex><span>  <span style=color:#a6e22e>address</span><span style=color:#f92672>:</span> { <span style=color:#a6e22e>city</span>, <span style=color:#a6e22e>district</span> }
-</span></span><span style=display:flex><span>} <span style=color:#f92672>=</span> <span style=color:#a6e22e>user</span>;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>city</span>);     <span style=color:#75715e>// &#39;TP.HCM&#39;
-</span></span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>district</span>); <span style=color:#75715e>// &#39;Quận 1&#39;
-</span></span></span></code></pre></div><h3 id=rest-operator-1>Rest operator</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>user</span> <span style=color:#f92672>=</span> {
-</span></span><span style=display:flex><span>  <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Bảo&#39;</span>,
-</span></span><span style=display:flex><span>  <span style=color:#a6e22e>age</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>22</span>,
-</span></span><span style=display:flex><span>  <span style=color:#a6e22e>email</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;bao@example.com&#39;</span>,
-</span></span><span style=display:flex><span>  <span style=color:#a6e22e>phone</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;0123456789&#39;</span>
-</span></span><span style=display:flex><span>};
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> { <span style=color:#a6e22e>name</span>, ...<span style=color:#a6e22e>otherInfo</span> } <span style=color:#f92672>=</span> <span style=color:#a6e22e>user</span>;
-</span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>name</span>);      <span style=color:#75715e>// &#39;Bảo&#39;
-</span></span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>otherInfo</span>); <span style=color:#75715e>// { age: 22, email: &#39;...&#39;, phone: &#39;...&#39; }
-</span></span></span></code></pre></div><h2 id=use-cases-thực-tế>Use Cases thực tế</h2><h3 id=1-function-parameters>1. Function parameters</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>// ❌ Khó nhớ thứ tự tham số
-</span></span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>createUser</span>(<span style=color:#a6e22e>name</span>, <span style=color:#a6e22e>age</span>, <span style=color:#a6e22e>email</span>, <span style=color:#a6e22e>phone</span>, <span style=color:#a6e22e>address</span>) {
-</span></span><span style=display:flex><span>  <span style=color:#75715e>// ...
-</span></span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span><span style=color:#a6e22e>createUser</span>(<span style=color:#e6db74>&#39;Bảo&#39;</span>, <span style=color:#ae81ff>22</span>, <span style=color:#e6db74>&#39;bao@...&#39;</span>, <span style=color:#e6db74>&#39;012...&#39;</span>, <span style=color:#e6db74>&#39;TP.HCM&#39;</span>);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// ✅ Dễ đọc hơn
-</span></span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>createUser</span>({ <span style=color:#a6e22e>name</span>, <span style=color:#a6e22e>age</span>, <span style=color:#a6e22e>email</span>, <span style=color:#a6e22e>phone</span>, <span style=color:#a6e22e>address</span> }) {
-</span></span><span style=display:flex><span>  <span style=color:#75715e>// ...
-</span></span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span><span style=color:#a6e22e>createUser</span>({
-</span></span><span style=display:flex><span>  <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Bảo&#39;</span>,
-</span></span><span style=display:flex><span>  <span style=color:#a6e22e>email</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;bao@...&#39;</span>,
-</span></span><span style=display:flex><span>  <span style=color:#a6e22e>age</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>22</span>,
-</span></span><span style=display:flex><span>  <span style=color:#a6e22e>phone</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;012...&#39;</span>,
-</span></span><span style=display:flex><span>  <span style=color:#a6e22e>address</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;TP.HCM&#39;</span>
-</span></span><span style=display:flex><span>});
-</span></span></code></pre></div><h3 id=2-react-props>2. React props</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>// Component với destructuring
-</span></span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>UserCard</span>({ <span style=color:#a6e22e>name</span>, <span style=color:#a6e22e>age</span>, <span style=color:#a6e22e>avatar</span> }) {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> (
-</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;</span><span style=color:#a6e22e>div</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;user-card&#34;</span><span style=color:#f92672>&gt;</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>&lt;</span><span style=color:#a6e22e>img</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span>{<span style=color:#a6e22e>avatar</span>} <span style=color:#a6e22e>alt</span><span style=color:#f92672>=</span>{<span style=color:#a6e22e>name</span>} <span style=color:#f92672>/&gt;</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>&lt;</span><span style=color:#a6e22e>h3</span><span style=color:#f92672>&gt;</span>{<span style=color:#a6e22e>name</span>}<span style=color:#f92672>&lt;</span><span style=color:#960050;background-color:#1e0010>/h3&gt;</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>&lt;</span><span style=color:#a6e22e>p</span><span style=color:#f92672>&gt;</span>{<span style=color:#a6e22e>age</span>} <span style=color:#a6e22e>tuổi</span><span style=color:#f92672>&lt;</span><span style=color:#960050;background-color:#1e0010>/p&gt;</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;</span><span style=color:#960050;background-color:#1e0010>/div&gt;</span>
-</span></span><span style=display:flex><span>  );
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h3 id=3-api-response>3. API response</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>async</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>getUser</span>() {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>response</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>fetch</span>(<span style=color:#e6db74>&#39;/api/user&#39;</span>);
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> { <span style=color:#a6e22e>data</span>, <span style=color:#a6e22e>status</span>, <span style=color:#a6e22e>message</span> } <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>response</span>.<span style=color:#a6e22e>json</span>();
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>status</span> <span style=color:#f92672>===</span> <span style=color:#e6db74>&#39;success&#39;</span>) {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>data</span>;
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>throw</span> <span style=color:#66d9ef>new</span> Error(<span style=color:#a6e22e>message</span>);
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h3 id=4-array-methods>4. Array methods</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>users</span> <span style=color:#f92672>=</span> [
-</span></span><span style=display:flex><span>  { <span style=color:#a6e22e>id</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>1</span>, <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;An&#39;</span> },
-</span></span><span style=display:flex><span>  { <span style=color:#a6e22e>id</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>2</span>, <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Bình&#39;</span> },
-</span></span><span style=display:flex><span>  { <span style=color:#a6e22e>id</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>3</span>, <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Chi&#39;</span> }
-</span></span><span style=display:flex><span>];
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// Destructuring trong map
-</span></span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>names</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>users</span>.<span style=color:#a6e22e>map</span>(({ <span style=color:#a6e22e>name</span> }) =&gt; <span style=color:#a6e22e>name</span>);
-</span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>names</span>); <span style=color:#75715e>// [&#39;An&#39;, &#39;Bình&#39;, &#39;Chi&#39;]
-</span></span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// Destructuring trong forEach
-</span></span></span><span style=display:flex><span><span style=color:#a6e22e>users</span>.<span style=color:#a6e22e>forEach</span>(({ <span style=color:#a6e22e>id</span>, <span style=color:#a6e22e>name</span> }) =&gt; {
-</span></span><span style=display:flex><span>  <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>`</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>id</span><span style=color:#e6db74>}</span><span style=color:#e6db74>: </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>name</span><span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>);
-</span></span><span style=display:flex><span>});
-</span></span></code></pre></div><h3 id=5-importing-modules>5. Importing modules</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>// Named imports sử dụng destructuring
-</span></span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>useState</span>, <span style=color:#a6e22e>useEffect</span> } <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#39;react&#39;</span>;
-</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>sum</span>, <span style=color:#a6e22e>multiply</span> } <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#39;./utils&#39;</span>;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// Rename khi import
-</span></span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>sum</span> <span style=color:#a6e22e>as</span> <span style=color:#a6e22e>add</span> } <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#39;./utils&#39;</span>;
-</span></span></code></pre></div><h2 id=best-practices>Best Practices</h2><ol><li><strong>Đặt default values</strong> để tránh undefined</li><li><strong>Đổi tên biến</strong> khi bị conflict</li><li><strong>Không destructure quá sâu</strong> - khó đọc</li><li><strong>Kết hợp với rest operator</strong> để lấy phần còn lại</li></ol><h2 id=kết-luận>Kết luận</h2><p>Destructuring giúp code ngắn gọn, dễ đọc và dễ maintain hơn. Đây là một tính năng không thể thiếu trong JavaScript hiện đại!</p></section><section><h2><a href=../posts/java-generics/>Java Generics: Type Safety cho Collection</a></h2><h2 id=vấn-đề-trước-generics>Vấn đề trước Generics</h2><p>Trước Java 5, collection không type-safe:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>// Trước Java 5</span>
-</span></span><span style=display:flex><span>List list <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ArrayList();
-</span></span><span style=display:flex><span>list.<span style=color:#a6e22e>add</span>(<span style=color:#e6db74>&#34;Hello&#34;</span>);
-</span></span><span style=display:flex><span>list.<span style=color:#a6e22e>add</span>(123);
-</span></span><span style=display:flex><span>list.<span style=color:#a6e22e>add</span>(<span style=color:#66d9ef>new</span> Date());
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>String text <span style=color:#f92672>=</span> (String) list.<span style=color:#a6e22e>get</span>(0); <span style=color:#75715e>// OK</span>
-</span></span><span style=display:flex><span>String num <span style=color:#f92672>=</span> (String) list.<span style=color:#a6e22e>get</span>(1);  <span style=color:#75715e>// Runtime error!</span>
-</span></span></code></pre></div><h2 id=generics-giải-quyết-vấn-đề>Generics giải quyết vấn đề</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>// Với Generics</span>
-</span></span><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>String<span style=color:#f92672>&gt;</span> list <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ArrayList<span style=color:#f92672>&lt;&gt;</span>();
-</span></span><span style=display:flex><span>list.<span style=color:#a6e22e>add</span>(<span style=color:#e6db74>&#34;Hello&#34;</span>);
-</span></span><span style=display:flex><span>list.<span style=color:#a6e22e>add</span>(<span style=color:#e6db74>&#34;World&#34;</span>);
-</span></span><span style=display:flex><span><span style=color:#75715e>// list.add(123); // Compile error - Type safety!</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>String text <span style=color:#f92672>=</span> list.<span style=color:#a6e22e>get</span>(0); <span style=color:#75715e>// Không cần cast</span>
-</span></span></code></pre></div><h2 id=generic-class>Generic Class</h2><h3 id=tạo-generic-class>Tạo Generic class</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Box</span><span style=color:#f92672>&lt;</span>T<span style=color:#f92672>&gt;</span> {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>private</span> T value;
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>set</span>(T value) {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>value</span> <span style=color:#f92672>=</span> value;
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> T <span style=color:#a6e22e>get</span>() {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> value;
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// Sử dụng</span>
-</span></span><span style=display:flex><span>Box<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>&gt;</span> intBox <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Box<span style=color:#f92672>&lt;&gt;</span>();
-</span></span><span style=display:flex><span>intBox.<span style=color:#a6e22e>set</span>(123);
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> num <span style=color:#f92672>=</span> intBox.<span style=color:#a6e22e>get</span>(); <span style=color:#75715e>// Không cần cast</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>Box<span style=color:#f92672>&lt;</span>String<span style=color:#f92672>&gt;</span> strBox <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Box<span style=color:#f92672>&lt;&gt;</span>();
-</span></span><span style=display:flex><span>strBox.<span style=color:#a6e22e>set</span>(<span style=color:#e6db74>&#34;Hello&#34;</span>);
-</span></span><span style=display:flex><span>String text <span style=color:#f92672>=</span> strBox.<span style=color:#a6e22e>get</span>();
-</span></span></code></pre></div><h3 id=multiple-type-parameters>Multiple type parameters</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Pair</span><span style=color:#f92672>&lt;</span>K, V<span style=color:#f92672>&gt;</span> {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>private</span> K key;
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>private</span> V value;
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>Pair</span>(K key, V value) {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>key</span> <span style=color:#f92672>=</span> key;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>value</span> <span style=color:#f92672>=</span> value;
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> K <span style=color:#a6e22e>getKey</span>() { <span style=color:#66d9ef>return</span> key; }
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> V <span style=color:#a6e22e>getValue</span>() { <span style=color:#66d9ef>return</span> value; }
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// Sử dụng</span>
-</span></span><span style=display:flex><span>Pair<span style=color:#f92672>&lt;</span>String, Integer<span style=color:#f92672>&gt;</span> pair <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Pair<span style=color:#f92672>&lt;&gt;</span>(<span style=color:#e6db74>&#34;Age&#34;</span>, 22);
-</span></span><span style=display:flex><span>String key <span style=color:#f92672>=</span> pair.<span style=color:#a6e22e>getKey</span>();
-</span></span><span style=display:flex><span>Integer value <span style=color:#f92672>=</span> pair.<span style=color:#a6e22e>getValue</span>();
-</span></span></code></pre></div><h2 id=generic-methods>Generic Methods</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Utils</span> {
-</span></span><span style=display:flex><span>  <span style=color:#75715e>// Generic method</span>
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#f92672>&lt;</span>T<span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>printArray</span>(T<span style=color:#f92672>[]</span> array) {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (T element : array) {
-</span></span><span style=display:flex><span>      System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(element);
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#75715e>// Multiple type parameters</span>
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#f92672>&lt;</span>K, V<span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>printPair</span>(K key, V value) {
-</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(key <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;: &#34;</span> <span style=color:#f92672>+</span> value);
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// Sử dụng</span>
-</span></span><span style=display:flex><span>Integer<span style=color:#f92672>[]</span> intArray <span style=color:#f92672>=</span> {1, 2, 3};
-</span></span><span style=display:flex><span>String<span style=color:#f92672>[]</span> strArray <span style=color:#f92672>=</span> {<span style=color:#e6db74>&#34;A&#34;</span>, <span style=color:#e6db74>&#34;B&#34;</span>, <span style=color:#e6db74>&#34;C&#34;</span>};
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>Utils.<span style=color:#a6e22e>printArray</span>(intArray);
-</span></span><span style=display:flex><span>Utils.<span style=color:#a6e22e>printArray</span>(strArray);
-</span></span><span style=display:flex><span>Utils.<span style=color:#a6e22e>printPair</span>(<span style=color:#e6db74>&#34;Name&#34;</span>, <span style=color:#e6db74>&#34;Bảo&#34;</span>);
-</span></span></code></pre></div><h2 id=bounded-type-parameters>Bounded Type Parameters</h2><h3 id=upper-bound>Upper bound</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>// Chỉ chấp nhận Number và các subclass</span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Calculator</span><span style=color:#f92672>&lt;</span>T <span style=color:#66d9ef>extends</span> Number<span style=color:#f92672>&gt;</span> {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>private</span> T value;
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>Calculator</span>(T value) {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>value</span> <span style=color:#f92672>=</span> value;
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>double</span> <span style=color:#a6e22e>getDoubleValue</span>() {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> value.<span style=color:#a6e22e>doubleValue</span>();
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>Calculator<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>&gt;</span> intCalc <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Calculator<span style=color:#f92672>&lt;&gt;</span>(10);
-</span></span><span style=display:flex><span>Calculator<span style=color:#f92672>&lt;</span>Double<span style=color:#f92672>&gt;</span> doubleCalc <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Calculator<span style=color:#f92672>&lt;&gt;</span>(10.<span style=color:#a6e22e>5</span>);
-</span></span><span style=display:flex><span><span style=color:#75715e>// Calculator&lt;String&gt; strCalc = new Calculator&lt;&gt;(&#34;10&#34;); // Compile error!</span>
-</span></span></code></pre></div><h3 id=multiple-bounds>Multiple bounds</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>Drawable</span> {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>draw</span>();
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// T phải implement cả Comparable và Drawable</span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Shape</span><span style=color:#f92672>&lt;</span>T <span style=color:#66d9ef>extends</span> Comparable<span style=color:#f92672>&lt;</span>T<span style=color:#f92672>&gt;</span> <span style=color:#f92672>&amp;</span> Drawable<span style=color:#f92672>&gt;</span> {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>private</span> T shape;
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>compare</span>(T other) {
-</span></span><span style=display:flex><span>    shape.<span style=color:#a6e22e>compareTo</span>(other);
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>display</span>() {
-</span></span><span style=display:flex><span>    shape.<span style=color:#a6e22e>draw</span>();
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h2 id=wildcards>Wildcards</h2><h3 id=unbounded-wildcard->Unbounded wildcard (?)</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>printList</span>(List<span style=color:#f92672>&lt;?&gt;</span> list) {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>for</span> (Object element : list) {
-</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(element);
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>&gt;</span> intList <span style=color:#f92672>=</span> Arrays.<span style=color:#a6e22e>asList</span>(1, 2, 3);
-</span></span><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>String<span style=color:#f92672>&gt;</span> strList <span style=color:#f92672>=</span> Arrays.<span style=color:#a6e22e>asList</span>(<span style=color:#e6db74>&#34;A&#34;</span>, <span style=color:#e6db74>&#34;B&#34;</span>, <span style=color:#e6db74>&#34;C&#34;</span>);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>printList(intList);
-</span></span><span style=display:flex><span>printList(strList);
-</span></span></code></pre></div><h3 id=upper-bounded-wildcard--extends>Upper bounded wildcard (? extends)</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>// Chấp nhận List của Number hoặc subclass</span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>double</span> <span style=color:#a6e22e>sumList</span>(List<span style=color:#f92672>&lt;?</span> <span style=color:#66d9ef>extends</span> Number<span style=color:#f92672>&gt;</span> list) {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>double</span> sum <span style=color:#f92672>=</span> 0;
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>for</span> (Number num : list) {
-</span></span><span style=display:flex><span>    sum <span style=color:#f92672>+=</span> num.<span style=color:#a6e22e>doubleValue</span>();
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> sum;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>&gt;</span> ints <span style=color:#f92672>=</span> Arrays.<span style=color:#a6e22e>asList</span>(1, 2, 3);
-</span></span><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>Double<span style=color:#f92672>&gt;</span> doubles <span style=color:#f92672>=</span> Arrays.<span style=color:#a6e22e>asList</span>(1.<span style=color:#a6e22e>5</span>, 2.<span style=color:#a6e22e>5</span>);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(sumList(ints));    <span style=color:#75715e>// 6.0</span>
-</span></span><span style=display:flex><span>System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(sumList(doubles)); <span style=color:#75715e>// 4.0</span>
-</span></span></code></pre></div><h3 id=lower-bounded-wildcard--super>Lower bounded wildcard (? super)</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>// Chấp nhận List của Integer hoặc superclass</span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>addIntegers</span>(List<span style=color:#f92672>&lt;?</span> <span style=color:#66d9ef>super</span> Integer<span style=color:#f92672>&gt;</span> list) {
-</span></span><span style=display:flex><span>  list.<span style=color:#a6e22e>add</span>(1);
-</span></span><span style=display:flex><span>  list.<span style=color:#a6e22e>add</span>(2);
-</span></span><span style=display:flex><span>  list.<span style=color:#a6e22e>add</span>(3);
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>Number<span style=color:#f92672>&gt;</span> numbers <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ArrayList<span style=color:#f92672>&lt;&gt;</span>();
-</span></span><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>Object<span style=color:#f92672>&gt;</span> objects <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ArrayList<span style=color:#f92672>&lt;&gt;</span>();
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>addIntegers(numbers);
-</span></span><span style=display:flex><span>addIntegers(objects);
-</span></span></code></pre></div><h2 id=pecs-principle>PECS Principle</h2><p><strong>Producer Extends, Consumer Super</strong></p></section><section><h2><a href=../posts/javascript-closures/>JavaScript Closures: Hiểu sâu về Scope và Memory</a></h2><h2 id=closure-là-gì>Closure là gì?</h2><p>Closure là một function có thể truy cập biến từ scope bên ngoài của nó, ngay cả sau khi function bên ngoài đã return.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>outer</span>() {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>message</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;Hello&#39;</span>;
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>inner</span>() {
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>message</span>); <span style=color:#75715e>// Truy cập được biến message
-</span></span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>inner</span>;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>myFunc</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>outer</span>();
-</span></span><span style=display:flex><span><span style=color:#a6e22e>myFunc</span>(); <span style=color:#75715e>// &#39;Hello&#39; - closure giữ reference đến message
-</span></span></span></code></pre></div><h2 id=tại-sao-closures-quan-trọng>Tại sao Closures quan trọng?</h2><h3 id=1-data-privacy--encapsulation>1. Data Privacy / Encapsulation</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>createCounter</span>() {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>count</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#75715e>// Private variable
-</span></span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> {
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>increment</span>() {
-</span></span><span style=display:flex><span>      <span style=color:#a6e22e>count</span><span style=color:#f92672>++</span>;
-</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>count</span>;
-</span></span><span style=display:flex><span>    },
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>decrement</span>() {
-</span></span><span style=display:flex><span>      <span style=color:#a6e22e>count</span><span style=color:#f92672>--</span>;
-</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>count</span>;
-</span></span><span style=display:flex><span>    },
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>getCount</span>() {
-</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>count</span>;
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>  };
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>counter</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createCounter</span>();
-</span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>counter</span>.<span style=color:#a6e22e>increment</span>()); <span style=color:#75715e>// 1
-</span></span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>counter</span>.<span style=color:#a6e22e>increment</span>()); <span style=color:#75715e>// 2
-</span></span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>counter</span>.<span style=color:#a6e22e>getCount</span>());  <span style=color:#75715e>// 2
-</span></span></span><span style=display:flex><span><span style=color:#75715e>// count không thể truy cập trực tiếp từ bên ngoài
-</span></span></span></code></pre></div><h3 id=2-function-factories>2. Function Factories</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>createMultiplier</span>(<span style=color:#a6e22e>multiplier</span>) {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>function</span>(<span style=color:#a6e22e>number</span>) {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>number</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>multiplier</span>;
-</span></span><span style=display:flex><span>  };
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>double</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createMultiplier</span>(<span style=color:#ae81ff>2</span>);
-</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>triple</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createMultiplier</span>(<span style=color:#ae81ff>3</span>);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#66d9ef>double</span>(<span style=color:#ae81ff>5</span>)); <span style=color:#75715e>// 10
-</span></span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>triple</span>(<span style=color:#ae81ff>5</span>)); <span style=color:#75715e>// 15
-</span></span></span></code></pre></div><h3 id=3-event-handlers>3. Event Handlers</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setupButton</span>(<span style=color:#a6e22e>buttonId</span>, <span style=color:#a6e22e>message</span>) {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>button</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#a6e22e>buttonId</span>);
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#a6e22e>button</span>.<span style=color:#a6e22e>addEventListener</span>(<span style=color:#e6db74>&#39;click&#39;</span>, <span style=color:#66d9ef>function</span>() {
-</span></span><span style=display:flex><span>    <span style=color:#75715e>// Closure giữ reference đến message
-</span></span></span><span style=display:flex><span>    <span style=color:#a6e22e>alert</span>(<span style=color:#a6e22e>message</span>);
-</span></span><span style=display:flex><span>  });
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#a6e22e>setupButton</span>(<span style=color:#e6db74>&#39;btn1&#39;</span>, <span style=color:#e6db74>&#39;Button 1 clicked!&#39;</span>);
-</span></span><span style=display:flex><span><span style=color:#a6e22e>setupButton</span>(<span style=color:#e6db74>&#39;btn2&#39;</span>, <span style=color:#e6db74>&#39;Button 2 clicked!&#39;</span>);
-</span></span></code></pre></div><h2 id=closure-trong-loops---vấn-đề-phổ-biến>Closure trong Loops - Vấn đề phổ biến</h2><h3 id=-vấn-đề-với-var>❌ Vấn đề với var</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>var</span> <span style=color:#a6e22e>i</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>i</span> <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>3</span>; <span style=color:#a6e22e>i</span><span style=color:#f92672>++</span>) {
-</span></span><span style=display:flex><span>  <span style=color:#a6e22e>setTimeout</span>(<span style=color:#66d9ef>function</span>() {
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>i</span>); <span style=color:#75715e>// 3, 3, 3 (không phải 0, 1, 2)
-</span></span></span><span style=display:flex><span>  }, <span style=color:#ae81ff>1000</span>);
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h3 id=-giải-pháp-1-iife>✅ Giải pháp 1: IIFE</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>var</span> <span style=color:#a6e22e>i</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>i</span> <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>3</span>; <span style=color:#a6e22e>i</span><span style=color:#f92672>++</span>) {
-</span></span><span style=display:flex><span>  (<span style=color:#66d9ef>function</span>(<span style=color:#a6e22e>j</span>) {
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>setTimeout</span>(<span style=color:#66d9ef>function</span>() {
-</span></span><span style=display:flex><span>      <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>j</span>); <span style=color:#75715e>// 0, 1, 2
-</span></span></span><span style=display:flex><span>    }, <span style=color:#ae81ff>1000</span>);
-</span></span><span style=display:flex><span>  })(<span style=color:#a6e22e>i</span>);
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h3 id=-giải-pháp-2-let-es6>✅ Giải pháp 2: let (ES6)</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>i</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>i</span> <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>3</span>; <span style=color:#a6e22e>i</span><span style=color:#f92672>++</span>) {
-</span></span><span style=display:flex><span>  <span style=color:#a6e22e>setTimeout</span>(<span style=color:#66d9ef>function</span>() {
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>i</span>); <span style=color:#75715e>// 0, 1, 2
-</span></span></span><span style=display:flex><span>  }, <span style=color:#ae81ff>1000</span>);
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h2 id=use-cases-thực-tế>Use Cases thực tế</h2><h3 id=1-module-pattern>1. Module Pattern</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>Calculator</span> <span style=color:#f92672>=</span> (<span style=color:#66d9ef>function</span>() {
-</span></span><span style=display:flex><span>  <span style=color:#75715e>// Private variables
-</span></span></span><span style=display:flex><span>  <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>result</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#75715e>// Private function
-</span></span></span><span style=display:flex><span>  <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>operation</span>, <span style=color:#a6e22e>value</span>) {
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>`</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>operation</span><span style=color:#e6db74>}</span><span style=color:#e6db74>: </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>value</span><span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>);
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#75715e>// Public API
-</span></span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> {
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>add</span>(<span style=color:#a6e22e>num</span>) {
-</span></span><span style=display:flex><span>      <span style=color:#a6e22e>result</span> <span style=color:#f92672>+=</span> <span style=color:#a6e22e>num</span>;
-</span></span><span style=display:flex><span>      <span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;Add&#39;</span>, <span style=color:#a6e22e>num</span>);
-</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>this</span>;
-</span></span><span style=display:flex><span>    },
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>subtract</span>(<span style=color:#a6e22e>num</span>) {
-</span></span><span style=display:flex><span>      <span style=color:#a6e22e>result</span> <span style=color:#f92672>-=</span> <span style=color:#a6e22e>num</span>;
-</span></span><span style=display:flex><span>      <span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;Subtract&#39;</span>, <span style=color:#a6e22e>num</span>);
-</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>this</span>;
-</span></span><span style=display:flex><span>    },
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>getResult</span>() {
-</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>result</span>;
-</span></span><span style=display:flex><span>    },
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>reset</span>() {
-</span></span><span style=display:flex><span>      <span style=color:#a6e22e>result</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
-</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>this</span>;
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>  };
-</span></span><span style=display:flex><span>})();
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#a6e22e>Calculator</span>.<span style=color:#a6e22e>add</span>(<span style=color:#ae81ff>10</span>).<span style=color:#a6e22e>subtract</span>(<span style=color:#ae81ff>3</span>).<span style=color:#a6e22e>add</span>(<span style=color:#ae81ff>5</span>);
-</span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>Calculator</span>.<span style=color:#a6e22e>getResult</span>()); <span style=color:#75715e>// 12
-</span></span></span></code></pre></div><h3 id=2-memoization-caching>2. Memoization (Caching)</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>memoize</span>(<span style=color:#a6e22e>fn</span>) {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>cache</span> <span style=color:#f92672>=</span> {};
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>function</span>(...<span style=color:#a6e22e>args</span>) {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>key</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>JSON</span>.<span style=color:#a6e22e>stringify</span>(<span style=color:#a6e22e>args</span>);
-</span></span><span style=display:flex><span>    
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>cache</span>[<span style=color:#a6e22e>key</span>]) {
-</span></span><span style=display:flex><span>      <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;From cache&#39;</span>);
-</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>cache</span>[<span style=color:#a6e22e>key</span>];
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>    
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;Calculating...&#39;</span>);
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>result</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>fn</span>(...<span style=color:#a6e22e>args</span>);
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>cache</span>[<span style=color:#a6e22e>key</span>] <span style=color:#f92672>=</span> <span style=color:#a6e22e>result</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>result</span>;
-</span></span><span style=display:flex><span>  };
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>fibonacci</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>memoize</span>(<span style=color:#66d9ef>function</span>(<span style=color:#a6e22e>n</span>) {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>n</span> <span style=color:#f92672>&lt;=</span> <span style=color:#ae81ff>1</span>) <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>n</span>;
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>fibonacci</span>(<span style=color:#a6e22e>n</span> <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>) <span style=color:#f92672>+</span> <span style=color:#a6e22e>fibonacci</span>(<span style=color:#a6e22e>n</span> <span style=color:#f92672>-</span> <span style=color:#ae81ff>2</span>);
-</span></span><span style=display:flex><span>});
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>fibonacci</span>(<span style=color:#ae81ff>10</span>)); <span style=color:#75715e>// Calculating...
-</span></span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>fibonacci</span>(<span style=color:#ae81ff>10</span>)); <span style=color:#75715e>// From cache
-</span></span></span></code></pre></div><h3 id=3-debounce>3. Debounce</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>debounce</span>(<span style=color:#a6e22e>func</span>, <span style=color:#a6e22e>delay</span>) {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>timeoutId</span>;
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>function</span>(...<span style=color:#a6e22e>args</span>) {
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>clearTimeout</span>(<span style=color:#a6e22e>timeoutId</span>);
-</span></span><span style=display:flex><span>    
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>timeoutId</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>setTimeout</span>(() =&gt; {
-</span></span><span style=display:flex><span>      <span style=color:#a6e22e>func</span>.<span style=color:#a6e22e>apply</span>(<span style=color:#66d9ef>this</span>, <span style=color:#a6e22e>args</span>);
-</span></span><span style=display:flex><span>    }, <span style=color:#a6e22e>delay</span>);
-</span></span><span style=display:flex><span>  };
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// Sử dụng
-</span></span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>searchInput</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#39;search&#39;</span>);
-</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>handleSearch</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>debounce</span>(<span style=color:#66d9ef>function</span>(<span style=color:#a6e22e>event</span>) {
-</span></span><span style=display:flex><span>  <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;Searching for:&#39;</span>, <span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>target</span>.<span style=color:#a6e22e>value</span>);
-</span></span><span style=display:flex><span>}, <span style=color:#ae81ff>500</span>);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#a6e22e>searchInput</span>.<span style=color:#a6e22e>addEventListener</span>(<span style=color:#e6db74>&#39;input&#39;</span>, <span style=color:#a6e22e>handleSearch</span>);
-</span></span></code></pre></div><h3 id=4-partial-application>4. Partial Application</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>partial</span>(<span style=color:#a6e22e>fn</span>, ...<span style=color:#a6e22e>fixedArgs</span>) {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>function</span>(...<span style=color:#a6e22e>remainingArgs</span>) {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>fn</span>(...<span style=color:#a6e22e>fixedArgs</span>, ...<span style=color:#a6e22e>remainingArgs</span>);
-</span></span><span style=display:flex><span>  };
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>greet</span>(<span style=color:#a6e22e>greeting</span>, <span style=color:#a6e22e>name</span>) {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#e6db74>`</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>greeting</span><span style=color:#e6db74>}</span><span style=color:#e6db74>, </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>name</span><span style=color:#e6db74>}</span><span style=color:#e6db74>!`</span>;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>sayHello</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>partial</span>(<span style=color:#a6e22e>greet</span>, <span style=color:#e6db74>&#39;Hello&#39;</span>);
-</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>sayHi</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>partial</span>(<span style=color:#a6e22e>greet</span>, <span style=color:#e6db74>&#39;Hi&#39;</span>);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>sayHello</span>(<span style=color:#e6db74>&#39;Bảo&#39;</span>)); <span style=color:#75715e>// &#39;Hello, Bảo!&#39;
-</span></span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>sayHi</span>(<span style=color:#e6db74>&#39;An&#39;</span>));     <span style=color:#75715e>// &#39;Hi, An!&#39;
-</span></span></span></code></pre></div><h2 id=memory-considerations>Memory Considerations</h2><p>Closures giữ reference đến outer scope, có thể gây memory leak nếu không cẩn thận:</p></section><section><h2><a href=../posts/java-multithreading/>Java Multithreading: Lập trình đa luồng cơ bản</a></h2><h2 id=thread-là-gì>Thread là gì?</h2><p>Thread là đơn vị nhỏ nhất của một process, cho phép chương trình thực hiện nhiều tác vụ đồng thời.</p><h2 id=tạo-thread-trong-java>Tạo Thread trong Java</h2><h3 id=cách-1-extends-thread>Cách 1: Extends Thread</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MyThread</span> <span style=color:#66d9ef>extends</span> Thread {
-</span></span><span style=display:flex><span>  <span style=color:#a6e22e>@Override</span>
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>run</span>() {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> 0; i <span style=color:#f92672>&lt;</span> 5; i<span style=color:#f92672>++</span>) {
-</span></span><span style=display:flex><span>      System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(Thread.<span style=color:#a6e22e>currentThread</span>().<span style=color:#a6e22e>getName</span>() <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;: &#34;</span> <span style=color:#f92672>+</span> i);
-</span></span><span style=display:flex><span>      <span style=color:#66d9ef>try</span> {
-</span></span><span style=display:flex><span>        Thread.<span style=color:#a6e22e>sleep</span>(1000);
-</span></span><span style=display:flex><span>      } <span style=color:#66d9ef>catch</span> (InterruptedException e) {
-</span></span><span style=display:flex><span>        e.<span style=color:#a6e22e>printStackTrace</span>();
-</span></span><span style=display:flex><span>      }
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// Sử dụng</span>
-</span></span><span style=display:flex><span>MyThread thread1 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> MyThread();
-</span></span><span style=display:flex><span>MyThread thread2 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> MyThread();
-</span></span><span style=display:flex><span>thread1.<span style=color:#a6e22e>start</span>();
-</span></span><span style=display:flex><span>thread2.<span style=color:#a6e22e>start</span>();
-</span></span></code></pre></div><h3 id=cách-2-implements-runnable-recommended>Cách 2: Implements Runnable (Recommended)</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MyTask</span> <span style=color:#66d9ef>implements</span> Runnable {
-</span></span><span style=display:flex><span>  <span style=color:#a6e22e>@Override</span>
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>run</span>() {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> 0; i <span style=color:#f92672>&lt;</span> 5; i<span style=color:#f92672>++</span>) {
-</span></span><span style=display:flex><span>      System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(Thread.<span style=color:#a6e22e>currentThread</span>().<span style=color:#a6e22e>getName</span>() <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;: &#34;</span> <span style=color:#f92672>+</span> i);
-</span></span><span style=display:flex><span>      <span style=color:#66d9ef>try</span> {
-</span></span><span style=display:flex><span>        Thread.<span style=color:#a6e22e>sleep</span>(1000);
-</span></span><span style=display:flex><span>      } <span style=color:#66d9ef>catch</span> (InterruptedException e) {
-</span></span><span style=display:flex><span>        e.<span style=color:#a6e22e>printStackTrace</span>();
-</span></span><span style=display:flex><span>      }
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// Sử dụng</span>
-</span></span><span style=display:flex><span>Thread thread1 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Thread(<span style=color:#66d9ef>new</span> MyTask());
-</span></span><span style=display:flex><span>Thread thread2 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Thread(<span style=color:#66d9ef>new</span> MyTask());
-</span></span><span style=display:flex><span>thread1.<span style=color:#a6e22e>start</span>();
-</span></span><span style=display:flex><span>thread2.<span style=color:#a6e22e>start</span>();
-</span></span></code></pre></div><h3 id=cách-3-lambda-expression-java-8>Cách 3: Lambda Expression (Java 8+)</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span>Thread thread <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Thread(() <span style=color:#f92672>-&gt;</span> {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> 0; i <span style=color:#f92672>&lt;</span> 5; i<span style=color:#f92672>++</span>) {
-</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(Thread.<span style=color:#a6e22e>currentThread</span>().<span style=color:#a6e22e>getName</span>() <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;: &#34;</span> <span style=color:#f92672>+</span> i);
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>try</span> {
-</span></span><span style=display:flex><span>      Thread.<span style=color:#a6e22e>sleep</span>(1000);
-</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>catch</span> (InterruptedException e) {
-</span></span><span style=display:flex><span>      e.<span style=color:#a6e22e>printStackTrace</span>();
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>});
-</span></span><span style=display:flex><span>thread.<span style=color:#a6e22e>start</span>();
-</span></span></code></pre></div><h2 id=thread-lifecycle>Thread Lifecycle</h2><pre tabindex=0><code>NEW → RUNNABLE → RUNNING → TERMINATED
-         ↓           ↓
-      BLOCKED    WAITING
-</code></pre><h2 id=thread-methods>Thread Methods</h2><h3 id=sleep>sleep()</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span>Thread.<span style=color:#a6e22e>sleep</span>(1000); <span style=color:#75715e>// Sleep 1 giây</span>
-</span></span></code></pre></div><h3 id=join>join()</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span>Thread t1 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Thread(() <span style=color:#f92672>-&gt;</span> {
-</span></span><span style=display:flex><span>  System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;Task 1&#34;</span>);
-</span></span><span style=display:flex><span>});
-</span></span><span style=display:flex><span>t1.<span style=color:#a6e22e>start</span>();
-</span></span><span style=display:flex><span>t1.<span style=color:#a6e22e>join</span>(); <span style=color:#75715e>// Chờ t1 hoàn thành</span>
-</span></span><span style=display:flex><span>System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;Task 1 completed&#34;</span>);
-</span></span></code></pre></div><h3 id=interrupt>interrupt()</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span>Thread thread <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Thread(() <span style=color:#f92672>-&gt;</span> {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>try</span> {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span> (<span style=color:#f92672>!</span>Thread.<span style=color:#a6e22e>interrupted</span>()) {
-</span></span><span style=display:flex><span>      System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;Working...&#34;</span>);
-</span></span><span style=display:flex><span>      Thread.<span style=color:#a6e22e>sleep</span>(1000);
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>  } <span style=color:#66d9ef>catch</span> (InterruptedException e) {
-</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;Thread interrupted&#34;</span>);
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>});
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>thread.<span style=color:#a6e22e>start</span>();
-</span></span><span style=display:flex><span>Thread.<span style=color:#a6e22e>sleep</span>(3000);
-</span></span><span style=display:flex><span>thread.<span style=color:#a6e22e>interrupt</span>(); <span style=color:#75715e>// Ngắt thread</span>
-</span></span></code></pre></div><h2 id=synchronization>Synchronization</h2><h3 id=vấn-đề-race-condition>Vấn đề Race Condition</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Counter</span> {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>int</span> count <span style=color:#f92672>=</span> 0;
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>increment</span>() {
-</span></span><span style=display:flex><span>    count<span style=color:#f92672>++</span>; <span style=color:#75715e>// Không thread-safe!</span>
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>getCount</span>() {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> count;
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h3 id=giải-pháp-synchronized>Giải pháp: synchronized</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Counter</span> {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>int</span> count <span style=color:#f92672>=</span> 0;
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>synchronized</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>increment</span>() {
-</span></span><span style=display:flex><span>    count<span style=color:#f92672>++</span>;
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>synchronized</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>getCount</span>() {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> count;
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h3 id=synchronized-block>Synchronized Block</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Counter</span> {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>int</span> count <span style=color:#f92672>=</span> 0;
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>private</span> Object lock <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Object();
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>increment</span>() {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>synchronized</span>(lock) {
-</span></span><span style=display:flex><span>      count<span style=color:#f92672>++</span>;
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h2 id=executorservice-modern-approach>ExecutorService (Modern Approach)</h2><h3 id=thread-pool>Thread Pool</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span>ExecutorService executor <span style=color:#f92672>=</span> Executors.<span style=color:#a6e22e>newFixedThreadPool</span>(3);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> 0; i <span style=color:#f92672>&lt;</span> 10; i<span style=color:#f92672>++</span>) {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>final</span> <span style=color:#66d9ef>int</span> taskId <span style=color:#f92672>=</span> i;
-</span></span><span style=display:flex><span>  executor.<span style=color:#a6e22e>submit</span>(() <span style=color:#f92672>-&gt;</span> {
-</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;Task &#34;</span> <span style=color:#f92672>+</span> taskId <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34; by &#34;</span> <span style=color:#f92672>+</span> 
-</span></span><span style=display:flex><span>                      Thread.<span style=color:#a6e22e>currentThread</span>().<span style=color:#a6e22e>getName</span>());
-</span></span><span style=display:flex><span>  });
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>executor.<span style=color:#a6e22e>shutdown</span>();
-</span></span></code></pre></div><h3 id=callable--future>Callable & Future</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span>ExecutorService executor <span style=color:#f92672>=</span> Executors.<span style=color:#a6e22e>newSingleThreadExecutor</span>();
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>Callable<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>&gt;</span> task <span style=color:#f92672>=</span> () <span style=color:#f92672>-&gt;</span> {
-</span></span><span style=display:flex><span>  Thread.<span style=color:#a6e22e>sleep</span>(2000);
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> 42;
-</span></span><span style=display:flex><span>};
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>Future<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>&gt;</span> future <span style=color:#f92672>=</span> executor.<span style=color:#a6e22e>submit</span>(task);
-</span></span><span style=display:flex><span>System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;Doing other work...&#34;</span>);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>Integer result <span style=color:#f92672>=</span> future.<span style=color:#a6e22e>get</span>(); <span style=color:#75715e>// Block cho đến khi có kết quả</span>
-</span></span><span style=display:flex><span>System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;Result: &#34;</span> <span style=color:#f92672>+</span> result);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>executor.<span style=color:#a6e22e>shutdown</span>();
-</span></span></code></pre></div><h2 id=completablefuture-java-8>CompletableFuture (Java 8+)</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span>CompletableFuture<span style=color:#f92672>&lt;</span>String<span style=color:#f92672>&gt;</span> future <span style=color:#f92672>=</span> CompletableFuture.<span style=color:#a6e22e>supplyAsync</span>(() <span style=color:#f92672>-&gt;</span> {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>try</span> {
-</span></span><span style=display:flex><span>    Thread.<span style=color:#a6e22e>sleep</span>(2000);
-</span></span><span style=display:flex><span>  } <span style=color:#66d9ef>catch</span> (InterruptedException e) {
-</span></span><span style=display:flex><span>    e.<span style=color:#a6e22e>printStackTrace</span>();
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;Hello&#34;</span>;
-</span></span><span style=display:flex><span>});
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>future.<span style=color:#a6e22e>thenApply</span>(result <span style=color:#f92672>-&gt;</span> result <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34; World&#34;</span>)
-</span></span><span style=display:flex><span>      .<span style=color:#a6e22e>thenAccept</span>(System.<span style=color:#a6e22e>out</span>::println);
-</span></span></code></pre></div><h2 id=thread-safe-collections>Thread-Safe Collections</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>// Synchronized collections</span>
-</span></span><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>String<span style=color:#f92672>&gt;</span> syncList <span style=color:#f92672>=</span> Collections.<span style=color:#a6e22e>synchronizedList</span>(<span style=color:#66d9ef>new</span> ArrayList<span style=color:#f92672>&lt;&gt;</span>());
-</span></span><span style=display:flex><span>Map<span style=color:#f92672>&lt;</span>String, Integer<span style=color:#f92672>&gt;</span> syncMap <span style=color:#f92672>=</span> Collections.<span style=color:#a6e22e>synchronizedMap</span>(<span style=color:#66d9ef>new</span> HashMap<span style=color:#f92672>&lt;&gt;</span>());
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// Concurrent collections (Better performance)</span>
-</span></span><span style=display:flex><span>ConcurrentHashMap<span style=color:#f92672>&lt;</span>String, Integer<span style=color:#f92672>&gt;</span> map <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ConcurrentHashMap<span style=color:#f92672>&lt;&gt;</span>();
-</span></span><span style=display:flex><span>CopyOnWriteArrayList<span style=color:#f92672>&lt;</span>String<span style=color:#f92672>&gt;</span> list <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> CopyOnWriteArrayList<span style=color:#f92672>&lt;&gt;</span>();
-</span></span><span style=display:flex><span>BlockingQueue<span style=color:#f92672>&lt;</span>String<span style=color:#f92672>&gt;</span> queue <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> LinkedBlockingQueue<span style=color:#f92672>&lt;&gt;</span>();
-</span></span></code></pre></div><h2 id=locks-javautilconcurrentlocks>Locks (java.util.concurrent.locks)</h2><h3 id=reentrantlock>ReentrantLock</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Counter</span> {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>int</span> count <span style=color:#f92672>=</span> 0;
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>private</span> Lock lock <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ReentrantLock();
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>increment</span>() {
-</span></span><span style=display:flex><span>    lock.<span style=color:#a6e22e>lock</span>();
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>try</span> {
-</span></span><span style=display:flex><span>      count<span style=color:#f92672>++</span>;
-</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>finally</span> {
-</span></span><span style=display:flex><span>      lock.<span style=color:#a6e22e>unlock</span>(); <span style=color:#75715e>// Luôn unlock trong finally</span>
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h3 id=readwritelock>ReadWriteLock</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Cache</span> {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>private</span> Map<span style=color:#f92672>&lt;</span>String, String<span style=color:#f92672>&gt;</span> data <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> HashMap<span style=color:#f92672>&lt;&gt;</span>();
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>private</span> ReadWriteLock lock <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ReentrantReadWriteLock();
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>get</span>(String key) {
-</span></span><span style=display:flex><span>    lock.<span style=color:#a6e22e>readLock</span>().<span style=color:#a6e22e>lock</span>();
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>try</span> {
-</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> data.<span style=color:#a6e22e>get</span>(key);
-</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>finally</span> {
-</span></span><span style=display:flex><span>      lock.<span style=color:#a6e22e>readLock</span>().<span style=color:#a6e22e>unlock</span>();
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>put</span>(String key, String value) {
-</span></span><span style=display:flex><span>    lock.<span style=color:#a6e22e>writeLock</span>().<span style=color:#a6e22e>lock</span>();
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>try</span> {
-</span></span><span style=display:flex><span>      data.<span style=color:#a6e22e>put</span>(key, value);
-</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>finally</span> {
-</span></span><span style=display:flex><span>      lock.<span style=color:#a6e22e>writeLock</span>().<span style=color:#a6e22e>unlock</span>();
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h2 id=best-practices>Best Practices</h2><ol><li><strong>Dùng ExecutorService</strong> thay vì tạo Thread trực tiếp</li><li><strong>Tránh synchronized quá nhiều</strong> - ảnh hưởng performance</li><li><strong>Dùng concurrent collections</strong> khi cần thread-safety</li><li><strong>Luôn shutdown ExecutorService</strong> sau khi dùng</li><li><strong>Cẩn thận với deadlock</strong> - luôn lock theo thứ tự nhất quán</li><li><strong>Dùng ThreadLocal</strong> cho thread-specific data</li><li><strong>Test kỹ concurrent code</strong> - bugs khó reproduce</li></ol><h2 id=common-pitfalls>Common Pitfalls</h2><h3 id=deadlock>Deadlock</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>// ❌ Có thể bị deadlock</span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>synchronized</span>(lock1) {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>synchronized</span>(lock2) {
-</span></span><span style=display:flex><span>    <span style=color:#75715e>// Critical section</span>
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// Thread khác</span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>synchronized</span>(lock2) {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>synchronized</span>(lock1) {
-</span></span><span style=display:flex><span>    <span style=color:#75715e>// Critical section</span>
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h3 id=starting-thread-trong-constructor>Starting Thread trong Constructor</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>// ❌ Nguy hiểm</span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MyClass</span> <span style=color:#66d9ef>extends</span> Thread {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>MyClass</span>() {
-</span></span><span style=display:flex><span>    start(); <span style=color:#75715e>// Có thể gây vấn đề</span>
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h2 id=kết-luận>Kết luận</h2><p>Multithreading giúp tận dụng tối đa CPU và cải thiện performance. Tuy nhiên, cần hiểu rõ về synchronization và concurrent programming để tránh bugs khó debug!</p></section><section><h2><a href=../posts/post-3/>Post 3</a></h2><p>Occaecat aliqua consequat laborum ut ex aute aliqua culpa quis irure esse magna dolore quis. Proident fugiat labore eu laboris officia Lorem enim. Ipsum occaecat cillum ut tempor id sint aliqua incididunt nisi incididunt reprehenderit. Voluptate ad minim sint est aute aliquip esse occaecat tempor officia qui sunt. Aute ex ipsum id ut in est velit est laborum incididunt. Aliqua qui id do esse sunt eiusmod id deserunt eu nostrud aute sit ipsum. Deserunt esse cillum Lorem non magna adipisicing mollit amet consequat.</p></section><section><h2><a href=../posts/post-2/>Post 2</a></h2><p>Anim eiusmod irure incididunt sint cupidatat. Incididunt irure irure irure nisi ipsum do ut quis fugiat consectetur proident cupidatat incididunt cillum. Dolore voluptate occaecat qui mollit laborum ullamco et. Ipsum laboris officia anim laboris culpa eiusmod ex magna ex cupidatat anim ipsum aute. Mollit aliquip occaecat qui sunt velit ut cupidatat reprehenderit enim sunt laborum. Velit veniam in officia nulla adipisicing ut duis officia.</p><p>Exercitation voluptate irure in irure tempor mollit Lorem nostrud ad officia. Velit id fugiat occaecat do tempor. Sit officia Lorem aliquip eu deserunt consectetur. Aute proident deserunt in nulla aliquip dolore ipsum Lorem ut cupidatat consectetur sit sint laborum. Esse cupidatat sit sint sunt tempor exercitation deserunt. Labore dolor duis laborum est do nisi ut veniam dolor et nostrud nostrud.</p></section><section><h2><a href=../posts/post-1/>Post 1</a></h2><p>Tempor proident minim aliquip reprehenderit dolor et ad anim Lorem duis sint eiusmod. Labore ut ea duis dolor. Incididunt consectetur proident qui occaecat incididunt do nisi Lorem. Tempor do laborum elit laboris excepteur eiusmod do. Eiusmod nisi excepteur ut amet pariatur adipisicing Lorem.</p><p>Occaecat nulla excepteur dolore excepteur duis eiusmod ullamco officia anim in voluptate ea occaecat officia. Cillum sint esse velit ea officia minim fugiat. Elit ea esse id aliquip pariatur cupidatat id duis minim incididunt ea ea. Anim ut duis sunt nisi. Culpa cillum sit voluptate voluptate eiusmod dolor. Enim nisi Lorem ipsum irure est excepteur voluptate eu in enim nisi. Nostrud ipsum Lorem anim sint labore consequat do.</p></section></main><footer class=footer><div class=container><p>&copy; 2025 Dương Gia Bảo. All rights reserved.</p></div></footer></body></html>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog | Profile</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" href="../favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <header class="header">
+  <div class="container">
+    <div class="logo">
+      <a href="../">
+        <span class="logo-icon">🏠</span>
+        <span class="logo-text">Profile</span>
+      </a>
+    </div>
+    
+    <nav class="nav">
+      <div class="search-box">
+        <span>Tìm kiếm...</span>
+      </div>
+      
+      <ul class="menu">
+        
+        <li><a href="../#about">Về tôi</a></li>
+        
+        <li><a href="../#experience">Kinh nghiệm</a></li>
+        
+        <li><a href="../#education">Học vấn</a></li>
+        
+        <li><a href="../#certificates">Chứng chỉ</a></li>
+        
+        <li><a href="../#contact">Liên hệ</a></li>
+        
+        <li><a href="../posts">Blog</a></li>
+        
+        <li><a href="../#gallery">Thư viện ảnh</a></li>
+        
+      </ul>
+      
+      <button class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+    </nav>
+  </div>
+</header>
+
+  
+  <main>
+    
+<div class="blog-list-container">
+  <div class="blog-header">
+    <h1 class="blog-title">Blog</h1>
+    <p class="blog-description">Chia sẻ kiến thức và kinh nghiệm lập trình</p>
+  </div>
+
+  <div class="blog-grid">
+    
+    <article class="blog-card">      
+      <div class="blog-card-content">
+        <div class="blog-meta">
+          <span class="blog-date">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            27/12/2025
+          </span>
+          
+          <div class="blog-tags">
+            
+            <span class="blog-tag">Java</span>
+            
+            <span class="blog-tag">Data Structures</span>
+            
+          </div>
+          
+        </div>
+        
+        <h2 class="blog-card-title">
+          <a href="../posts/java-arraylist-vs-linkedlist/">Java Collections Framework: ArrayList vs LinkedList</a>
+        </h2>
+      </div>
+    </article>
+    
+    <article class="blog-card">      
+      <div class="blog-card-content">
+        <div class="blog-meta">
+          <span class="blog-date">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            27/12/2025
+          </span>
+          
+          <div class="blog-tags">
+            
+            <span class="blog-tag">Java</span>
+            
+            <span class="blog-tag">Error Handling</span>
+            
+          </div>
+          
+        </div>
+        
+        <h2 class="blog-card-title">
+          <a href="../posts/java-exception-handling/">Java Exception Handling: Try-Catch và Best Practices</a>
+        </h2>
+      </div>
+    </article>
+    
+    <article class="blog-card">      
+      <div class="blog-card-content">
+        <div class="blog-meta">
+          <span class="blog-date">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            27/12/2025
+          </span>
+          
+          <div class="blog-tags">
+            
+            <span class="blog-tag">Java</span>
+            
+            <span class="blog-tag">Generics</span>
+            
+          </div>
+          
+        </div>
+        
+        <h2 class="blog-card-title">
+          <a href="../posts/java-generics/">Java Generics: Type Safety cho Collection</a>
+        </h2>
+      </div>
+    </article>
+    
+    <article class="blog-card">      
+      <div class="blog-card-content">
+        <div class="blog-meta">
+          <span class="blog-date">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            27/12/2025
+          </span>
+          
+          <div class="blog-tags">
+            
+            <span class="blog-tag">Java</span>
+            
+            <span class="blog-tag">Concurrency</span>
+            
+          </div>
+          
+        </div>
+        
+        <h2 class="blog-card-title">
+          <a href="../posts/java-multithreading/">Java Multithreading: Lập trình đa luồng cơ bản</a>
+        </h2>
+      </div>
+    </article>
+    
+    <article class="blog-card">      
+      <div class="blog-card-content">
+        <div class="blog-meta">
+          <span class="blog-date">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            27/12/2025
+          </span>
+          
+          <div class="blog-tags">
+            
+            <span class="blog-tag">Java</span>
+            
+            <span class="blog-tag">Stream API</span>
+            
+          </div>
+          
+        </div>
+        
+        <h2 class="blog-card-title">
+          <a href="../posts/java-stream-api/">Java Stream API: Xử lý Collection hiện đại</a>
+        </h2>
+      </div>
+    </article>
+    
+    <article class="blog-card">      
+      <div class="blog-card-content">
+        <div class="blog-meta">
+          <span class="blog-date">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            27/12/2025
+          </span>
+          
+          <div class="blog-tags">
+            
+            <span class="blog-tag">JavaScript</span>
+            
+            <span class="blog-tag">Async</span>
+            
+          </div>
+          
+        </div>
+        
+        <h2 class="blog-card-title">
+          <a href="../posts/javascript-async-await/">JavaScript Async/Await: Promise nhưng dễ đọc hơn</a>
+        </h2>
+      </div>
+    </article>
+    
+    <article class="blog-card">      
+      <div class="blog-card-content">
+        <div class="blog-meta">
+          <span class="blog-date">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            27/12/2025
+          </span>
+          
+          <div class="blog-tags">
+            
+            <span class="blog-tag">JavaScript</span>
+            
+            <span class="blog-tag">Advanced</span>
+            
+          </div>
+          
+        </div>
+        
+        <h2 class="blog-card-title">
+          <a href="../posts/javascript-closures/">JavaScript Closures: Hiểu sâu về Scope và Memory</a>
+        </h2>
+      </div>
+    </article>
+    
+    <article class="blog-card">      
+      <div class="blog-card-content">
+        <div class="blog-meta">
+          <span class="blog-date">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            27/12/2025
+          </span>
+          
+          <div class="blog-tags">
+            
+            <span class="blog-tag">JavaScript</span>
+            
+            <span class="blog-tag">ES6</span>
+            
+          </div>
+          
+        </div>
+        
+        <h2 class="blog-card-title">
+          <a href="../posts/javascript-destructuring/">JavaScript Destructuring: Giải nén dữ liệu dễ dàng</a>
+        </h2>
+      </div>
+    </article>
+    
+    <article class="blog-card">      
+      <div class="blog-card-content">
+        <div class="blog-meta">
+          <span class="blog-date">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            27/12/2025
+          </span>
+          
+          <div class="blog-tags">
+            
+            <span class="blog-tag">JavaScript</span>
+            
+            <span class="blog-tag">ES6</span>
+            
+          </div>
+          
+        </div>
+        
+        <h2 class="blog-card-title">
+          <a href="../posts/javascript-arrow-functions/">JavaScript ES6&#43;: Arrow Functions và This Binding</a>
+        </h2>
+      </div>
+    </article>
+    
+    <article class="blog-card">      
+      <div class="blog-card-content">
+        <div class="blog-meta">
+          <span class="blog-date">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            15/03/2023
+          </span>
+          
+          <div class="blog-tags">
+            
+            <span class="blog-tag">red</span>
+            
+            <span class="blog-tag">green</span>
+            
+            <span class="blog-tag">blue</span>
+            
+          </div>
+          
+        </div>
+        
+        <h2 class="blog-card-title">
+          <a href="../posts/post-3/">Post 3</a>
+        </h2>
+      </div>
+    </article>
+    
+    <article class="blog-card">      
+      <div class="blog-card-content">
+        <div class="blog-meta">
+          <span class="blog-date">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            15/02/2023
+          </span>
+          
+          <div class="blog-tags">
+            
+            <span class="blog-tag">red</span>
+            
+            <span class="blog-tag">green</span>
+            
+          </div>
+          
+        </div>
+        
+        <h2 class="blog-card-title">
+          <a href="../posts/post-2/">Post 2</a>
+        </h2>
+      </div>
+    </article>
+    
+    <article class="blog-card">      
+      <div class="blog-card-content">
+        <div class="blog-meta">
+          <span class="blog-date">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            15/01/2023
+          </span>
+          
+          <div class="blog-tags">
+            
+            <span class="blog-tag">red</span>
+            
+          </div>
+          
+        </div>
+        
+        <h2 class="blog-card-title">
+          <a href="../posts/post-1/">Post 1</a>
+        </h2>
+      </div>
+    </article>
+    
+  </div>
+</div>
+
+  </main>
+  
+  <footer class="footer">
+  <div class="container">
+    <p>&copy; 2025 Dương Gia Bảo. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

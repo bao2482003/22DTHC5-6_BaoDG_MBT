@@ -1,6 +1,6 @@
 ---
 title: "Java Generics: Type Safety cho Collection"
-date: 2024-11-25
+date: 2025-12-27
 tags: ["Java", "Generics"]
 description: "Hiểu về Generics trong Java và cách sử dụng hiệu quả"
 image: "/images/blog/java-generics.png"

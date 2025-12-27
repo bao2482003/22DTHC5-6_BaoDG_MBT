@@ -1,6 +1,6 @@
 ---
 title: "JavaScript ES6+: Arrow Functions và This Binding"
-date: 2024-12-10
+date: 2025-12-27
 tags: ["JavaScript", "ES6"]
 description: "Tìm hiểu về Arrow Functions và cách xử lý this binding trong JavaScript"
 image: "/images/blog/js-arrow-functions.png"

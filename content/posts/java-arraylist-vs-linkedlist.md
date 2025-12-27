@@ -1,6 +1,6 @@
 ---
 title: "Java Collections Framework: ArrayList vs LinkedList"
-date: 2024-12-15
+date: 2025-12-27
 tags: ["Java", "Data Structures"]
 description: "So sánh chi tiết giữa ArrayList và LinkedList trong Java Collections Framework"
 image: "/images/blog/java-collections.png"

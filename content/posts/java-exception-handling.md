@@ -1,6 +1,6 @@
 ---
 title: "Java Exception Handling: Try-Catch và Best Practices"
-date: 2024-12-01
+date: 2025-12-27
 tags: ["Java", "Error Handling"]
 description: "Xử lý ngoại lệ hiệu quả trong Java"
 image: "/images/blog/java-exceptions.png"

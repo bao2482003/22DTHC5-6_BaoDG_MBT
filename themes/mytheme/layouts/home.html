@@ -285,75 +285,116 @@
 <section id="gallery" class="section">
   <div class="container">
     <h2 class="section-title">Thư viện ảnh</h2>
-    <p class="gallery-subtitle">Một số khoảnh khắc đáng nhớ trong hành trình của tôi</p>
     
     <div class="gallery-grid">
       <!-- Gallery Item 1 -->
       <div class="gallery-item" onclick="openLightbox(0)">
-        <img src="/images/gallery/image1.jpg" alt="Dự án 1" loading="lazy">
+        <img src="/images/gallery/anh1.png" alt="Dự án 1" loading="lazy">
         <div class="gallery-overlay">
           <div class="gallery-text">
-            <h4>Dự án Website</h4>
-            <p>Phát triển ứng dụng web hiện đại</p>
+            <h4>Chứng chỉ khóa học</h4>
+            <p>Những kiến thức cơ bản về Java</p>
           </div>
         </div>
       </div>
 
       <!-- Gallery Item 2 -->
       <div class="gallery-item" onclick="openLightbox(1)">
-        <img src="/images/gallery/image2.jpg" alt="Học tập" loading="lazy">
+        <img src="/images/gallery/anh2.png" alt="Học tập" loading="lazy">
         <div class="gallery-overlay">
           <div class="gallery-text">
-            <h4>Học tập</h4>
-            <p>Các buổi học và workshop</p>
+            <h4>Chứng chỉ khóa học</h4>
+            <p>Những kiến thức cơ bản về Java</p>
           </div>
         </div>
       </div>
 
       <!-- Gallery Item 3 -->
       <div class="gallery-item" onclick="openLightbox(2)">
-        <img src="/images/gallery/image3.jpg" alt="Team work" loading="lazy">
+        <img src="/images/gallery/anh3.png" alt="Team work" loading="lazy">
         <div class="gallery-overlay">
           <div class="gallery-text">
-            <h4>Làm việc nhóm</h4>
-            <p>Hợp tác cùng đồng đội</p>
+            <h4>Modun</h4>
+            <p>Lỗi, ngoại lệ và khắc phục sự cố</p>
           </div>
         </div>
       </div>
 
       <!-- Gallery Item 4 -->
       <div class="gallery-item" onclick="openLightbox(3)">
-        <img src="/images/gallery/image4.jpg" alt="Sự kiện" loading="lazy">
+        <img src="/images/gallery/anh4.png" alt="Sự kiện" loading="lazy">
         <div class="gallery-overlay">
           <div class="gallery-text">
-            <h4>Sự kiện công nghệ</h4>
-            <p>Tham gia các tech event</p>
+            <h4>Modun</h4>
+            <p>Chức năng</p>
           </div>
         </div>
       </div>
 
       <!-- Gallery Item 5 -->
       <div class="gallery-item" onclick="openLightbox(4)">
-        <img src="/images/gallery/image5.jpg" alt="Giải thưởng" loading="lazy">
+        <img src="/images/gallery/anh5.png" alt="Giải thưởng" loading="lazy">
         <div class="gallery-overlay">
           <div class="gallery-text">
-            <h4>Thành tựu</h4>
-            <p>Những giải thưởng và chứng nhận</p>
+            <h4>Modun</h4>
+            <p>Thực thi có điều kiện và vòng lặp</p>
           </div>
         </div>
       </div>
 
       <!-- Gallery Item 6 -->
       <div class="gallery-item" onclick="openLightbox(5)">
-        <img src="/images/gallery/image6.jpg" alt="Coding" loading="lazy">
+        <img src="/images/gallery/anh6.png" alt="Coding" loading="lazy">
         <div class="gallery-overlay">
           <div class="gallery-text">
-            <h4>Lập trình</h4>
-            <p>Đam mê với code mỗi ngày</p>
+            <h4>Modun</h4>
+            <p>Tương tác giữa người vận hành và người dùng</p>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- Music Player Section -->
+<section class="music-player-section">
+  <div class="container">
+    <div class="music-player">
+      <div class="track-info">
+        <h4 id="trackTitle">Đang tải...</h4>
+        <p id="trackArtist">--</p>
+      </div>
+
+      <div class="player-controls">
+        <button class="control-btn" id="playBtn">
+          <svg class="play-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+          <svg class="pause-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+            <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+          </svg>
+        </button>
+
+        <div class="progress-container">
+          <span class="time" id="currentTime">00:00</span>
+          <div class="progress-bar" id="progressBar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <span class="time" id="totalTime">00:00</span>
+        </div>
+
+        <button class="control-btn volume-btn" id="volumeBtn">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+          </svg>
+        </button>
+      </div>
+
+    </div>
+
+    <audio id="audioPlayer" preload="metadata">
+      <source src="/music/sky-full-of-stars.mp3" type="audio/mpeg">
+    </audio>
   </div>
 </section>
 
@@ -422,12 +463,12 @@
   // Gallery Lightbox
   let currentSlide = 0;
   const galleryImages = [
-    { src: '/images/gallery/image1.jpg', caption: 'Dự án Website - Phát triển ứng dụng web hiện đại' },
-    { src: '/images/gallery/image2.jpg', caption: 'Học tập - Các buổi học và workshop' },
-    { src: '/images/gallery/image3.jpg', caption: 'Làm việc nhóm - Hợp tác cùng đồng đội' },
-    { src: '/images/gallery/image4.jpg', caption: 'Sự kiện công nghệ - Tham gia các tech event' },
-    { src: '/images/gallery/image5.jpg', caption: 'Thành tựu - Những giải thưởng và chứng nhận' },
-    { src: '/images/gallery/image6.jpg', caption: 'Lập trình - Đam mê với code mỗi ngày' }
+    { src: '/images/gallery/anh1.png', caption: 'Dự án Website - Phát triển ứng dụng web hiện đại' },
+    { src: '/images/gallery/anh2.png', caption: 'Học tập - Các buổi học và workshop' },
+    { src: '/images/gallery/anh3.png', caption: 'Làm việc nhóm - Hợp tác cùng đồng đội' },
+    { src: '/images/gallery/anh4.png', caption: 'Sự kiện công nghệ - Tham gia các tech event' },
+    { src: '/images/gallery/anh5.png', caption: 'Thành tựu - Những giải thưởng và chứng nhận' },
+    { src: '/images/gallery/anh6.png', caption: 'Lập trình - Đam mê với code mỗi ngày' }
   ];
 
   function openLightbox(index) {
@@ -477,6 +518,79 @@
       if (e.key === 'Escape') closeLightbox();
     }
   });
+
+  // Music Player
+  const audio = document.getElementById('audioPlayer');
+  const playBtn = document.getElementById('playBtn');
+  const progressBar = document.getElementById('progressBar');
+  const progressFill = document.getElementById('progressFill');
+  const currentTimeEl = document.getElementById('currentTime');
+  const totalTimeEl = document.getElementById('totalTime');
+  const trackTitle = document.getElementById('trackTitle');
+  const trackArtist = document.getElementById('trackArtist');
+
+  let isPlaying = false;
+
+  // Load metadata from audio file
+  audio.addEventListener('loadedmetadata', () => {
+    // Update duration
+    totalTimeEl.textContent = formatTime(audio.duration);
+    
+    // Try to get title from audio metadata (if available)
+    // Default to filename if metadata not available
+    const audioSrc = audio.currentSrc || audio.src;
+    const fileName = audioSrc.split('/').pop().replace('.mp3', '').replace(/-/g, ' ');
+    
+    // Update track info (can be enhanced with actual metadata reading if needed)
+    trackTitle.textContent = capitalizeWords(fileName);
+    trackArtist.textContent = 'Unknown Artist';
+  });
+
+  // Helper function to capitalize words
+  function capitalizeWords(str) {
+    return str.split(' ').map(word => 
+      word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+    ).join(' ');
+  }
+
+  // Play/Pause
+  playBtn.addEventListener('click', () => {
+    if (isPlaying) {
+      audio.pause();
+      document.querySelector('.play-icon').style.display = 'block';
+      document.querySelector('.pause-icon').style.display = 'none';
+    } else {
+      audio.play();
+      document.querySelector('.play-icon').style.display = 'none';
+      document.querySelector('.pause-icon').style.display = 'block';
+    }
+    isPlaying = !isPlaying;
+  });
+
+  // Update progress bar
+  audio.addEventListener('timeupdate', () => {
+    if (audio.duration) {
+      const progress = (audio.currentTime / audio.duration) * 100;
+      progressFill.style.width = progress + '%';
+      currentTimeEl.textContent = formatTime(audio.currentTime);
+    }
+  });
+
+
+
+  // Seek
+  progressBar.addEventListener('click', (e) => {
+    const rect = progressBar.getBoundingClientRect();
+    const percent = (e.clientX - rect.left) / rect.width;
+    audio.currentTime = percent * audio.duration;
+  });
+
+  // Format time
+  function formatTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  }
 
 </script>
 

@@ -103,7 +103,15 @@
       const commentsRef = database.ref('comments/' + POST_ID);
       commentsRef.on('value', (snapshot) => {
         const data = snapshot.val();
-        commentsCache = data ? Object.values(data) : [];
+        if (data) {
+          commentsCache = Object.values(data).map(comment => ({
+            ...comment,
+            likedBy: comment.likedBy || [],
+            likes: comment.likes || 0
+          }));
+        } else {
+          commentsCache = [];
+        }
         renderComments();
       });
     }
@@ -234,7 +242,9 @@
       const displayComments = showAll ? comments : comments.slice(0, 3);
       
       const html = displayComments.map(comment => {
-        const hasLiked = comment.likedBy.includes(userId);
+        const likedBy = comment.likedBy || [];
+        const likes = comment.likes || 0;
+        const hasLiked = likedBy.includes(userId);
         return `
           <div class="comment-item">
             <div class="comment-avatar">${comment.name.charAt(0).toUpperCase()}</div>
@@ -245,7 +255,7 @@
               </div>
               <p class="comment-text">${comment.text}</p>
               <button onclick="likeComment(${comment.id})" class="like-btn ${hasLiked ? 'liked' : ''}">
-                ❤️ ${comment.likes}
+                ❤️ ${likes}
               </button>
             </div>
           </div>

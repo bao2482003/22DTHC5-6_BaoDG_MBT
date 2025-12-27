@@ -1,0 +1,59 @@
+<!doctype html><html lang=vi><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Java Stream API: Xử lý Collection hiện đại | Profile</title><link rel=stylesheet href=../../css/style.css><link rel=icon href=../../favicon.ico type=image/x-icon></head><body><header class=header><div class=container><div class=logo><a href=../../><span class=logo-icon>🏠</span>
+<span class=logo-text>Profile</span></a></div><nav class=nav><div class=search-box><span>Tìm kiếm...</span></div><ul class=menu><li><a href=../../#about>Về tôi</a></li><li><a href=../../#experience>Kinh nghiệm</a></li><li><a href=../../#education>Học vấn</a></li><li><a href=../../#certificates>Chứng chỉ</a></li><li><a href=../../#contact>Liên hệ</a></li><li><a href=../../posts>Blog</a></li><li><a href=../../#gallery>Thư viện ảnh</a></li></ul><button class=theme-toggle aria-label="Toggle dark mode">🌙</button></nav></div></header><main><h1>Java Stream API: Xử lý Collection hiện đại</h1><time datetime=2024-12-08T00:00:00+00:00>December 8, 2024</time><h2 id=stream-api-là-gì>Stream API là gì?</h2><p>Stream API (từ Java 8) cho phép xử lý collection theo phong cách functional programming:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>&gt;</span> numbers <span style=color:#f92672>=</span> Arrays.<span style=color:#a6e22e>asList</span>(1, 2, 3, 4, 5);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Cách cũ</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> sum <span style=color:#f92672>=</span> 0;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> num : numbers) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (num <span style=color:#f92672>%</span> 2 <span style=color:#f92672>==</span> 0) {
+</span></span><span style=display:flex><span>    sum <span style=color:#f92672>+=</span> num <span style=color:#f92672>*</span> 2;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Với Stream API</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> sum <span style=color:#f92672>=</span> numbers.<span style=color:#a6e22e>stream</span>()
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>filter</span>(n <span style=color:#f92672>-&gt;</span> n <span style=color:#f92672>%</span> 2 <span style=color:#f92672>==</span> 0)
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>map</span>(n <span style=color:#f92672>-&gt;</span> n <span style=color:#f92672>*</span> 2)
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>reduce</span>(0, Integer::sum);
+</span></span></code></pre></div><h2 id=các-thao-tác-phổ-biến>Các thao tác phổ biến</h2><h3 id=1-filter---lọc-phần-tử>1. Filter - Lọc phần tử</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>String<span style=color:#f92672>&gt;</span> names <span style=color:#f92672>=</span> Arrays.<span style=color:#a6e22e>asList</span>(<span style=color:#e6db74>&#34;An&#34;</span>, <span style=color:#e6db74>&#34;Bình&#34;</span>, <span style=color:#e6db74>&#34;Chi&#34;</span>, <span style=color:#e6db74>&#34;Dung&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>String<span style=color:#f92672>&gt;</span> filtered <span style=color:#f92672>=</span> names.<span style=color:#a6e22e>stream</span>()
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>filter</span>(name <span style=color:#f92672>-&gt;</span> name.<span style=color:#a6e22e>length</span>() <span style=color:#f92672>&gt;</span> 2)
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>collect</span>(Collectors.<span style=color:#a6e22e>toList</span>());
+</span></span><span style=display:flex><span><span style=color:#75715e>// Kết quả: [&#34;Bình&#34;, &#34;Dung&#34;]</span>
+</span></span></code></pre></div><h3 id=2-map---biến-đổi-phần-tử>2. Map - Biến đổi phần tử</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>&gt;</span> numbers <span style=color:#f92672>=</span> Arrays.<span style=color:#a6e22e>asList</span>(1, 2, 3, 4);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>&gt;</span> squared <span style=color:#f92672>=</span> numbers.<span style=color:#a6e22e>stream</span>()
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>map</span>(n <span style=color:#f92672>-&gt;</span> n <span style=color:#f92672>*</span> n)
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>collect</span>(Collectors.<span style=color:#a6e22e>toList</span>());
+</span></span><span style=display:flex><span><span style=color:#75715e>// Kết quả: [1, 4, 9, 16]</span>
+</span></span></code></pre></div><h3 id=3-reduce---tổng-hợp-kết-quả>3. Reduce - Tổng hợp kết quả</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>&gt;</span> numbers <span style=color:#f92672>=</span> Arrays.<span style=color:#a6e22e>asList</span>(1, 2, 3, 4, 5);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> sum <span style=color:#f92672>=</span> numbers.<span style=color:#a6e22e>stream</span>()
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>reduce</span>(0, (a, b) <span style=color:#f92672>-&gt;</span> a <span style=color:#f92672>+</span> b);
+</span></span><span style=display:flex><span><span style=color:#75715e>// Kết quả: 15</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Optional<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>&gt;</span> max <span style=color:#f92672>=</span> numbers.<span style=color:#a6e22e>stream</span>()
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>reduce</span>(Integer::max);
+</span></span></code></pre></div><h3 id=4-collect---thu-thập-kết-quả>4. Collect - Thu thập kết quả</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>String<span style=color:#f92672>&gt;</span> names <span style=color:#f92672>=</span> Arrays.<span style=color:#a6e22e>asList</span>(<span style=color:#e6db74>&#34;An&#34;</span>, <span style=color:#e6db74>&#34;Bình&#34;</span>, <span style=color:#e6db74>&#34;Chi&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Thành List</span>
+</span></span><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>String<span style=color:#f92672>&gt;</span> list <span style=color:#f92672>=</span> names.<span style=color:#a6e22e>stream</span>()
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>collect</span>(Collectors.<span style=color:#a6e22e>toList</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Thành Set</span>
+</span></span><span style=display:flex><span>Set<span style=color:#f92672>&lt;</span>String<span style=color:#f92672>&gt;</span> set <span style=color:#f92672>=</span> names.<span style=color:#a6e22e>stream</span>()
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>collect</span>(Collectors.<span style=color:#a6e22e>toSet</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Thành Map</span>
+</span></span><span style=display:flex><span>Map<span style=color:#f92672>&lt;</span>String, Integer<span style=color:#f92672>&gt;</span> map <span style=color:#f92672>=</span> names.<span style=color:#a6e22e>stream</span>()
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>collect</span>(Collectors.<span style=color:#a6e22e>toMap</span>(
+</span></span><span style=display:flex><span>    name <span style=color:#f92672>-&gt;</span> name,
+</span></span><span style=display:flex><span>    String::length
+</span></span><span style=display:flex><span>  ));
+</span></span></code></pre></div><h2 id=parallel-stream>Parallel Stream</h2><p>Xử lý song song để tăng hiệu suất:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span>List<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>&gt;</span> numbers <span style=color:#f92672>=</span> Arrays.<span style=color:#a6e22e>asList</span>(1, 2, 3, 4, 5);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> sum <span style=color:#f92672>=</span> numbers.<span style=color:#a6e22e>parallelStream</span>()
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>filter</span>(n <span style=color:#f92672>-&gt;</span> n <span style=color:#f92672>%</span> 2 <span style=color:#f92672>==</span> 0)
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>mapToInt</span>(Integer::intValue)
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>sum</span>();
+</span></span></code></pre></div><h2 id=lưu-ý-quan-trọng>Lưu ý quan trọng</h2><ol><li><strong>Stream chỉ dùng 1 lần</strong>: Không thể reuse stream đã xử lý</li><li><strong>Lazy evaluation</strong>: Chỉ thực thi khi gặp terminal operation</li><li><strong>Parallel không phải lúc nào cũng nhanh hơn</strong>: Chỉ hiệu quả với data lớn</li></ol><h2 id=kết-luận>Kết luận</h2><p>Stream API giúp code ngắn gọn, dễ đọc và dễ maintain hơn nhiều so với vòng lặp truyền thống!</p><div><div>Tags:</div><ul><li><a href=../../tags/java/>Java</a></li><li><a href=../../tags/stream-api/>Stream API</a></li></ul></div></main><footer class=footer><div class=container><p>&copy; 2025 Dương Gia Bảo. All rights reserved.</p></div></footer></body></html>

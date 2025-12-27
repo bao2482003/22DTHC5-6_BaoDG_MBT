@@ -1,0 +1,59 @@
+<!doctype html><html lang=vi><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>JavaScript ES6+: Arrow Functions và This Binding | Profile</title><link rel=stylesheet href=../../css/style.css><link rel=icon href=../../favicon.ico type=image/x-icon></head><body><header class=header><div class=container><div class=logo><a href=../../><span class=logo-icon>🏠</span>
+<span class=logo-text>Profile</span></a></div><nav class=nav><div class=search-box><span>Tìm kiếm...</span></div><ul class=menu><li><a href=../../#about>Về tôi</a></li><li><a href=../../#experience>Kinh nghiệm</a></li><li><a href=../../#education>Học vấn</a></li><li><a href=../../#certificates>Chứng chỉ</a></li><li><a href=../../#contact>Liên hệ</a></li><li><a href=../../posts>Blog</a></li><li><a href=../../#gallery>Thư viện ảnh</a></li></ul><button class=theme-toggle aria-label="Toggle dark mode">🌙</button></nav></div></header><main><h1>JavaScript ES6+: Arrow Functions và This Binding</h1><time datetime=2024-12-10T00:00:00+00:00>December 10, 2024</time><h2 id=arrow-functions-là-gì>Arrow Functions là gì?</h2><p>Arrow Functions (hàm mũi tên) là cú pháp ngắn gọn để định nghĩa hàm trong ES6:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>// Cú pháp truyền thống
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>sum</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>function</span>(<span style=color:#a6e22e>a</span>, <span style=color:#a6e22e>b</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>a</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>b</span>;
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Arrow function
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>sum</span> <span style=color:#f92672>=</span> (<span style=color:#a6e22e>a</span>, <span style=color:#a6e22e>b</span>) =&gt; <span style=color:#a6e22e>a</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>b</span>;
+</span></span></code></pre></div><h2 id=đặc-điểm-nổi-bật>Đặc điểm nổi bật</h2><h3 id=1-cú-pháp-ngắn-gọn>1. Cú pháp ngắn gọn</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>// Một tham số, không cần ngoặc đơn
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>square</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>x</span> =&gt; <span style=color:#a6e22e>x</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>x</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Nhiều tham số
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>multiply</span> <span style=color:#f92672>=</span> (<span style=color:#a6e22e>a</span>, <span style=color:#a6e22e>b</span>) =&gt; <span style=color:#a6e22e>a</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>b</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Nhiều dòng code, cần return
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>calculate</span> <span style=color:#f92672>=</span> (<span style=color:#a6e22e>a</span>, <span style=color:#a6e22e>b</span>) =&gt; {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>sum</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>a</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>b</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>sum</span> <span style=color:#f92672>*</span> <span style=color:#ae81ff>2</span>;
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><h3 id=2-this-binding>2. This Binding</h3><p>Arrow function <strong>không</strong> có <code>this</code> riêng, nó kế thừa <code>this</code> từ context bên ngoài:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Counter</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>constructor</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>count</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// Arrow function - this trỏ đến Counter
+</span></span></span><span style=display:flex><span>  <span style=color:#a6e22e>increment</span> <span style=color:#f92672>=</span> () =&gt; {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>count</span><span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// Regular function - this có thể bị thay đổi
+</span></span></span><span style=display:flex><span>  <span style=color:#a6e22e>incrementOld</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>count</span><span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>counter</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Counter</span>();
+</span></span><span style=display:flex><span><span style=color:#a6e22e>setTimeout</span>(<span style=color:#a6e22e>counter</span>.<span style=color:#a6e22e>increment</span>, <span style=color:#ae81ff>1000</span>); <span style=color:#75715e>// OK
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>setTimeout</span>(<span style=color:#a6e22e>counter</span>.<span style=color:#a6e22e>incrementOld</span>, <span style=color:#ae81ff>1000</span>); <span style=color:#75715e>// Lỗi!
+</span></span></span></code></pre></div><h2 id=khi-nào-không-nên-dùng-arrow-function>Khi nào KHÔNG nên dùng Arrow Function?</h2><h3 id=1-methods-trong-object>1. Methods trong object</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>// ❌ Không nên
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>obj</span> <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>value</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>10</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>getValue</span><span style=color:#f92672>:</span> () =&gt; <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>value</span> <span style=color:#75715e>// undefined
+</span></span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// ✅ Nên dùng
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>obj</span> <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>value</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>10</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>getValue</span>() { <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>value</span>; }
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><h3 id=2-event-handlers-cần-this-của-element>2. Event handlers cần <code>this</code> của element</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>// ❌ Không nên
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>button</span>.<span style=color:#a6e22e>addEventListener</span>(<span style=color:#e6db74>&#39;click&#39;</span>, () =&gt; {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>classList</span>.<span style=color:#a6e22e>toggle</span>(<span style=color:#e6db74>&#39;active&#39;</span>); <span style=color:#75715e>// this không phải button
+</span></span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// ✅ Nên dùng
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>button</span>.<span style=color:#a6e22e>addEventListener</span>(<span style=color:#e6db74>&#39;click&#39;</span>, <span style=color:#66d9ef>function</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>classList</span>.<span style=color:#a6e22e>toggle</span>(<span style=color:#e6db74>&#39;active&#39;</span>);
+</span></span><span style=display:flex><span>});
+</span></span></code></pre></div><h2 id=kết-luận>Kết luận</h2><p>Arrow functions giúp code ngắn gọn và giải quyết vấn đề <code>this</code> binding trong nhiều trường hợp. Tuy nhiên, cần hiểu rõ cách hoạt động để sử dụng đúng lúc!</p><div><div>Tags:</div><ul><li><a href=../../tags/javascript/>JavaScript</a></li><li><a href=../../tags/es6/>ES6</a></li></ul></div></main><footer class=footer><div class=container><p>&copy; 2025 Dương Gia Bảo. All rights reserved.</p></div></footer></body></html>

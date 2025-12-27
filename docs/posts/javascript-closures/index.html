@@ -1,0 +1,187 @@
+<!doctype html><html lang=vi><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>JavaScript Closures: Hiểu sâu về Scope và Memory | Profile</title><link rel=stylesheet href=../../css/style.css><link rel=icon href=../../favicon.ico type=image/x-icon></head><body><header class=header><div class=container><div class=logo><a href=../../><span class=logo-icon>🏠</span>
+<span class=logo-text>Profile</span></a></div><nav class=nav><div class=search-box><span>Tìm kiếm...</span></div><ul class=menu><li><a href=../../#about>Về tôi</a></li><li><a href=../../#experience>Kinh nghiệm</a></li><li><a href=../../#education>Học vấn</a></li><li><a href=../../#certificates>Chứng chỉ</a></li><li><a href=../../#contact>Liên hệ</a></li><li><a href=../../posts>Blog</a></li><li><a href=../../#gallery>Thư viện ảnh</a></li></ul><button class=theme-toggle aria-label="Toggle dark mode">🌙</button></nav></div></header><main><h1>JavaScript Closures: Hiểu sâu về Scope và Memory</h1><time datetime=2024-11-22T00:00:00+00:00>November 22, 2024</time><h2 id=closure-là-gì>Closure là gì?</h2><p>Closure là một function có thể truy cập biến từ scope bên ngoài của nó, ngay cả sau khi function bên ngoài đã return.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>outer</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>message</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;Hello&#39;</span>;
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>inner</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>message</span>); <span style=color:#75715e>// Truy cập được biến message
+</span></span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>inner</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>myFunc</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>outer</span>();
+</span></span><span style=display:flex><span><span style=color:#a6e22e>myFunc</span>(); <span style=color:#75715e>// &#39;Hello&#39; - closure giữ reference đến message
+</span></span></span></code></pre></div><h2 id=tại-sao-closures-quan-trọng>Tại sao Closures quan trọng?</h2><h3 id=1-data-privacy--encapsulation>1. Data Privacy / Encapsulation</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>createCounter</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>count</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#75715e>// Private variable
+</span></span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>increment</span>() {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>count</span><span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>count</span>;
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>decrement</span>() {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>count</span><span style=color:#f92672>--</span>;
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>count</span>;
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>getCount</span>() {
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>count</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  };
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>counter</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createCounter</span>();
+</span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>counter</span>.<span style=color:#a6e22e>increment</span>()); <span style=color:#75715e>// 1
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>counter</span>.<span style=color:#a6e22e>increment</span>()); <span style=color:#75715e>// 2
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>counter</span>.<span style=color:#a6e22e>getCount</span>());  <span style=color:#75715e>// 2
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// count không thể truy cập trực tiếp từ bên ngoài
+</span></span></span></code></pre></div><h3 id=2-function-factories>2. Function Factories</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>createMultiplier</span>(<span style=color:#a6e22e>multiplier</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>function</span>(<span style=color:#a6e22e>number</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>number</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>multiplier</span>;
+</span></span><span style=display:flex><span>  };
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>double</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createMultiplier</span>(<span style=color:#ae81ff>2</span>);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>triple</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createMultiplier</span>(<span style=color:#ae81ff>3</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#66d9ef>double</span>(<span style=color:#ae81ff>5</span>)); <span style=color:#75715e>// 10
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>triple</span>(<span style=color:#ae81ff>5</span>)); <span style=color:#75715e>// 15
+</span></span></span></code></pre></div><h3 id=3-event-handlers>3. Event Handlers</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setupButton</span>(<span style=color:#a6e22e>buttonId</span>, <span style=color:#a6e22e>message</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>button</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#a6e22e>buttonId</span>);
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>button</span>.<span style=color:#a6e22e>addEventListener</span>(<span style=color:#e6db74>&#39;click&#39;</span>, <span style=color:#66d9ef>function</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Closure giữ reference đến message
+</span></span></span><span style=display:flex><span>    <span style=color:#a6e22e>alert</span>(<span style=color:#a6e22e>message</span>);
+</span></span><span style=display:flex><span>  });
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>setupButton</span>(<span style=color:#e6db74>&#39;btn1&#39;</span>, <span style=color:#e6db74>&#39;Button 1 clicked!&#39;</span>);
+</span></span><span style=display:flex><span><span style=color:#a6e22e>setupButton</span>(<span style=color:#e6db74>&#39;btn2&#39;</span>, <span style=color:#e6db74>&#39;Button 2 clicked!&#39;</span>);
+</span></span></code></pre></div><h2 id=closure-trong-loops---vấn-đề-phổ-biến>Closure trong Loops - Vấn đề phổ biến</h2><h3 id=-vấn-đề-với-var>❌ Vấn đề với var</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>var</span> <span style=color:#a6e22e>i</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>i</span> <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>3</span>; <span style=color:#a6e22e>i</span><span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>setTimeout</span>(<span style=color:#66d9ef>function</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>i</span>); <span style=color:#75715e>// 3, 3, 3 (không phải 0, 1, 2)
+</span></span></span><span style=display:flex><span>  }, <span style=color:#ae81ff>1000</span>);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=-giải-pháp-1-iife>✅ Giải pháp 1: IIFE</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>var</span> <span style=color:#a6e22e>i</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>i</span> <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>3</span>; <span style=color:#a6e22e>i</span><span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>  (<span style=color:#66d9ef>function</span>(<span style=color:#a6e22e>j</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>setTimeout</span>(<span style=color:#66d9ef>function</span>() {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>j</span>); <span style=color:#75715e>// 0, 1, 2
+</span></span></span><span style=display:flex><span>    }, <span style=color:#ae81ff>1000</span>);
+</span></span><span style=display:flex><span>  })(<span style=color:#a6e22e>i</span>);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=-giải-pháp-2-let-es6>✅ Giải pháp 2: let (ES6)</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>i</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>i</span> <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>3</span>; <span style=color:#a6e22e>i</span><span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>setTimeout</span>(<span style=color:#66d9ef>function</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>i</span>); <span style=color:#75715e>// 0, 1, 2
+</span></span></span><span style=display:flex><span>  }, <span style=color:#ae81ff>1000</span>);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=use-cases-thực-tế>Use Cases thực tế</h2><h3 id=1-module-pattern>1. Module Pattern</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>Calculator</span> <span style=color:#f92672>=</span> (<span style=color:#66d9ef>function</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// Private variables
+</span></span></span><span style=display:flex><span>  <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>result</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// Private function
+</span></span></span><span style=display:flex><span>  <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>operation</span>, <span style=color:#a6e22e>value</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>`</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>operation</span><span style=color:#e6db74>}</span><span style=color:#e6db74>: </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>value</span><span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// Public API
+</span></span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>add</span>(<span style=color:#a6e22e>num</span>) {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>result</span> <span style=color:#f92672>+=</span> <span style=color:#a6e22e>num</span>;
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;Add&#39;</span>, <span style=color:#a6e22e>num</span>);
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>this</span>;
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>subtract</span>(<span style=color:#a6e22e>num</span>) {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>result</span> <span style=color:#f92672>-=</span> <span style=color:#a6e22e>num</span>;
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;Subtract&#39;</span>, <span style=color:#a6e22e>num</span>);
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>this</span>;
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>getResult</span>() {
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>result</span>;
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>reset</span>() {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>result</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>this</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  };
+</span></span><span style=display:flex><span>})();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Calculator</span>.<span style=color:#a6e22e>add</span>(<span style=color:#ae81ff>10</span>).<span style=color:#a6e22e>subtract</span>(<span style=color:#ae81ff>3</span>).<span style=color:#a6e22e>add</span>(<span style=color:#ae81ff>5</span>);
+</span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>Calculator</span>.<span style=color:#a6e22e>getResult</span>()); <span style=color:#75715e>// 12
+</span></span></span></code></pre></div><h3 id=2-memoization-caching>2. Memoization (Caching)</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>memoize</span>(<span style=color:#a6e22e>fn</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>cache</span> <span style=color:#f92672>=</span> {};
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>function</span>(...<span style=color:#a6e22e>args</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>key</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>JSON</span>.<span style=color:#a6e22e>stringify</span>(<span style=color:#a6e22e>args</span>);
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>cache</span>[<span style=color:#a6e22e>key</span>]) {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;From cache&#39;</span>);
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>cache</span>[<span style=color:#a6e22e>key</span>];
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;Calculating...&#39;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>result</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>fn</span>(...<span style=color:#a6e22e>args</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>cache</span>[<span style=color:#a6e22e>key</span>] <span style=color:#f92672>=</span> <span style=color:#a6e22e>result</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>result</span>;
+</span></span><span style=display:flex><span>  };
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>fibonacci</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>memoize</span>(<span style=color:#66d9ef>function</span>(<span style=color:#a6e22e>n</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>n</span> <span style=color:#f92672>&lt;=</span> <span style=color:#ae81ff>1</span>) <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>n</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>fibonacci</span>(<span style=color:#a6e22e>n</span> <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>) <span style=color:#f92672>+</span> <span style=color:#a6e22e>fibonacci</span>(<span style=color:#a6e22e>n</span> <span style=color:#f92672>-</span> <span style=color:#ae81ff>2</span>);
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>fibonacci</span>(<span style=color:#ae81ff>10</span>)); <span style=color:#75715e>// Calculating...
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>fibonacci</span>(<span style=color:#ae81ff>10</span>)); <span style=color:#75715e>// From cache
+</span></span></span></code></pre></div><h3 id=3-debounce>3. Debounce</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>debounce</span>(<span style=color:#a6e22e>func</span>, <span style=color:#a6e22e>delay</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>timeoutId</span>;
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>function</span>(...<span style=color:#a6e22e>args</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>clearTimeout</span>(<span style=color:#a6e22e>timeoutId</span>);
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>timeoutId</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>setTimeout</span>(() =&gt; {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>func</span>.<span style=color:#a6e22e>apply</span>(<span style=color:#66d9ef>this</span>, <span style=color:#a6e22e>args</span>);
+</span></span><span style=display:flex><span>    }, <span style=color:#a6e22e>delay</span>);
+</span></span><span style=display:flex><span>  };
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Sử dụng
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>searchInput</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#39;search&#39;</span>);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>handleSearch</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>debounce</span>(<span style=color:#66d9ef>function</span>(<span style=color:#a6e22e>event</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;Searching for:&#39;</span>, <span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>target</span>.<span style=color:#a6e22e>value</span>);
+</span></span><span style=display:flex><span>}, <span style=color:#ae81ff>500</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>searchInput</span>.<span style=color:#a6e22e>addEventListener</span>(<span style=color:#e6db74>&#39;input&#39;</span>, <span style=color:#a6e22e>handleSearch</span>);
+</span></span></code></pre></div><h3 id=4-partial-application>4. Partial Application</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>partial</span>(<span style=color:#a6e22e>fn</span>, ...<span style=color:#a6e22e>fixedArgs</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>function</span>(...<span style=color:#a6e22e>remainingArgs</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>fn</span>(...<span style=color:#a6e22e>fixedArgs</span>, ...<span style=color:#a6e22e>remainingArgs</span>);
+</span></span><span style=display:flex><span>  };
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>greet</span>(<span style=color:#a6e22e>greeting</span>, <span style=color:#a6e22e>name</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#e6db74>`</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>greeting</span><span style=color:#e6db74>}</span><span style=color:#e6db74>, </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>name</span><span style=color:#e6db74>}</span><span style=color:#e6db74>!`</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>sayHello</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>partial</span>(<span style=color:#a6e22e>greet</span>, <span style=color:#e6db74>&#39;Hello&#39;</span>);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>sayHi</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>partial</span>(<span style=color:#a6e22e>greet</span>, <span style=color:#e6db74>&#39;Hi&#39;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>sayHello</span>(<span style=color:#e6db74>&#39;Bảo&#39;</span>)); <span style=color:#75715e>// &#39;Hello, Bảo!&#39;
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>sayHi</span>(<span style=color:#e6db74>&#39;An&#39;</span>));     <span style=color:#75715e>// &#39;Hi, An!&#39;
+</span></span></span></code></pre></div><h2 id=memory-considerations>Memory Considerations</h2><p>Closures giữ reference đến outer scope, có thể gây memory leak nếu không cẩn thận:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>// ❌ Memory leak
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setupButton</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>data</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Array(<span style=color:#ae81ff>1000000</span>).<span style=color:#a6e22e>fill</span>(<span style=color:#e6db74>&#39;data&#39;</span>);
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#39;btn&#39;</span>).<span style=color:#a6e22e>addEventListener</span>(<span style=color:#e6db74>&#39;click&#39;</span>, <span style=color:#66d9ef>function</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;Clicked&#39;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Closure giữ reference đến data dù không dùng
+</span></span></span><span style=display:flex><span>  });
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// ✅ Tốt hơn
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setupButton</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>data</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Array(<span style=color:#ae81ff>1000000</span>).<span style=color:#a6e22e>fill</span>(<span style=color:#e6db74>&#39;data&#39;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>dataLength</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>length</span>; <span style=color:#75715e>// Chỉ giữ những gì cần
+</span></span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#39;btn&#39;</span>).<span style=color:#a6e22e>addEventListener</span>(<span style=color:#e6db74>&#39;click&#39;</span>, <span style=color:#66d9ef>function</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;Clicked, data length:&#39;</span>, <span style=color:#a6e22e>dataLength</span>);
+</span></span><span style=display:flex><span>  });
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=best-practices>Best Practices</h2><ol><li><strong>Chỉ closure những gì cần thiết</strong> - tránh giữ reference không cần</li><li><strong>Dùng let/const trong loops</strong> thay vì var</li><li><strong>Clean up event listeners</strong> để tránh memory leaks</li><li><strong>Document closure dependencies</strong> rõ ràng</li></ol><h2 id=kết-luận>Kết luận</h2><p>Closures là một trong những khái niệm quan trọng nhất trong JavaScript. Hiểu rõ closures giúp bạn viết code mạnh mẽ, maintainable và tận dụng được sức mạnh của JavaScript!</p><div><div>Tags:</div><ul><li><a href=../../tags/javascript/>JavaScript</a></li><li><a href=../../tags/advanced/>Advanced</a></li></ul></div></main><footer class=footer><div class=container><p>&copy; 2025 Dương Gia Bảo. All rights reserved.</p></div></footer></body></html>

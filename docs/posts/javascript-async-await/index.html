@@ -1,0 +1,98 @@
+<!doctype html><html lang=vi><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>JavaScript Async/Await: Promise nhưng dễ đọc hơn | Profile</title><link rel=stylesheet href=../../css/style.css><link rel=icon href=../../favicon.ico type=image/x-icon></head><body><header class=header><div class=container><div class=logo><a href=../../><span class=logo-icon>🏠</span>
+<span class=logo-text>Profile</span></a></div><nav class=nav><div class=search-box><span>Tìm kiếm...</span></div><ul class=menu><li><a href=../../#about>Về tôi</a></li><li><a href=../../#experience>Kinh nghiệm</a></li><li><a href=../../#education>Học vấn</a></li><li><a href=../../#certificates>Chứng chỉ</a></li><li><a href=../../#contact>Liên hệ</a></li><li><a href=../../posts>Blog</a></li><li><a href=../../#gallery>Thư viện ảnh</a></li></ul><button class=theme-toggle aria-label="Toggle dark mode">🌙</button></nav></div></header><main><h1>JavaScript Async/Await: Promise nhưng dễ đọc hơn</h1><time datetime=2024-12-05T00:00:00+00:00>December 5, 2024</time><h2 id=vấn-đề-với-callback-hell>Vấn đề với Callback Hell</h2><p>Trước đây, xử lý bất đồng bộ trong JavaScript rất khó đọc:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#a6e22e>getData</span>(<span style=color:#66d9ef>function</span>(<span style=color:#a6e22e>a</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>getMoreData</span>(<span style=color:#a6e22e>a</span>, <span style=color:#66d9ef>function</span>(<span style=color:#a6e22e>b</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>getMoreData</span>(<span style=color:#a6e22e>b</span>, <span style=color:#66d9ef>function</span>(<span style=color:#a6e22e>c</span>) {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>getMoreData</span>(<span style=color:#a6e22e>c</span>, <span style=color:#66d9ef>function</span>(<span style=color:#a6e22e>d</span>) {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>d</span>);
+</span></span><span style=display:flex><span>      });
+</span></span><span style=display:flex><span>    });
+</span></span><span style=display:flex><span>  });
+</span></span><span style=display:flex><span>});
+</span></span></code></pre></div><h2 id=promise-giải-quyết-phần-nào>Promise giải quyết phần nào</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#a6e22e>getData</span>()
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>then</span>(<span style=color:#a6e22e>a</span> =&gt; <span style=color:#a6e22e>getMoreData</span>(<span style=color:#a6e22e>a</span>))
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>then</span>(<span style=color:#a6e22e>b</span> =&gt; <span style=color:#a6e22e>getMoreData</span>(<span style=color:#a6e22e>b</span>))
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>then</span>(<span style=color:#a6e22e>c</span> =&gt; <span style=color:#a6e22e>getMoreData</span>(<span style=color:#a6e22e>c</span>))
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>then</span>(<span style=color:#a6e22e>d</span> =&gt; <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>d</span>))
+</span></span><span style=display:flex><span>  .<span style=color:#66d9ef>catch</span>(<span style=color:#a6e22e>error</span> =&gt; <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>error</span>(<span style=color:#a6e22e>error</span>));
+</span></span></code></pre></div><h2 id=asyncawait---giải-pháp-tối-ưu>Async/Await - Giải pháp tối ưu</h2><p>Async/await giúp code bất đồng bộ trông như đồng bộ:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>async</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>fetchData</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>a</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>getData</span>();
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>b</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>getMoreData</span>(<span style=color:#a6e22e>a</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>c</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>getMoreData</span>(<span style=color:#a6e22e>b</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>d</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>getMoreData</span>(<span style=color:#a6e22e>c</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>d</span>);
+</span></span><span style=display:flex><span>  } <span style=color:#66d9ef>catch</span> (<span style=color:#a6e22e>error</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>error</span>(<span style=color:#a6e22e>error</span>);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=cú-pháp-cơ-bản>Cú pháp cơ bản</h2><h3 id=khai-báo-async-function>Khai báo async function</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>// Function declaration
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>async</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>myFunction</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;Hello&#34;</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Arrow function
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>myFunction</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>async</span> () =&gt; {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;Hello&#34;</span>;
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Method
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MyClass</span> {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>async</span> <span style=color:#a6e22e>myMethod</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;Hello&#34;</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=sử-dụng-await>Sử dụng await</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>async</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>getUser</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>response</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>fetch</span>(<span style=color:#e6db74>&#39;/api/user&#39;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>data</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>response</span>.<span style=color:#a6e22e>json</span>();
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>data</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=xử-lý-nhiều-promise-song-song>Xử lý nhiều Promise song song</h2><h3 id=-chậm---chờ-tuần-tự>❌ Chậm - Chờ tuần tự</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>async</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>getData</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>user</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>fetchUser</span>();      <span style=color:#75715e>// 2s
+</span></span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>posts</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>fetchPosts</span>();    <span style=color:#75715e>// 2s
+</span></span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>comments</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>fetchComments</span>(); <span style=color:#75715e>// 2s
+</span></span></span><span style=display:flex><span>  <span style=color:#75715e>// Tổng: 6s
+</span></span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=-nhanh---chạy-song-song>✅ Nhanh - Chạy song song</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>async</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>getData</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> [<span style=color:#a6e22e>user</span>, <span style=color:#a6e22e>posts</span>, <span style=color:#a6e22e>comments</span>] <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> Promise.<span style=color:#a6e22e>all</span>([
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>fetchUser</span>(),
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>fetchPosts</span>(),
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>fetchComments</span>()
+</span></span><span style=display:flex><span>  ]);
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// Tổng: 2s (thời gian của request chậm nhất)
+</span></span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=error-handling>Error Handling</h2><h3 id=trycatch>Try/Catch</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>async</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>fetchData</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>data</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>fetch</span>(<span style=color:#e6db74>&#39;/api/data&#39;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>json</span>();
+</span></span><span style=display:flex><span>  } <span style=color:#66d9ef>catch</span> (<span style=color:#a6e22e>error</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>error</span>(<span style=color:#e6db74>&#39;Lỗi:&#39;</span>, <span style=color:#a6e22e>error</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=higher-order-function>Higher-order function</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>asyncHandler</span> <span style=color:#f92672>=</span> (<span style=color:#a6e22e>fn</span>) =&gt; <span style=color:#66d9ef>async</span> (<span style=color:#a6e22e>req</span>, <span style=color:#a6e22e>res</span>, <span style=color:#a6e22e>next</span>) =&gt; {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>fn</span>(<span style=color:#a6e22e>req</span>, <span style=color:#a6e22e>res</span>, <span style=color:#a6e22e>next</span>);
+</span></span><span style=display:flex><span>  } <span style=color:#66d9ef>catch</span> (<span style=color:#a6e22e>error</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>next</span>(<span style=color:#a6e22e>error</span>);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Sử dụng
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>app</span>.<span style=color:#a6e22e>get</span>(<span style=color:#e6db74>&#39;/users&#39;</span>, <span style=color:#a6e22e>asyncHandler</span>(<span style=color:#66d9ef>async</span> (<span style=color:#a6e22e>req</span>, <span style=color:#a6e22e>res</span>) =&gt; {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>users</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>User</span>.<span style=color:#a6e22e>find</span>();
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>res</span>.<span style=color:#a6e22e>json</span>(<span style=color:#a6e22e>users</span>);
+</span></span><span style=display:flex><span>}));
+</span></span></code></pre></div><h2 id=best-practices>Best Practices</h2><ol><li><strong>Luôn dùng try/catch</strong> hoặc <code>.catch()</code> để xử lý lỗi</li><li><strong>Chạy song song khi có thể</strong> với <code>Promise.all()</code></li><li><strong>Không quên await</strong> - sẽ trở thành Promise chưa resolve</li><li><strong>Cẩn thận với forEach</strong> - dùng <code>for...of</code> thay vì <code>forEach</code></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>// ❌ Không hoạt động như mong đợi
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>async</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>processArray</span>(<span style=color:#a6e22e>array</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>array</span>.<span style=color:#a6e22e>forEach</span>(<span style=color:#66d9ef>async</span> <span style=color:#a6e22e>item</span> =&gt; {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>processItem</span>(<span style=color:#a6e22e>item</span>);
+</span></span><span style=display:flex><span>  });
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// ✅ Đúng cách
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>async</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>processArray</span>(<span style=color:#a6e22e>array</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>const</span> <span style=color:#a6e22e>item</span> <span style=color:#66d9ef>of</span> <span style=color:#a6e22e>array</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>processItem</span>(<span style=color:#a6e22e>item</span>);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=kết-luận>Kết luận</h2><p>Async/await làm cho code bất đồng bộ dễ đọc, dễ debug và dễ maintain hơn rất nhiều so với callback và promise chains!</p><div><div>Tags:</div><ul><li><a href=../../tags/javascript/>JavaScript</a></li><li><a href=../../tags/async/>Async</a></li></ul></div></main><footer class=footer><div class=container><p>&copy; 2025 Dương Gia Bảo. All rights reserved.</p></div></footer></body></html>

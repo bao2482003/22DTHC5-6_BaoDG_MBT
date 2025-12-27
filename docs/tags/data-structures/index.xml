@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Data Structures on Profile</title><link>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/data-structures/</link><description>Recent content in Data Structures on Profile</description><generator>Hugo</generator><language>en-US</language><lastBuildDate>Sun, 15 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/data-structures/index.xml" rel="self" type="application/rss+xml"/><item><title>Java Collections Framework: ArrayList vs LinkedList</title><link>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/posts/java-arraylist-vs-linkedlist/</link><pubDate>Sun, 15 Dec 2024 00:00:00 +0000</pubDate><guid>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/posts/java-arraylist-vs-linkedlist/</guid><description>&lt;h2 id="giới-thiệu"&gt;Giới thiệu&lt;/h2&gt;
+&lt;p&gt;Java Collections Framework cung cấp nhiều cấu trúc dữ liệu khác nhau, trong đó ArrayList và LinkedList là hai lựa chọn phổ biến nhất cho danh sách động.&lt;/p&gt;
+&lt;h2 id="arraylist"&gt;ArrayList&lt;/h2&gt;
+&lt;p&gt;ArrayList sử dụng mảng động bên trong để lưu trữ phần tử:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-java" data-lang="java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;ArrayList&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;String&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; list &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; ArrayList&lt;span style="color:#f92672"&gt;&amp;lt;&amp;gt;&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;list.&lt;span style="color:#a6e22e"&gt;add&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;Java&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;list.&lt;span style="color:#a6e22e"&gt;add&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;Python&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;list.&lt;span style="color:#a6e22e"&gt;add&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;JavaScript&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="ưu-điểm"&gt;Ưu điểm:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Truy cập nhanh theo index O(1)&lt;/li&gt;
+&lt;li&gt;Tiết kiệm bộ nhớ hơn&lt;/li&gt;
+&lt;li&gt;Hiệu quả cho việc duyệt qua các phần tử&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="nhược-điểm"&gt;Nhược điểm:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Chèn/xóa phần tử ở giữa chậm O(n)&lt;/li&gt;
+&lt;li&gt;Phải tái cấp phát bộ nhớ khi vượt quá capacity&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="linkedlist"&gt;LinkedList&lt;/h2&gt;
+&lt;p&gt;LinkedList sử dụng cấu trúc danh sách liên kết đôi:&lt;/p&gt;</description></item></channel></rss>

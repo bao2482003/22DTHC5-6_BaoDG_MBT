@@ -6,6 +6,9 @@ title = 'Profile'
 theme = 'mytheme'
 publishDir = 'docs'
 
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
 [params]
   title = "Profile"
   description = "Một nhà phát triển ứng dụng web đầy đam mê"
@@ -19,6 +22,11 @@ publishDir = 'docs'
   subtitle = "Tôi xây dựng các ứng dụng cho web."
   content = "Tôi là một nhà phát triển ứng dụng web đầy đam mê. Tôi thường sử dụng các công nghệ web hiện đại để xây dựng các trang web có giao diện đẹp mắt, trải nghiệm người dùng tuyệt vời và hoạt động chính xác."
   image = "/images/hero.png"
+
+[[menu.main]]
+  name = "Xem bài viết"
+  url = "/posts"
+  weight = 0
 
 [[menu.main]]
   name = "Về tôi"
@@ -44,11 +52,6 @@ publishDir = 'docs'
   name = "Liên hệ"
   url = "/#contact"
   weight = 5
-
-[[menu.main]]
-  name = "Blog"
-  url = "/posts"
-  weight = 6
 
 [[menu.main]]
   name = "Thư viện ảnh"

@@ -4,6 +4,7 @@ canonifyURLs = true
 languageCode = 'en-US'
 title = 'Profile'
 theme = 'mytheme'
+publishDir = 'docs'
 
 [params]
   title = "Profile"

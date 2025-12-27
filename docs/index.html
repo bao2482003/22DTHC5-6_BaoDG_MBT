@@ -90,25 +90,141 @@
 
 <section id="about" class="section">
   <div class="container">
-    <h2>Về tôi</h2>
-    <h2 id="giới-thiệu-về-tôi">Giới thiệu về tôi</h2>
-<p>Tôi là một web developer đam mê với công nghệ hiện đại. Tôi thích xây dựng những website đẹp, hoạt động tốt và mang lại trải nghiệm tuyệt vời cho người dùng.</p>
-<h3 id="kỹ-năng">Kỹ năng</h3>
-<ul>
-<li>Front-end Development (HTML, CSS, JavaScript)</li>
-<li>Back-end Development (Java, Node.js)</li>
-<li>Database Management</li>
-<li>UI/UX Design</li>
-</ul>
+    <h2 class="section-title">Về tôi</h2>
 
+    <div class="portfolio-grid">
+      
+      <div class="card card-about">
+        <h3>Giới thiệu</h3>
+        <p>Tôi là sinh viên Công nghệ Thông tin, định hướng trở thành Web Developer. Tôi yêu thích việc xây dựng các website hiện đại, tối ưu trải nghiệm người dùng và có khả năng triển khai từ giao diện đến logic xử lý.</p>
+        <span class="icon">🚀</span>
+      </div>
+
+      <div class="card card-strengths">
+        <h3>Thế mạnh nổi bật</h3>
+        <ul>
+          
+            <li>Tư duy logic tốt, tự học cao</li>
+          
+            <li>Xây dựng website tĩnh với Hugo &amp; GitHub Pages</li>
+          
+            <li>Hiểu quy trình làm việc với Git/GitHub</li>
+          
+            <li>Kinh nghiệm xây dựng project thực tế</li>
+          
+        </ul>
+        <span class="icon">💎</span>
+      </div>
+
+      <div class="card card-skills">
+        <h3>Công nghệ & Kỹ năng</h3>
+        <div class="skill-tags">
+          
+            <span class="tag tag-used">HTML</span>
+          
+            <span class="tag tag-used">CSS</span>
+          
+            <span class="tag tag-used">JavaScript</span>
+          
+            <span class="tag tag-used">Java</span>
+          
+            <span class="tag tag-used">Node.js</span>
+          
+            <span class="tag tag-used">Hugo</span>
+          
+        </div>
+        <p><small>Đang học:</small></p>
+        <div class="skill-tags">
+          
+            <span class="tag tag-learning">React</span>
+          
+            <span class="tag tag-learning">REST API</span>
+          
+            <span class="tag tag-learning">UI/UX Design</span>
+          
+        </div>
+      </div>
+
+      <div class="card card-mindset">
+        <h3>Phong cách làm việc</h3>
+        <p>Tôi ưu tiên viết code rõ ràng, dễ bảo trì, chú trọng cấu trúc thư mục và khả năng mở rộng dự án.</p>
+        <span class="icon">🧠</span>
+      </div>
+
+    </div>
   </div>
 </section>
 
-
 <section id="experience" class="section section-alt">
   <div class="container">
-    <h2>Kinh nghiệm</h2>
-    <p>Kinh nghiệm làm việc chuyên nghiệp...</p>
+    <h2 class="section-title">Kinh nghiệm</h2>
+    
+    <div class="experience-card">
+      <div class="tabs-header">
+        
+          <button class="tab-btn active" 
+                  onclick="openTab(event, 'doan-1')">
+            Đồ án Web
+          </button>
+        
+          <button class="tab-btn " 
+                  onclick="openTab(event, 'du-an-hugo')">
+            Dự án Hugo
+          </button>
+        
+          <button class="tab-btn " 
+                  onclick="openTab(event, 'tu-duy')">
+            Tư duy &amp; Kỹ năng
+          </button>
+        
+      </div>
+
+      <div class="tabs-content-container">
+        
+          <div id="doan-1" class="tab-content active">
+            <h3 class="role">Full-stack Developer <span class="company">@ Đồ án chuyên ngành</span></h3>
+            <p class="duration">09/2025 - hiện tại</p>
+            <ul class="details-list">
+              
+                <li>Xây dựng website bán hàng hoàn chỉnh sử dụng Python và MySQL.</li>
+              
+                <li>Thiết kế giao diện Responsive, đảm bảo hiển thị tốt trên mọi thiết bị.</li>
+              
+                <li>Quản lý mã nguồn và làm việc nhóm thông qua Git/GitHub.</li>
+              
+            </ul>
+          </div>
+        
+          <div id="du-an-hugo" class="tab-content ">
+            <h3 class="role">Front-end Developer <span class="company">@ Personal Portfolio</span></h3>
+            <p class="duration">09/2025 - Hiện tại</p>
+            <ul class="details-list">
+              
+                <li>Triển khai Portfolio cá nhân sử dụng Hugo (Static Site Generator).</li>
+              
+                <li>Tích hợp GitHub Pages để hosting và tự động hóa quy trình cập nhật.</li>
+              
+                <li>Tối ưu điểm Lighthouse SEO và Performance đạt tiêu chuẩn cao.</li>
+              
+            </ul>
+          </div>
+        
+          <div id="tu-duy" class="tab-content ">
+            <h3 class="role">Sinh viên IT năm 4 <span class="company">@ Đại học Công nghệ (HUTECH)</span></h3>
+            <p class="duration">Đang rèn luyện</p>
+            <ul class="details-list">
+              
+                <li>Thói quen debug có hệ thống, tìm hiểu nguyên nhân gốc rễ của lỗi.</li>
+              
+                <li>Ưu tiên tính gọn nhẹ (Clean Code) và khả năng bảo trì của dự án.</li>
+              
+                <li>Khả năng đọc hiểu tài liệu tiếng Anh chuyên ngành tốt.</li>
+              
+            </ul>
+          </div>
+        
+      </div>
+    </div>
   </div>
 </section>
 
@@ -151,6 +267,28 @@
     <p>Thư viện ảnh...</p>
   </div>
 </section>
+
+<script>
+  function openTab(evt, tabId) {
+    var i, tabcontent, tablinks;
+    
+    
+    tabcontent = document.getElementsByClassName("tab-content");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].classList.remove("active");
+    }
+    
+    
+    tablinks = document.getElementsByClassName("tab-btn");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].classList.remove("active");
+    }
+    
+    
+    document.getElementById(tabId).classList.add("active");
+    evt.currentTarget.classList.add("active");
+  }
+</script>
 
 
   </main>

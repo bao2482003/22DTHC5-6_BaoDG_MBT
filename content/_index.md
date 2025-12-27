@@ -27,7 +27,7 @@ draft = false
     company = "Đồ án chuyên ngành"
     time = "09/2025 - hiện tại"
     details = [
-        "Xây dựng website bán hàng hoàn chỉnh sử dụng Node.js và MySQL.",
+        "Xây dựng website bán hàng hoàn chỉnh sử dụng Python và MySQL.",
         "Thiết kế giao diện Responsive, đảm bảo hiển thị tốt trên mọi thiết bị.",
         "Quản lý mã nguồn và làm việc nhóm thông qua Git/GitHub."
     ]

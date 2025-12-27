@@ -308,18 +308,43 @@
     </button>
   </div>
 
+  
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
   <script>
-    const POST_ID = '\/posts\/java-generics\/';
+    
+    const firebaseConfig = {
+  apiKey: "AIzaSyAdjhCEVyCd-Lr5M6wIrcVIdUGZK5nnMRQ",
+  authDomain: "project-profile-e5576.firebaseapp.com",
+  databaseURL: "https://project-profile-e5576-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "project-profile-e5576",
+  storageBucket: "project-profile-e5576.firebasestorage.app",
+  messagingSenderId: "141833177870",
+  appId: "1:141833177870:web:510eb87ec5b5749d9e255f",
+  measurementId: "G-8EZ42LZQ09"
+};
+
+    
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+    
+    const POST_ID = '\/posts\/java-generics\/'.replace(/\//g, '_');
     let currentFilter = 'top';
     let showAll = false;
+    let commentsCache = [];
 
     function getComments() {
-      const comments = localStorage.getItem('comments_' + POST_ID);
-      return comments ? JSON.parse(comments) : [];
+      return commentsCache;
     }
 
-    function saveComments(comments) {
-      localStorage.setItem('comments_' + POST_ID, JSON.stringify(comments));
+    function loadCommentsFromFirebase() {
+      const commentsRef = database.ref('comments/' + POST_ID);
+      commentsRef.on('value', (snapshot) => {
+        const data = snapshot.val();
+        commentsCache = data ? Object.values(data) : [];
+        renderComments();
+      });
     }
 
     function addComment() {
@@ -331,7 +356,6 @@
         return;
       }
 
-      const comments = getComments();
       const newComment = {
         id: Date.now(),
         name: name,
@@ -341,34 +365,53 @@
         likedBy: []
       };
 
-      comments.push(newComment);
-      saveComments(comments);
-
-      document.getElementById('commentName').value = '';
-      document.getElementById('commentText').value = '';
       
-      renderComments();
+      const commentsRef = database.ref('comments/' + POST_ID);
+      commentsRef.push(newComment).then(() => {
+        document.getElementById('commentName').value = '';
+        document.getElementById('commentText').value = '';
+      }).catch((error) => {
+        alert('Lỗi khi gửi bình luận: ' + error.message);
+      });
     }
 
     function likeComment(commentId) {
-      const comments = getComments();
-      const comment = comments.find(c => c.id === commentId);
+      const userId = getUserId();
+      const commentsRef = database.ref('comments/' + POST_ID);
       
-      if (comment) {
-        const userId = getUserId();
-        const likedIndex = comment.likedBy.indexOf(userId);
+      commentsRef.once('value').then((snapshot) => {
+        const comments = snapshot.val();
+        if (!comments) return;
         
-        if (likedIndex > -1) {
-          comment.likedBy.splice(likedIndex, 1);
-          comment.likes--;
-        } else {
-          comment.likedBy.push(userId);
-          comment.likes++;
+        
+        let commentKey = null;
+        let comment = null;
+        
+        Object.keys(comments).forEach(key => {
+          if (comments[key].id === commentId) {
+            commentKey = key;
+            comment = comments[key];
+          }
+        });
+        
+        if (comment && commentKey) {
+          const likedBy = comment.likedBy || [];
+          const likedIndex = likedBy.indexOf(userId);
+          
+          if (likedIndex > -1) {
+            likedBy.splice(likedIndex, 1);
+            comment.likes = Math.max(0, (comment.likes || 0) - 1);
+          } else {
+            likedBy.push(userId);
+            comment.likes = (comment.likes || 0) + 1;
+          }
+          
+          comment.likedBy = likedBy;
+          
+          
+          database.ref('comments/' + POST_ID + '/' + commentKey).set(comment);
         }
-        
-        saveComments(comments);
-        renderComments();
-      }
+      });
     }
 
     function getUserId() {
@@ -460,7 +503,7 @@
     }
 
     
-    renderComments();
+    loadCommentsFromFirebase();
   </script>
 
   <div class="post-footer">

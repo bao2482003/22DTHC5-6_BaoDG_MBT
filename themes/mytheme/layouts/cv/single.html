@@ -1,51 +1,166 @@
 {{ define "main" }}
+{{ $cvData := .Site.Data.cv }}
 
 <section class="cv-section">
   <div class="container">
     <div class="cv-container">
       
-      <!-- CV Header -->
-      <div class="cv-header">
-        <div class="cv-avatar">
-          <img src="/images/avatar.jpg" alt="Dương Gia Bảo">
-        </div>
-        <div class="cv-title-area">
-          <h1>{{ .Title }}</h1>
-          <div class="cv-actions">
-            <button onclick="window.print()" class="btn-print">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="6 9 6 2 18 2 18 9"></polyline>
-                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
-                <rect x="6" y="14" width="12" height="8"></rect>
-              </svg>
-              In CV
-            </button>
-            <a href="/" class="btn-back">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="19" y1="12" x2="5" y2="12"></line>
-                <polyline points="12 19 5 12 12 5"></polyline>
-              </svg>
-              Quay lại
-            </a>
-          </div>
-        </div>
+      <!-- Print Button -->
+      <div class="no-print" style="text-align: right; padding: 20px 40px 0;">
+        <button onclick="window.print()" class="btn-print">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 6 2 18 2 18 9"></polyline>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+            <rect x="6" y="14" width="12" height="8"></rect>
+          </svg>
+          Print CV
+        </button>
       </div>
 
       <!-- CV Content -->
       <div class="cv-content">
-        {{ .Content }}
-      </div>
+        <div class="cv-layout">
+          
+          <!-- Left Column -->
+          <div class="cv-left">
+            <div class="cv-avatar">
+              <img src="/images/avatar.jpg" alt="{{ $cvData.personalInfo.name }}">
+            </div>
+            
+            <h1 class="cv-name">{{ $cvData.personalInfo.name | upper }}</h1>
+            <p class="cv-title">{{ $cvData.personalInfo.title }}</p>
 
-      <!-- Download Button -->
-      <div class="cv-footer">
-        <button onclick="window.print()" class="btn btn-primary btn-download">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
-          </svg>
-          Tải xuống CV
-        </button>
+            <!-- Education -->
+            <div class="cv-section-box">
+              <h2 class="section-title">HỌC VẤN</h2>
+              {{ range $cvData.education }}
+              <div class="edu-item">
+                <p class="edu-school">{{ .school }}</p>
+                <p class="edu-detail">• {{ .degree }}</p>
+                <p class="edu-detail">• {{ .period }}</p>
+                {{ if .gpa }}
+                <p class="edu-detail">• {{ .gpa }}</p>
+                {{ end }}
+              </div>
+              {{ end }}
+            </div>
+
+            <!-- Technical Skills -->
+            <div class="cv-section-box">
+              <h2 class="section-title">KỸ NĂNG KỸ THUẬT</h2>
+              <div class="skill-group">
+                <p class="skill-label">• Ngôn ngữ lập trình:</p>
+                {{ range $cvData.technicalSkills.programmingLanguages }}
+                <p class="skill-item">{{ . }}</p>
+                {{ end }}
+              </div>
+              <div class="skill-group">
+                <p class="skill-label">• Frameworks & Technologies:</p>
+                {{ range $cvData.technicalSkills.frameworks }}
+                <p class="skill-item">{{ . }}</p>
+                {{ end }}
+              </div>
+            </div>
+
+            <!-- Soft Skills -->
+            <div class="cv-section-box">
+              <h2 class="section-title">KỸ NĂNG MỀM</h2>
+              {{ range $cvData.softSkills }}
+              <p class="soft-skill-item">• {{ . }}</p>
+              {{ end }}
+            </div>
+
+            <!-- Certifications -->
+            <div class="cv-section-box">
+              <h2 class="section-title">CHỨNG CHỈ</h2>
+              {{ range $cvData.certifications }}
+              <p class="cert-item">• {{ . }}</p>
+              {{ end }}
+            </div>
+
+            <!-- Hobbies -->
+            <div class="cv-section-box">
+              <h2 class="section-title">SỞ THÍCH</h2>
+              {{ range $cvData.hobbies }}
+              <p class="honor-item">• {{ . }}</p>
+              {{ end }}
+            </div>
+          </div>
+
+          <!-- Right Column -->
+          <div class="cv-right">
+            
+            <!-- Personal Info -->
+            <div class="personal-info">
+              <div class="info-item">
+                <span class="info-label">Email:</span>
+                <span class="info-value">{{ $cvData.personalInfo.email }}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Điện thoại:</span>
+                <span class="info-value">{{ $cvData.personalInfo.phone }}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Địa chỉ:</span>
+                <span class="info-value">{{ $cvData.personalInfo.address }}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">GitHub:</span>
+                <span class="info-value"><a href="{{ $cvData.personalInfo.github }}" target="_blank">{{ $cvData.personalInfo.github }}</a></span>
+              </div>
+              {{ if $cvData.personalInfo.facebook }}
+              <div class="info-item">
+                <span class="info-label">Facebook:</span>
+                <span class="info-value"><a href="{{ $cvData.personalInfo.facebook }}" target="_blank">{{ $cvData.personalInfo.facebook }}</a></span>
+              </div>
+              {{ end }}
+              {{ if $cvData.personalInfo.instagram }}
+              <div class="info-item">
+                <span class="info-label">Instagram:</span>
+                <span class="info-value"><a href="{{ $cvData.personalInfo.instagram }}" target="_blank">{{ $cvData.personalInfo.instagram }}</a></span>
+              </div>
+              {{ end }}
+            </div>
+
+            <!-- Summary -->
+            <div class="cv-section-right">
+              <h2 class="section-title-right">MỤC TIÊU NGHỀ NGHIỆP</h2>
+              <p class="summary-text">{{ $cvData.summary }}</p>
+            </div>
+
+            <!-- Work Experience -->
+            <div class="cv-section-right">
+              <h2 class="section-title-right">KINH NGHIỆM LÀM VIỆC</h2>
+              {{ range $cvData.workExperience }}
+              <div class="exp-item">
+                <h3 class="exp-title">{{ .title }}</h3>
+                <p class="exp-duration"><em>{{ .period }}</em></p>
+                <ul class="outcomes-list">
+                  {{ range .responsibilities }}
+                  <li>{{ . }}</li>
+                  {{ end }}
+                </ul>
+              </div>
+              {{ end }}
+            </div>
+
+            <!-- Projects -->
+            <div class="cv-section-right">
+              <h2 class="section-title-right">DỰ ÁN CÁ NHÂN</h2>
+              {{ range $cvData.projects }}
+              <div class="exp-item">
+                <h3 class="exp-title">{{ .name }}</h3>
+                <ul class="outcomes-list">
+                  {{ range .description }}
+                  <li>{{ . }}</li>
+                  {{ end }}
+                </ul>
+              </div>
+              {{ end }}
+            </div>
+
+          </div>
+        </div>
       </div>
 
     </div>
@@ -53,268 +168,363 @@
 </section>
 
 <style>
+* {
+  box-sizing: border-box;
+}
+
 .cv-section {
-  padding: 80px 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40px 20px;
+  background: #f5f5f5;
   min-height: 100vh;
 }
 
 .cv-container {
-  max-width: 900px;
+  max-width: 1100px;
   margin: 0 auto;
   background: white;
-  border-radius: 12px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-.cv-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 40px;
-  color: white;
-  display: flex;
-  align-items: center;
-  gap: 30px;
-}
-
-.cv-avatar img {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  border: 4px solid white;
-  object-fit: cover;
-}
-
-.cv-title-area {
-  flex: 1;
-}
-
-.cv-title-area h1 {
-  margin: 0 0 15px 0;
-  font-size: 2.5rem;
-  font-weight: 700;
-}
-
-.cv-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 15px;
-}
-
-.btn-print, .btn-back {
+.no-print .btn-print {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 20px;
-  background: rgba(255,255,255,0.2);
+  padding: 8px 16px;
+  background: #4a5568;
   color: white;
-  border: 2px solid white;
-  border-radius: 8px;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  transition: background 0.3s;
 }
 
-.btn-print:hover, .btn-back:hover {
-  background: white;
-  color: #667eea;
+.no-print .btn-print:hover {
+  background: #2d3748;
 }
 
 .cv-content {
-  padding: 50px;
-  line-height: 1.8;
+  padding: 0;
 }
 
-.cv-content h1 {
-  color: #667eea;
-  font-size: 2.2rem;
-  margin: 0 0 10px 0;
-  padding-bottom: 10px;
-  border-bottom: 3px solid #667eea;
+.cv-layout {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  min-height: 100vh;
 }
 
-.cv-content h2 {
-  color: #764ba2;
-  font-size: 1.5rem;
-  margin: 35px 0 15px 0;
-  padding-bottom: 8px;
-  border-bottom: 2px solid #eee;
+/* Left Column */
+.cv-left {
+  background: #f8f8f8;
+  padding: 40px 30px;
+  border-right: 1px solid #e0e0e0;
 }
 
-.cv-content h3 {
-  color: #333;
-  font-size: 1.2rem;
-  margin: 20px 0 10px 0;
+.cv-avatar {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.cv-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cv-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: #2d3748;
+  text-align: center;
+  margin: 15px 0 5px;
+  line-height: 1.3;
+}
+
+.cv-title {
+  font-size: 11px;
+  color: #4a5568;
+  text-align: center;
   font-weight: 600;
+  margin-bottom: 25px;
 }
 
-.cv-content p {
-  margin: 10px 0;
-  color: #555;
+.cv-section-box {
+  margin-bottom: 25px;
 }
 
-.cv-content ul {
-  margin: 15px 0;
-  padding-left: 25px;
+.section-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #c17a3c;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #c17a3c;
 }
 
-.cv-content li {
-  margin: 8px 0;
-  color: #555;
+.edu-item {
+  margin-bottom: 10px;
 }
 
-.cv-content a {
-  color: #667eea;
+.edu-school {
+  font-size: 11px;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 3px;
+}
+
+.edu-detail {
+  font-size: 10px;
+  color: #4a5568;
+  margin: 2px 0;
+  line-height: 1.4;
+}
+
+.skill-group {
+  margin-bottom: 12px;
+}
+
+.skill-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 4px;
+}
+
+.skill-item {
+  font-size: 10px;
+  color: #4a5568;
+  margin: 2px 0 2px 10px;
+  line-height: 1.4;
+}
+
+.soft-skill-item {
+  font-size: 10px;
+  color: #4a5568;
+  margin: 4px 0;
+  line-height: 1.4;
+}
+
+.cert-item {
+  font-size: 10px;
+  color: #4a5568;
+  margin: 6px 0;
+  line-height: 1.4;
+}
+
+.cert-link {
+  color: #3182ce;
   text-decoration: none;
-  font-weight: 500;
+  font-size: 9px;
 }
 
-.cv-content a:hover {
+.cert-link:hover {
   text-decoration: underline;
 }
 
-.cv-content strong {
-  color: #333;
-  font-weight: 600;
+.honor-item {
+  font-size: 10px;
+  color: #4a5568;
+  margin: 4px 0;
+  line-height: 1.4;
 }
 
-.cv-content hr {
-  border: none;
-  border-top: 1px solid #eee;
-  margin: 30px 0;
+.lang-item {
+  font-size: 10px;
+  color: #4a5568;
+  margin: 4px 0;
 }
 
-.cv-footer {
-  padding: 30px 50px 50px;
-  text-align: center;
+/* Right Column */
+.cv-right {
+  padding: 40px 35px;
+  background: #fff;
 }
 
-.btn-download {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 15px 40px;
-  font-size: 16px;
-  font-weight: 600;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+.personal-info {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e0e0e0;
 }
 
-.btn-download:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+.info-item {
+  display: flex;
+  margin-bottom: 5px;
+  font-size: 10px;
+  line-height: 1.5;
 }
 
-/* Dark mode styles */
-[data-theme="dark"] .cv-section {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+.info-label {
+  font-weight: 700;
+  color: #2d3748;
+  min-width: 110px;
 }
 
-[data-theme="dark"] .cv-container {
-  background: #0f0f23 !important;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+.info-value {
+  color: #4a5568;
+  word-break: break-word;
 }
 
-[data-theme="dark"] .cv-content {
-  background: #0f0f23 !important;
+.info-value a {
+  color: #3182ce;
+  text-decoration: none;
+  font-size: 9px;
 }
 
-[data-theme="dark"] .cv-content h1 {
-  color: #9face6 !important;
-  border-bottom-color: #9face6;
+.info-value a:hover {
+  text-decoration: underline;
 }
 
-[data-theme="dark"] .cv-content h2 {
-  color: #c77dff !important;
-  border-bottom-color: #2d3748;
+.cv-section-right {
+  margin-bottom: 25px;
 }
 
-[data-theme="dark"] .cv-content h3 {
-  color: #e0e0e0 !important;
+.section-title-right {
+  font-size: 13px;
+  font-weight: 700;
+  color: #c17a3c;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #c17a3c;
 }
 
-[data-theme="dark"] .cv-content p,
-[data-theme="dark"] .cv-content li {
-  color: #b0b0b0 !important;
+.summary-text {
+  font-size: 10px;
+  color: #4a5568;
+  line-height: 1.6;
+  text-align: justify;
 }
 
-[data-theme="dark"] .cv-content strong {
-  color: #ffffff !important;
+.exp-item {
+  margin-bottom: 20px;
 }
 
-[data-theme="dark"] .cv-content a {
-  color: #9face6 !important;
+.exp-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 6px;
 }
 
-[data-theme="dark"] .cv-content hr {
-  border-top-color: #2d3748;
+.exp-duration,
+.exp-team,
+.exp-desc,
+.exp-tech,
+.exp-outcomes,
+.exp-demo {
+  font-size: 10px;
+  color: #4a5568;
+  margin: 4px 0;
+  line-height: 1.5;
 }
 
-[data-theme="dark"] .cv-footer {
-  background: #0f0f23 !important;
+.exp-tech-detail {
+  font-size: 9px;
+  color: #4a5568;
+  margin: 4px 0 8px 0;
+  line-height: 1.6;
+  text-align: justify;
 }
 
-/* Print styles */
+.outcomes-list {
+  margin: 6px 0;
+  padding-left: 18px;
+}
+
+.outcomes-list li {
+  font-size: 10px;
+  color: #4a5568;
+  margin: 3px 0;
+  line-height: 1.5;
+}
+
+.exp-demo a {
+  color: #3182ce;
+  text-decoration: none;
+  word-break: break-all;
+  font-size: 9px;
+}
+
+.exp-demo a:hover {
+  text-decoration: underline;
+}
+
+.activity-item {
+  font-size: 10px;
+  color: #4a5568;
+  margin: 6px 0;
+  line-height: 1.5;
+}
+
+/* Print Styles */
 @media print {
+  .no-print {
+    display: none !important;
+  }
+  
   .cv-section {
+    padding: 0 !important;
     background: white;
-    padding: 0;
+    margin: 0;
+  }
+  
+  .container {
+    padding: 0 !important;
+    margin: 0 !important;
   }
   
   .cv-container {
     box-shadow: none;
-    border-radius: 0;
-  }
-  
-  .cv-actions,
-  .cv-footer {
-    display: none;
-  }
-  
-  .cv-header {
-    background: #667eea;
-    print-color-adjust: exact;
-    -webkit-print-color-adjust: exact;
+    max-width: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
   }
   
   .cv-content {
-    padding: 30px;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  .cv-layout {
+    page-break-inside: avoid;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  .cv-left,
+  .cv-right {
+    padding-top: 0 !important;
+  }
+  
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  @page {
+    margin: 0;
+    size: A4;
   }
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .cv-header {
-    flex-direction: column;
-    text-align: center;
+  .cv-layout {
+    grid-template-columns: 1fr;
   }
   
-  .cv-title-area h1 {
-    font-size: 2rem;
-  }
-  
-  .cv-actions {
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  
-  .cv-content {
-    padding: 30px 25px;
-  }
-  
-  .cv-content h1 {
-    font-size: 1.8rem;
-  }
-  
-  .cv-content h2 {
-    font-size: 1.3rem;
+  .cv-left {
+    border-right: none;
+    border-bottom: 1px solid #e0e0e0;
   }
 }
 </style>

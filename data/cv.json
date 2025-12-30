@@ -1,0 +1,83 @@
+{
+  "personalInfo": {
+    "name": "Dương Gia Bảo",
+    "title": "Lập trình viên Full-stack Developer",
+    "email": "bao248123@gmail.com",
+    "phone": "+84 325003576",
+    "address": "TP. Hồ Chí Minh, Việt Nam",
+    "github": "https://github.com/bao2482003",
+    "facebook": "https://facebook.com/dgbaooo",
+    "instagram": "https://instagram.com/dgbaoo_"
+  },
+  "summary": "Là một lập trình viên đam mê, tôi mong muốn phát triển các sản phẩm công nghệ chất lượng cao, đóng góp vào sự phát triển của doanh nghiệp và không ngừng nâng cao kỹ năng chuyên môn của bản thân.",
+  "education": [
+    {
+      "school": "Đại học Công nghệ Thông tin",
+      "degree": "Chuyên ngành: Công nghệ Phần mềm",
+      "period": "2022 - 2026 (Dự kiến)",
+      "gpa": "GPA: 3.0/4.0"
+    }
+  ],
+  "technicalSkills": {
+    "programmingLanguages": [
+      "Java (Spring, Spring Boot, Hibernate)",
+      "JavaScript/TypeScript",
+      "Python",
+      "HTML/CSS"
+    ],
+    "frameworks": [
+      "React.js",
+      "Node.js",
+      "Git/GitHub",
+      "RESTful API",
+      "MySQL, PostgreSQL"
+    ]
+  },
+  "softSkills": [
+    "Làm việc nhóm",
+    "Giải quyết vấn đề",
+    "Tư duy logic",
+    "Quản lý thời gian"
+  ],
+  "workExperience": [
+    {
+      "title": "Dự án chuyên ngành",
+      "period": "09/2025 - Hiện tại",
+      "responsibilities": [
+        "Phát triển và bảo trì ứng dụng web sử dụng Java Spring Boot",
+        "Tham gia xây dựng RESTful API cho hệ thống quản lý",
+        "Làm việc với cơ sở dữ liệu MySQL và tối ưu hóa truy vấn",
+        "Sử dụng Git để quản lý mã nguồn và làm việc nhóm"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Website Portfolio",
+      "description": [
+        "Xây dựng website cá nhân sử dụng Hugo Framework",
+        "Responsive design, tối ưu SEO",
+        "Tích hợp form liên hệ và gallery ảnh"
+      ]
+    },
+    {
+      "name": "Ứng dụng quản lý công việc",
+      "description": [
+        "Phát triển ứng dụng web với React và Node.js",
+        "Sử dụng MySQL để lưu trữ dữ liệu",
+        "Triển khai tính năng authentication và authorization"
+      ]
+    }
+  ],
+  "certifications": [
+    "Chứng chỉ hoàn thành khóa học Java cơ bản",
+    "Chứng chỉ lập trình Python",
+    "Chứng chỉ Web Development Fundamentals"
+  ],
+  "hobbies": [
+    "Lập trình và học công nghệ mới",
+    "Đọc sách về công nghệ",
+    "Chơi thể thao",
+    "Nghe nhạc"
+  ]
+}

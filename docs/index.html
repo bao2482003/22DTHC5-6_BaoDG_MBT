@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-	<meta name="generator" content="Hugo 0.153.1"><script src="/22DTHC5-6_BaoDG_MBT/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=22DTHC5-6_BaoDG_MBT/livereload" data-no-instant defer></script>
+	<meta name="generator" content="Hugo 0.153.1">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profile</title>
@@ -81,7 +81,7 @@
   let searchIndex = [];
   
   
-  fetch('http:\/\/localhost:1313\/22DTHC5-6_BaoDG_MBT\/index.json')
+  fetch('https:\/\/bao2482003.github.io\/22DTHC5-6_BaoDG_MBT\/index.json')
     .then(response => response.json())
     .then(data => {
       searchIndex = data;
@@ -161,13 +161,50 @@
     
 
 
+
+<section class="page-banner" id="bannerSlideshow" style="background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&amp;q=80');">
+  <div class="banner-overlay"></div>
+  <div class="banner-content">
+    <h1 class="banner-title">Kỹ Sư phần mềm</h1>
+    <p class="banner-subtitle">Lập trình là nghệ thuật biến đổi ý tưởng thành hiện thực!</p>
+  </div>
+</section>
+<script>
+  (function() {
+    const bannerImages = [
+      
+        "https:\/\/images.unsplash.com\/photo-1451187580459-43490279c0fa?w=1920\u0026q=80"
+      
+        ,"https:\/\/images.unsplash.com\/photo-1518770660439-4636190af475?w=1920\u0026q=80"
+      
+        ,"https:\/\/images.unsplash.com\/photo-1488590528505-98d2b5aba04b?w=1920\u0026q=80"
+      
+    ];
+    let currentImageIndex = 0;
+    const bannerElement = document.getElementById('bannerSlideshow');
+    
+    if (!bannerImages || bannerImages.length === 0) return;
+    
+    function changeBannerImage() {
+      currentImageIndex = (currentImageIndex + 1) % bannerImages.length;
+      bannerElement.style.backgroundImage = 'url(' + bannerImages[currentImageIndex] + ')';
+    }
+    
+    
+    setInterval(changeBannerImage, 3000);
+  })();
+</script>
+
+
+
 <section id="hero" class="hero">
   <div class="container hero-content">
     <div class="hero-text">
       <p class="intro">Xin chào, Tôi tên là</p>
       <h1 class="hero-title">Dương Gia Bảo.</h1>
-      <h2 class="hero-subtitle">Tôi xây dựng các ứng dụng cho web.</h2>
-      <p class="hero-description">Tôi là một nhà phát triển ứng dụng web đầy đam mê. Tôi thường sử dụng các công nghệ web hiện đại để xây dựng các trang web có giao diện đẹp mắt, trải nghiệm người dùng tuyệt vời và hoạt động chính xác.</p>
+      <h2 class="hero-subtitle">Sinh viên năm tư chuyên ngành Máy học và Ứng dụng. Chào mừng bạn đến với blog của tôi, hi vọng blog của tôi sẽ mang đến nhiều kiến thức cho bạn! ✨</h2>
+      <p class="motto-label">Châm ngôn sống của tôi là:</p>
+      <p class="hero-description">Mỗi ngày là 1 cơ hội mới để mình thay đổi cuộc đời mình!</p>
       
       <div class="hero-buttons">
         <a href="./cv" class="btn btn-primary">Hồ sơ (CV)</a>

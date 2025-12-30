@@ -1,6 +1,38 @@
 
 {{ define "main" }}
 
+<!-- Banner Section -->
+{{ if .Site.Params.banner.enable }}
+<section class="page-banner" id="bannerSlideshow" style="background-image: url('{{ index .Site.Params.banner.backgroundImages 0 }}');">
+  <div class="banner-overlay"></div>
+  <div class="banner-content">
+    <h1 class="banner-title">{{ .Site.Params.banner.title }}</h1>
+    <p class="banner-subtitle">{{ .Site.Params.banner.subtitle }}</p>
+  </div>
+</section>
+<script>
+  (function() {
+    const bannerImages = [
+      {{ range $index, $url := .Site.Params.banner.backgroundImages }}
+        {{ if $index }},{{ end }}"{{ $url | safeURL }}"
+      {{ end }}
+    ];
+    let currentImageIndex = 0;
+    const bannerElement = document.getElementById('bannerSlideshow');
+    
+    if (!bannerImages || bannerImages.length === 0) return;
+    
+    function changeBannerImage() {
+      currentImageIndex = (currentImageIndex + 1) % bannerImages.length;
+      bannerElement.style.backgroundImage = 'url(' + bannerImages[currentImageIndex] + ')';
+    }
+    
+    // Change image every 3 seconds
+    setInterval(changeBannerImage, 3000);
+  })();
+</script>
+{{ end }}
+
 <!-- Hero Section -->
 <section id="hero" class="hero">
   <div class="container hero-content">
@@ -8,6 +40,7 @@
       <p class="intro">{{ .Site.Params.hero.intro }}</p>
       <h1 class="hero-title">{{ .Site.Params.hero.title }}</h1>
       <h2 class="hero-subtitle">{{ .Site.Params.hero.subtitle }}</h2>
+      <p class="motto-label">Châm ngôn sống của tôi là:</p>
       <p class="hero-description">{{ .Site.Params.hero.content }}</p>
       
       <div class="hero-buttons">

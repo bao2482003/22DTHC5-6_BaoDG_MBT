@@ -1,9 +1,9 @@
 ---
-title: "JavaScript Async/Await: Promise nhưng dễ đọc hơn"
+title: "JavaScript: Async/Await và Xử Lý Bất Đồng Bộ"
 date: 2025-12-27
 tags: ["JavaScript", "Async"]
 description: "Xử lý bất đồng bộ trong JavaScript với async/await"
-image: "/images/blog/js-async-await.png"
+image: "https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?w=1200&h=600&fit=crop"
 ---
 
 ## Vấn đề với Callback Hell

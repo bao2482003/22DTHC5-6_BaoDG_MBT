@@ -40,6 +40,12 @@
     </div>
   </div>
 
+  {{ if .Params.image }}
+  <div class="post-featured-image">
+    <img src="{{ .Params.image }}" alt="{{ .Title }}">
+  </div>
+  {{ end }}
+
   <div class="post-content">
     {{ .Content }}
   </div>

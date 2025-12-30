@@ -2,80 +2,80 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Profile</title>
-    <link>http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/</link>
+    <link>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/</link>
     <description>Recent content in Tags on Profile</description>
     <generator>Hugo</generator>
     <language>en-US</language>
     <lastBuildDate>Sat, 27 Dec 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Advanced</title>
-      <link>http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/advanced/</link>
+      <link>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/advanced/</link>
       <pubDate>Sat, 27 Dec 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/advanced/</guid>
+      <guid>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/advanced/</guid>
       <description></description>
     </item>
     <item>
       <title>Async</title>
-      <link>http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/async/</link>
+      <link>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/async/</link>
       <pubDate>Sat, 27 Dec 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/async/</guid>
+      <guid>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/async/</guid>
       <description></description>
     </item>
     <item>
       <title>Concurrency</title>
-      <link>http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/concurrency/</link>
+      <link>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/concurrency/</link>
       <pubDate>Sat, 27 Dec 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/concurrency/</guid>
+      <guid>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/concurrency/</guid>
       <description></description>
     </item>
     <item>
       <title>Data Structures</title>
-      <link>http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/data-structures/</link>
+      <link>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/data-structures/</link>
       <pubDate>Sat, 27 Dec 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/data-structures/</guid>
+      <guid>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/data-structures/</guid>
       <description></description>
     </item>
     <item>
       <title>Error Handling</title>
-      <link>http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/error-handling/</link>
+      <link>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/error-handling/</link>
       <pubDate>Sat, 27 Dec 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/error-handling/</guid>
+      <guid>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/error-handling/</guid>
       <description></description>
     </item>
     <item>
       <title>ES6</title>
-      <link>http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/es6/</link>
+      <link>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/es6/</link>
       <pubDate>Sat, 27 Dec 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/es6/</guid>
+      <guid>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/es6/</guid>
       <description></description>
     </item>
     <item>
       <title>Generics</title>
-      <link>http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/generics/</link>
+      <link>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/generics/</link>
       <pubDate>Sat, 27 Dec 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/generics/</guid>
+      <guid>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/generics/</guid>
       <description></description>
     </item>
     <item>
       <title>Java</title>
-      <link>http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/java/</link>
+      <link>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/java/</link>
       <pubDate>Sat, 27 Dec 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/java/</guid>
+      <guid>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/java/</guid>
       <description></description>
     </item>
     <item>
       <title>JavaScript</title>
-      <link>http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/javascript/</link>
+      <link>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/javascript/</link>
       <pubDate>Sat, 27 Dec 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/javascript/</guid>
+      <guid>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/javascript/</guid>
       <description></description>
     </item>
     <item>
       <title>Stream API</title>
-      <link>http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/stream-api/</link>
+      <link>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/stream-api/</link>
       <pubDate>Sat, 27 Dec 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/stream-api/</guid>
+      <guid>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/stream-api/</guid>
       <description></description>
     </item>
   </channel>

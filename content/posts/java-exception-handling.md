@@ -1,9 +1,9 @@
 ---
-title: "Java Exception Handling: Try-Catch và Best Practices"
+title: "Java: Xử Lý Ngoại Lệ với Try-Catch"
 date: 2025-12-27
 tags: ["Java", "Error Handling"]
 description: "Xử lý ngoại lệ hiệu quả trong Java"
-image: "/images/blog/java-exceptions.png"
+image: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1200&h=600&fit=crop"
 ---
 
 ## Exception là gì?

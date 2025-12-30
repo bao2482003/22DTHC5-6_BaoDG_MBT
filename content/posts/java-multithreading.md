@@ -1,9 +1,9 @@
 ---
-title: "Java Multithreading: Lập trình đa luồng cơ bản"
+title: "Java: Lập Trình Đa Luồng Cơ Bản"
 date: 2025-12-27
 tags: ["Java", "Concurrency"]
 description: "Tìm hiểu về multithreading và concurrency trong Java"
-image: "/images/blog/java-multithreading.png"
+image: "https://images.unsplash.com/photo-1518773553398-650c184e0bb3?w=1200&h=600&fit=crop"
 ---
 
 ## Thread là gì?

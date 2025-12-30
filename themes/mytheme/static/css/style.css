@@ -360,18 +360,21 @@ mark {
 .menu {
   display: flex;
   list-style: none;
-  gap: 25px;
+  gap: 10px;
 }
 
 .menu a {
   text-decoration: none;
   color: var(--text-primary);
   font-weight: 500;
-  transition: color 0.3s;
+  transition: all 0.3s ease;
+  padding: 8px 12px;
+  border-radius: 6px;
 }
 
 .menu a:hover {
-  color: var(--accent-blue);
+  background: #000;
+  color: #fff;
 }
 
 .theme-toggle {
@@ -401,6 +404,80 @@ mark {
 .theme-icon {
   font-size: 20px;
   transition: all 0.3s ease;
+}
+
+/* Banner Section */
+.page-banner {
+  position: relative;
+  height: 400px;
+  background: linear-gradient(135deg, #0a4b6e 0%, #1a7ba8 50%, #0a4b6e 100%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 0;
+  transition: background-image 1s ease-in-out;
+}
+
+.banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(10, 75, 110, 0.25) 0%, rgba(26, 123, 168, 0.20) 50%, rgba(10, 75, 110, 0.25) 100%);
+  z-index: 1;
+}
+
+.banner-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
+  padding: 40px 20px;
+  max-width: 900px;
+}
+
+.banner-title {
+  font-size: 4rem;
+  font-weight: 800;
+  margin-bottom: 15px;
+  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.4);
+  letter-spacing: 2px;
+  animation: fadeInDown 1s ease-out;
+}
+
+.banner-subtitle {
+  font-size: 1.5rem;
+  font-weight: 400;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+  letter-spacing: 1px;
+  animation: fadeInUp 1s ease-out 0.3s both;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Hero Section */
@@ -433,17 +510,37 @@ mark {
 }
 
 .hero-subtitle {
-  font-size: 2.5rem;
-  font-weight: 600;
+  font-size: 1.3rem;
+  font-weight: 500;
   color: var(--text-secondary);
   margin-bottom: 20px;
 }
 
-.hero-description {
+.motto-label {
   color: var(--text-secondary);
-  font-size: 1.1rem;
+  font-size: 0.9rem;
+  font-weight: 400;
+  margin-bottom: 5px;
+  font-style: italic;
+  opacity: 0.8;
+}
+
+.hero-description {
+  color: #2d3748;
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-style: italic;
   line-height: 1.8;
   margin-bottom: 30px;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3), 
+               1px 1px 2px rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  position: relative;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 0.5px;
 }
 
 .hero-buttons {
@@ -502,6 +599,14 @@ mark {
   max-width: 350px;
   border-radius: 20px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+.hero-image img:hover {
+  transform: scale(1.05) translateY(-10px) rotate(2deg);
+  box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+  border-radius: 25px;
 }
 
 /* Sections */
@@ -1303,7 +1408,13 @@ mark {
   }
   
   .menu {
-    display: none;
+    display: flex;
+    gap: 15px;
+    font-size: 0.9rem;
+  }
+  
+  .menu a {
+    padding: 6px 10px;
   }
   
   .nav {
@@ -1623,6 +1734,22 @@ mark {
   flex-wrap: wrap;
 }
 
+.post-featured-image {
+  width: 100%;
+  margin: 40px 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.post-featured-image img {
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: cover;
+  display: block;
+}
+
 .meta-left {
   display: flex;
   gap: 20px;
@@ -1659,6 +1786,13 @@ mark {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+}
+
+.toc-content a:before {
+  content: "▸ ";
+  color: #667eea;
+  margin-right: 5px;
+  font-weight: bold;
 }
 
 .post-content {

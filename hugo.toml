@@ -6,6 +6,12 @@ title = 'Profile'
 theme = 'mytheme'
 publishDir = 'docs'
 
+[markup]
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 4
+    ordered = false
+
 [outputs]
   home = ["HTML", "RSS", "JSON"]
 
@@ -15,12 +21,22 @@ publishDir = 'docs'
   author = "Dương Gia Bảo"
   favicon = "/favicon.ico"
 
+[params.banner]
+  enable = true
+  title = "Kỹ Sư phần mềm"
+  subtitle = "Lập trình là nghệ thuật biến đổi ý tưởng thành hiện thực!"
+  backgroundImages = [
+    "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80",
+    "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1920&q=80",
+    "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=1920&q=80"
+  ]
+
 [params.hero]
   enable = true
   intro = "Xin chào, Tôi tên là"
   title = "Dương Gia Bảo."
-  subtitle = "Tôi xây dựng các ứng dụng cho web."
-  content = "Tôi là một nhà phát triển ứng dụng web đầy đam mê. Tôi thường sử dụng các công nghệ web hiện đại để xây dựng các trang web có giao diện đẹp mắt, trải nghiệm người dùng tuyệt vời và hoạt động chính xác."
+  subtitle = "Sinh viên năm tư chuyên ngành Máy học và Ứng dụng. Chào mừng bạn đến với blog của tôi, hi vọng blog của tôi sẽ mang đến nhiều kiến thức cho bạn! ✨"
+  content = "Mỗi ngày là 1 cơ hội mới để mình thay đổi cuộc đời mình!"
   image = "/images/hero.png"
 
 [[menu.main]]

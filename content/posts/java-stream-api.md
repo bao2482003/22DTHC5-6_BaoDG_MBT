@@ -1,9 +1,9 @@
 ---
-title: "Java Stream API: Xử lý Collection hiện đại"
+title: "Java: Stream API và Xử Lý Dữ Liệu"
 date: 2025-12-27
 tags: ["Java", "Stream API"]
 description: "Làm chủ Stream API để xử lý dữ liệu hiệu quả trong Java"
-image: "/images/blog/java-stream.png"
+image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&h=600&fit=crop"
 ---
 
 ## Stream API là gì?

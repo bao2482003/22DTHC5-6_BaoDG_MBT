@@ -1,9 +1,9 @@
 ---
-title: "JavaScript Destructuring: Giải nén dữ liệu dễ dàng"
+title: "JavaScript: Destructuring và Giải Nén Dữ Liệu"
 date: 2025-12-27
 tags: ["JavaScript", "ES6"]
 description: "Destructuring assignment trong JavaScript ES6 và các use cases thực tế"
-image: "/images/blog/js-destructuring.png"
+image: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=1200&h=600&fit=crop"
 ---
 
 ## Destructuring là gì?

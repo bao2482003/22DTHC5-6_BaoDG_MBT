@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head><script src="/22DTHC5-6_BaoDG_MBT/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=22DTHC5-6_BaoDG_MBT/livereload" data-no-instant defer></script>
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blog | Profile</title>
@@ -80,7 +80,7 @@
   let searchIndex = [];
   
   
-  fetch('http:\/\/localhost:1313\/22DTHC5-6_BaoDG_MBT\/index.json')
+  fetch('https:\/\/bao2482003.github.io\/22DTHC5-6_BaoDG_MBT\/index.json')
     .then(response => response.json())
     .then(data => {
       searchIndex = data;
@@ -166,65 +166,14 @@
 
   <div class="blog-grid">
     
-    <article class="blog-card">      
-      <div class="blog-card-content">
-        <div class="blog-meta">
-          <span class="blog-date">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-              <line x1="16" y1="2" x2="16" y2="6"></line>
-              <line x1="8" y1="2" x2="8" y2="6"></line>
-              <line x1="3" y1="10" x2="21" y2="10"></line>
-            </svg>
-            27/12/2025
-          </span>
-          
-          <div class="blog-tags">
-            
-            <span class="blog-tag">Java</span>
-            
-            <span class="blog-tag">Data Structures</span>
-            
-          </div>
-          
-        </div>
-        
-        <h2 class="blog-card-title">
-          <a href="../posts/java-arraylist-vs-linkedlist/">Java Collections Framework: ArrayList vs LinkedList</a>
-        </h2>
+    <article class="blog-card">
+      
+      <div class="blog-card-image">
+        <a href="../posts/java-generics/">
+          <img src="https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=1200&amp;h=600&amp;fit=crop" alt="Java: Generics và Type Safety">
+        </a>
       </div>
-    </article>
-    
-    <article class="blog-card">      
-      <div class="blog-card-content">
-        <div class="blog-meta">
-          <span class="blog-date">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-              <line x1="16" y1="2" x2="16" y2="6"></line>
-              <line x1="8" y1="2" x2="8" y2="6"></line>
-              <line x1="3" y1="10" x2="21" y2="10"></line>
-            </svg>
-            27/12/2025
-          </span>
-          
-          <div class="blog-tags">
-            
-            <span class="blog-tag">Java</span>
-            
-            <span class="blog-tag">Error Handling</span>
-            
-          </div>
-          
-        </div>
-        
-        <h2 class="blog-card-title">
-          <a href="../posts/java-exception-handling/">Java Exception Handling: Try-Catch và Best Practices</a>
-        </h2>
-      </div>
-    </article>
-    
-    <article class="blog-card">      
+      
       <div class="blog-card-content">
         <div class="blog-meta">
           <span class="blog-date">
@@ -248,12 +197,19 @@
         </div>
         
         <h2 class="blog-card-title">
-          <a href="../posts/java-generics/">Java Generics: Type Safety cho Collection</a>
+          <a href="../posts/java-generics/">Java: Generics và Type Safety</a>
         </h2>
       </div>
     </article>
     
-    <article class="blog-card">      
+    <article class="blog-card">
+      
+      <div class="blog-card-image">
+        <a href="../posts/java-multithreading/">
+          <img src="https://images.unsplash.com/photo-1518773553398-650c184e0bb3?w=1200&amp;h=600&amp;fit=crop" alt="Java: Lập Trình Đa Luồng Cơ Bản">
+        </a>
+      </div>
+      
       <div class="blog-card-content">
         <div class="blog-meta">
           <span class="blog-date">
@@ -277,12 +233,55 @@
         </div>
         
         <h2 class="blog-card-title">
-          <a href="../posts/java-multithreading/">Java Multithreading: Lập trình đa luồng cơ bản</a>
+          <a href="../posts/java-multithreading/">Java: Lập Trình Đa Luồng Cơ Bản</a>
         </h2>
       </div>
     </article>
     
-    <article class="blog-card">      
+    <article class="blog-card">
+      
+      <div class="blog-card-image">
+        <a href="../posts/java-arraylist-vs-linkedlist/">
+          <img src="https://images.unsplash.com/photo-1587620962725-abab7fe55159?w=1200&amp;h=600&amp;fit=crop" alt="Java: So Sánh ArrayList và LinkedList">
+        </a>
+      </div>
+      
+      <div class="blog-card-content">
+        <div class="blog-meta">
+          <span class="blog-date">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            27/12/2025
+          </span>
+          
+          <div class="blog-tags">
+            
+            <span class="blog-tag">Java</span>
+            
+            <span class="blog-tag">Data Structures</span>
+            
+          </div>
+          
+        </div>
+        
+        <h2 class="blog-card-title">
+          <a href="../posts/java-arraylist-vs-linkedlist/">Java: So Sánh ArrayList và LinkedList</a>
+        </h2>
+      </div>
+    </article>
+    
+    <article class="blog-card">
+      
+      <div class="blog-card-image">
+        <a href="../posts/java-stream-api/">
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&amp;h=600&amp;fit=crop" alt="Java: Stream API và Xử Lý Dữ Liệu">
+        </a>
+      </div>
+      
       <div class="blog-card-content">
         <div class="blog-meta">
           <span class="blog-date">
@@ -306,12 +305,91 @@
         </div>
         
         <h2 class="blog-card-title">
-          <a href="../posts/java-stream-api/">Java Stream API: Xử lý Collection hiện đại</a>
+          <a href="../posts/java-stream-api/">Java: Stream API và Xử Lý Dữ Liệu</a>
         </h2>
       </div>
     </article>
     
-    <article class="blog-card">      
+    <article class="blog-card">
+      
+      <div class="blog-card-image">
+        <a href="../posts/java-exception-handling/">
+          <img src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1200&amp;h=600&amp;fit=crop" alt="Java: Xử Lý Ngoại Lệ với Try-Catch">
+        </a>
+      </div>
+      
+      <div class="blog-card-content">
+        <div class="blog-meta">
+          <span class="blog-date">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            27/12/2025
+          </span>
+          
+          <div class="blog-tags">
+            
+            <span class="blog-tag">Java</span>
+            
+            <span class="blog-tag">Error Handling</span>
+            
+          </div>
+          
+        </div>
+        
+        <h2 class="blog-card-title">
+          <a href="../posts/java-exception-handling/">Java: Xử Lý Ngoại Lệ với Try-Catch</a>
+        </h2>
+      </div>
+    </article>
+    
+    <article class="blog-card">
+      
+      <div class="blog-card-image">
+        <a href="../posts/javascript-arrow-functions/">
+          <img src="https://images.unsplash.com/photo-1607799279861-4dd421887fb3?w=1200&amp;h=600&amp;fit=crop" alt="JavaScript: Arrow Functions và This Binding">
+        </a>
+      </div>
+      
+      <div class="blog-card-content">
+        <div class="blog-meta">
+          <span class="blog-date">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            27/12/2025
+          </span>
+          
+          <div class="blog-tags">
+            
+            <span class="blog-tag">JavaScript</span>
+            
+            <span class="blog-tag">ES6</span>
+            
+          </div>
+          
+        </div>
+        
+        <h2 class="blog-card-title">
+          <a href="../posts/javascript-arrow-functions/">JavaScript: Arrow Functions và This Binding</a>
+        </h2>
+      </div>
+    </article>
+    
+    <article class="blog-card">
+      
+      <div class="blog-card-image">
+        <a href="../posts/javascript-async-await/">
+          <img src="https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?w=1200&amp;h=600&amp;fit=crop" alt="JavaScript: Async/Await và Xử Lý Bất Đồng Bộ">
+        </a>
+      </div>
+      
       <div class="blog-card-content">
         <div class="blog-meta">
           <span class="blog-date">
@@ -335,12 +413,19 @@
         </div>
         
         <h2 class="blog-card-title">
-          <a href="../posts/javascript-async-await/">JavaScript Async/Await: Promise nhưng dễ đọc hơn</a>
+          <a href="../posts/javascript-async-await/">JavaScript: Async/Await và Xử Lý Bất Đồng Bộ</a>
         </h2>
       </div>
     </article>
     
-    <article class="blog-card">      
+    <article class="blog-card">
+      
+      <div class="blog-card-image">
+        <a href="../posts/javascript-closures/">
+          <img src="https://images.unsplash.com/photo-1605379399642-870262d3d051?w=1200&amp;h=600&amp;fit=crop" alt="JavaScript: Closures và Quản Lý Bộ Nhớ">
+        </a>
+      </div>
+      
       <div class="blog-card-content">
         <div class="blog-meta">
           <span class="blog-date">
@@ -364,12 +449,19 @@
         </div>
         
         <h2 class="blog-card-title">
-          <a href="../posts/javascript-closures/">JavaScript Closures: Hiểu sâu về Scope và Memory</a>
+          <a href="../posts/javascript-closures/">JavaScript: Closures và Quản Lý Bộ Nhớ</a>
         </h2>
       </div>
     </article>
     
-    <article class="blog-card">      
+    <article class="blog-card">
+      
+      <div class="blog-card-image">
+        <a href="../posts/javascript-destructuring/">
+          <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=1200&amp;h=600&amp;fit=crop" alt="JavaScript: Destructuring và Giải Nén Dữ Liệu">
+        </a>
+      </div>
+      
       <div class="blog-card-content">
         <div class="blog-meta">
           <span class="blog-date">
@@ -393,36 +485,7 @@
         </div>
         
         <h2 class="blog-card-title">
-          <a href="../posts/javascript-destructuring/">JavaScript Destructuring: Giải nén dữ liệu dễ dàng</a>
-        </h2>
-      </div>
-    </article>
-    
-    <article class="blog-card">      
-      <div class="blog-card-content">
-        <div class="blog-meta">
-          <span class="blog-date">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-              <line x1="16" y1="2" x2="16" y2="6"></line>
-              <line x1="8" y1="2" x2="8" y2="6"></line>
-              <line x1="3" y1="10" x2="21" y2="10"></line>
-            </svg>
-            27/12/2025
-          </span>
-          
-          <div class="blog-tags">
-            
-            <span class="blog-tag">JavaScript</span>
-            
-            <span class="blog-tag">ES6</span>
-            
-          </div>
-          
-        </div>
-        
-        <h2 class="blog-card-title">
-          <a href="../posts/javascript-arrow-functions/">JavaScript ES6&#43;: Arrow Functions và This Binding</a>
+          <a href="../posts/javascript-destructuring/">JavaScript: Destructuring và Giải Nén Dữ Liệu</a>
         </h2>
       </div>
     </article>

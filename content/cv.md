@@ -4,7 +4,7 @@ date: 2025-12-30
 layout: "cv"
 ---
 
-# Đặng Gia Bảo
+# Dương Gia Bảo
 
 **Lập trình viên Full-stack Developer**
 

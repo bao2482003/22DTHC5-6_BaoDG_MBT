@@ -12,11 +12,7 @@
 </section>
 <script>
   (function() {
-    const bannerImages = [
-      {{ range $index, $url := .Site.Params.banner.backgroundImages }}
-        {{ if $index }},{{ end }}"{{ $url | safeURL }}"
-      {{ end }}
-    ];
+    const bannerImages = {{ .Site.Params.banner.backgroundImages | jsonify }};
     let currentImageIndex = 0;
     const bannerElement = document.getElementById('bannerSlideshow');
     
@@ -27,7 +23,6 @@
       bannerElement.style.backgroundImage = 'url(' + bannerImages[currentImageIndex] + ')';
     }
     
-    // Change image every 3 seconds
     setInterval(changeBannerImage, 3000);
   })();
 </script>

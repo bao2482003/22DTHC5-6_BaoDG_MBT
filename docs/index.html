@@ -171,15 +171,7 @@
 </section>
 <script>
   (function() {
-    const bannerImages = [
-      
-        "https:\/\/images.unsplash.com\/photo-1451187580459-43490279c0fa?w=1920\u0026q=80"
-      
-        ,"https:\/\/images.unsplash.com\/photo-1518770660439-4636190af475?w=1920\u0026q=80"
-      
-        ,"https:\/\/images.unsplash.com\/photo-1488590528505-98d2b5aba04b?w=1920\u0026q=80"
-      
-    ];
+    const bannerImages = "[\"https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920\\u0026q=80\",\"https://images.unsplash.com/photo-1518770660439-4636190af475?w=1920\\u0026q=80\",\"https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=1920\\u0026q=80\"]";
     let currentImageIndex = 0;
     const bannerElement = document.getElementById('bannerSlideshow');
     
@@ -189,7 +181,6 @@
       currentImageIndex = (currentImageIndex + 1) % bannerImages.length;
       bannerElement.style.backgroundImage = 'url(' + bannerImages[currentImageIndex] + ')';
     }
-    
     
     setInterval(changeBannerImage, 3000);
   })();

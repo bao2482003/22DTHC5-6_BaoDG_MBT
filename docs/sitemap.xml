@@ -2,72 +2,75 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/advanced/</loc>
+    <loc>http://localhost:1313/22DTHC5-6_BaoDG_MBT/cv/</loc>
+    <lastmod>2025-12-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/advanced/</loc>
     <lastmod>2025-12-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/async/</loc>
+    <loc>http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/async/</loc>
     <lastmod>2025-12-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/posts/</loc>
+    <loc>http://localhost:1313/22DTHC5-6_BaoDG_MBT/posts/</loc>
     <lastmod>2025-12-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/concurrency/</loc>
+    <loc>http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/concurrency/</loc>
     <lastmod>2025-12-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/data-structures/</loc>
+    <loc>http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/data-structures/</loc>
     <lastmod>2025-12-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/error-handling/</loc>
+    <loc>http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/error-handling/</loc>
     <lastmod>2025-12-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/es6/</loc>
+    <loc>http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/es6/</loc>
     <lastmod>2025-12-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/generics/</loc>
+    <loc>http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/generics/</loc>
     <lastmod>2025-12-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/java/</loc>
+    <loc>http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/java/</loc>
     <lastmod>2025-12-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/posts/java-arraylist-vs-linkedlist/</loc>
+    <loc>http://localhost:1313/22DTHC5-6_BaoDG_MBT/posts/java-arraylist-vs-linkedlist/</loc>
     <lastmod>2025-12-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/posts/java-exception-handling/</loc>
+    <loc>http://localhost:1313/22DTHC5-6_BaoDG_MBT/posts/java-exception-handling/</loc>
     <lastmod>2025-12-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/posts/java-generics/</loc>
+    <loc>http://localhost:1313/22DTHC5-6_BaoDG_MBT/posts/java-generics/</loc>
     <lastmod>2025-12-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/posts/java-multithreading/</loc>
+    <loc>http://localhost:1313/22DTHC5-6_BaoDG_MBT/posts/java-multithreading/</loc>
     <lastmod>2025-12-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/posts/java-stream-api/</loc>
+    <loc>http://localhost:1313/22DTHC5-6_BaoDG_MBT/posts/java-stream-api/</loc>
     <lastmod>2025-12-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/javascript/</loc>
+    <loc>http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/javascript/</loc>
     <lastmod>2025-12-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/posts/javascript-async-await/</loc>
+    <loc>http://localhost:1313/22DTHC5-6_BaoDG_MBT/posts/javascript-async-await/</loc>
     <lastmod>2025-12-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/posts/javascript-closures/</loc>
+    <loc>http://localhost:1313/22DTHC5-6_BaoDG_MBT/posts/javascript-closures/</loc>
     <lastmod>2025-12-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/posts/javascript-destructuring/</loc>
+    <loc>http://localhost:1313/22DTHC5-6_BaoDG_MBT/posts/javascript-destructuring/</loc>
     <lastmod>2025-12-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/posts/javascript-arrow-functions/</loc>
+    <loc>http://localhost:1313/22DTHC5-6_BaoDG_MBT/posts/javascript-arrow-functions/</loc>
     <lastmod>2025-12-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/stream-api/</loc>
+    <loc>http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/stream-api/</loc>
     <lastmod>2025-12-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/</loc>
+    <loc>http://localhost:1313/22DTHC5-6_BaoDG_MBT/tags/</loc>
     <lastmod>2025-12-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/</loc>
+    <loc>http://localhost:1313/22DTHC5-6_BaoDG_MBT/</loc>
     <lastmod>2023-01-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/categories/</loc>
+    <loc>http://localhost:1313/22DTHC5-6_BaoDG_MBT/categories/</loc>
   </url>
 </urlset>

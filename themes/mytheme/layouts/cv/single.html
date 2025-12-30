@@ -1,0 +1,273 @@
+{{ define "main" }}
+
+<section class="cv-section">
+  <div class="container">
+    <div class="cv-container">
+      
+      <!-- CV Header -->
+      <div class="cv-header">
+        <div class="cv-avatar">
+          <img src="/images/avatar.jpg" alt="Đặng Gia Bảo">
+        </div>
+        <div class="cv-title-area">
+          <h1>{{ .Title }}</h1>
+          <div class="cv-actions">
+            <button onclick="window.print()" class="btn-print">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                <rect x="6" y="14" width="12" height="8"></rect>
+              </svg>
+              In CV
+            </button>
+            <a href="/" class="btn-back">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
+              Quay lại
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CV Content -->
+      <div class="cv-content">
+        {{ .Content }}
+      </div>
+
+      <!-- Download Button -->
+      <div class="cv-footer">
+        <button onclick="window.print()" class="btn btn-primary btn-download">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Tải xuống CV
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.cv-section {
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+.cv-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  overflow: hidden;
+}
+
+.cv-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40px;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.cv-avatar img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 4px solid white;
+  object-fit: cover;
+}
+
+.cv-title-area {
+  flex: 1;
+}
+
+.cv-title-area h1 {
+  margin: 0 0 15px 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.cv-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.btn-print, .btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: rgba(255,255,255,0.2);
+  color: white;
+  border: 2px solid white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.btn-print:hover, .btn-back:hover {
+  background: white;
+  color: #667eea;
+}
+
+.cv-content {
+  padding: 50px;
+  line-height: 1.8;
+}
+
+.cv-content h1 {
+  color: #667eea;
+  font-size: 2.2rem;
+  margin: 0 0 10px 0;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #667eea;
+}
+
+.cv-content h2 {
+  color: #764ba2;
+  font-size: 1.5rem;
+  margin: 35px 0 15px 0;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #eee;
+}
+
+.cv-content h3 {
+  color: #333;
+  font-size: 1.2rem;
+  margin: 20px 0 10px 0;
+  font-weight: 600;
+}
+
+.cv-content p {
+  margin: 10px 0;
+  color: #555;
+}
+
+.cv-content ul {
+  margin: 15px 0;
+  padding-left: 25px;
+}
+
+.cv-content li {
+  margin: 8px 0;
+  color: #555;
+}
+
+.cv-content a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.cv-content a:hover {
+  text-decoration: underline;
+}
+
+.cv-content strong {
+  color: #333;
+  font-weight: 600;
+}
+
+.cv-content hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 30px 0;
+}
+
+.cv-footer {
+  padding: 30px 50px 50px;
+  text-align: center;
+}
+
+.btn-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 40px;
+  font-size: 16px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-download:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+/* Print styles */
+@media print {
+  .cv-section {
+    background: white;
+    padding: 0;
+  }
+  
+  .cv-container {
+    box-shadow: none;
+    border-radius: 0;
+  }
+  
+  .cv-actions,
+  .cv-footer {
+    display: none;
+  }
+  
+  .cv-header {
+    background: #667eea;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  
+  .cv-content {
+    padding: 30px;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cv-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .cv-title-area h1 {
+    font-size: 2rem;
+  }
+  
+  .cv-actions {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .cv-content {
+    padding: 30px 25px;
+  }
+  
+  .cv-content h1 {
+    font-size: 1.8rem;
+  }
+  
+  .cv-content h2 {
+    font-size: 1.3rem;
+  }
+}
+</style>
+
+{{ end }}

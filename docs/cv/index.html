@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
+<head><script src="/22DTHC5-6_BaoDG_MBT/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=22DTHC5-6_BaoDG_MBT/livereload" data-no-instant defer></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hồ Sơ (CV) | Profile</title>
@@ -80,7 +80,7 @@
   let searchIndex = [];
   
   
-  fetch('https:\/\/bao2482003.github.io\/22DTHC5-6_BaoDG_MBT\/index.json')
+  fetch('http:\/\/localhost:1313\/22DTHC5-6_BaoDG_MBT\/index.json')
     .then(response => response.json())
     .then(data => {
       searchIndex = data;
@@ -454,6 +454,55 @@
 .btn-download:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+ 
+[data-theme="dark"] .cv-section {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+}
+
+[data-theme="dark"] .cv-container {
+  background: #0f0f23 !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+}
+
+[data-theme="dark"] .cv-content {
+  background: #0f0f23 !important;
+}
+
+[data-theme="dark"] .cv-content h1 {
+  color: #9face6 !important;
+  border-bottom-color: #9face6;
+}
+
+[data-theme="dark"] .cv-content h2 {
+  color: #c77dff !important;
+  border-bottom-color: #2d3748;
+}
+
+[data-theme="dark"] .cv-content h3 {
+  color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] .cv-content p,
+[data-theme="dark"] .cv-content li {
+  color: #b0b0b0 !important;
+}
+
+[data-theme="dark"] .cv-content strong {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .cv-content a {
+  color: #9face6 !important;
+}
+
+[data-theme="dark"] .cv-content hr {
+  border-top-color: #2d3748;
+}
+
+[data-theme="dark"] .cv-footer {
+  background: #0f0f23 !important;
 }
 
  

@@ -185,7 +185,7 @@
             <circle cx="12" cy="12" r="10"></circle>
             <polyline points="12 6 12 12 16 14"></polyline>
           </svg>
-          4 phút đọc
+          9 phút đọc
         </span>
       </div>
       
@@ -207,249 +207,290 @@
   
 
   
+  <div class="post-featured-video">
+    <div class="video-wrapper">
+      <iframe 
+        src="https://www.youtube.com/embed/_SWK7pZQzIg" 
+        title="YouTube video player" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        referrerpolicy="strict-origin-when-cross-origin" 
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+  
 
   <div class="post-content">
-    <h2 id="thread-là-gì">Thread là gì?</h2>
-<p>Thread là đơn vị nhỏ nhất của một process, cho phép chương trình thực hiện nhiều tác vụ đồng thời.</p>
-<h2 id="tạo-thread-trong-java">Tạo Thread trong Java</h2>
-<h3 id="cách-1-extends-thread">Cách 1: Extends Thread</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyThread</span> <span style="color:#66d9ef">extends</span> Thread {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">@Override</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0; i <span style="color:#f92672">&lt;</span> 5; i<span style="color:#f92672">++</span>) {
-</span></span><span style="display:flex;"><span>      System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(Thread.<span style="color:#a6e22e">currentThread</span>().<span style="color:#a6e22e">getName</span>() <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;: &#34;</span> <span style="color:#f92672">+</span> i);
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">try</span> {
-</span></span><span style="display:flex;"><span>        Thread.<span style="color:#a6e22e">sleep</span>(1000);
-</span></span><span style="display:flex;"><span>      } <span style="color:#66d9ef">catch</span> (InterruptedException e) {
-</span></span><span style="display:flex;"><span>        e.<span style="color:#a6e22e">printStackTrace</span>();
-</span></span><span style="display:flex;"><span>      }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// Sử dụng</span>
-</span></span><span style="display:flex;"><span>MyThread thread1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> MyThread();
-</span></span><span style="display:flex;"><span>MyThread thread2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> MyThread();
-</span></span><span style="display:flex;"><span>thread1.<span style="color:#a6e22e">start</span>();
-</span></span><span style="display:flex;"><span>thread2.<span style="color:#a6e22e">start</span>();
-</span></span></code></pre></div><h3 id="cách-2-implements-runnable-recommended">Cách 2: Implements Runnable (Recommended)</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyTask</span> <span style="color:#66d9ef">implements</span> Runnable {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">@Override</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0; i <span style="color:#f92672">&lt;</span> 5; i<span style="color:#f92672">++</span>) {
-</span></span><span style="display:flex;"><span>      System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(Thread.<span style="color:#a6e22e">currentThread</span>().<span style="color:#a6e22e">getName</span>() <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;: &#34;</span> <span style="color:#f92672">+</span> i);
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">try</span> {
-</span></span><span style="display:flex;"><span>        Thread.<span style="color:#a6e22e">sleep</span>(1000);
-</span></span><span style="display:flex;"><span>      } <span style="color:#66d9ef">catch</span> (InterruptedException e) {
-</span></span><span style="display:flex;"><span>        e.<span style="color:#a6e22e">printStackTrace</span>();
-</span></span><span style="display:flex;"><span>      }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// Sử dụng</span>
-</span></span><span style="display:flex;"><span>Thread thread1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Thread(<span style="color:#66d9ef">new</span> MyTask());
-</span></span><span style="display:flex;"><span>Thread thread2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Thread(<span style="color:#66d9ef">new</span> MyTask());
-</span></span><span style="display:flex;"><span>thread1.<span style="color:#a6e22e">start</span>();
-</span></span><span style="display:flex;"><span>thread2.<span style="color:#a6e22e">start</span>();
-</span></span></code></pre></div><h3 id="cách-3-lambda-expression-java-8">Cách 3: Lambda Expression (Java 8+)</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Thread thread <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Thread(() <span style="color:#f92672">-&gt;</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0; i <span style="color:#f92672">&lt;</span> 5; i<span style="color:#f92672">++</span>) {
-</span></span><span style="display:flex;"><span>    System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(Thread.<span style="color:#a6e22e">currentThread</span>().<span style="color:#a6e22e">getName</span>() <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;: &#34;</span> <span style="color:#f92672">+</span> i);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span> {
-</span></span><span style="display:flex;"><span>      Thread.<span style="color:#a6e22e">sleep</span>(1000);
-</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">catch</span> (InterruptedException e) {
-</span></span><span style="display:flex;"><span>      e.<span style="color:#a6e22e">printStackTrace</span>();
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>});
-</span></span><span style="display:flex;"><span>thread.<span style="color:#a6e22e">start</span>();
-</span></span></code></pre></div><h2 id="thread-lifecycle">Thread Lifecycle</h2>
-<pre tabindex="0"><code>NEW → RUNNABLE → RUNNING → TERMINATED
-         ↓           ↓
-      BLOCKED    WAITING
-</code></pre><h2 id="thread-methods">Thread Methods</h2>
-<h3 id="sleep">sleep()</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Thread.<span style="color:#a6e22e">sleep</span>(1000); <span style="color:#75715e">// Sleep 1 giây</span>
-</span></span></code></pre></div><h3 id="join">join()</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Thread t1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Thread(() <span style="color:#f92672">-&gt;</span> {
-</span></span><span style="display:flex;"><span>  System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Task 1&#34;</span>);
-</span></span><span style="display:flex;"><span>});
-</span></span><span style="display:flex;"><span>t1.<span style="color:#a6e22e">start</span>();
-</span></span><span style="display:flex;"><span>t1.<span style="color:#a6e22e">join</span>(); <span style="color:#75715e">// Chờ t1 hoàn thành</span>
-</span></span><span style="display:flex;"><span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Task 1 completed&#34;</span>);
-</span></span></code></pre></div><h3 id="interrupt">interrupt()</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Thread thread <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Thread(() <span style="color:#f92672">-&gt;</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">try</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>Thread.<span style="color:#a6e22e">interrupted</span>()) {
-</span></span><span style="display:flex;"><span>      System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Working...&#34;</span>);
-</span></span><span style="display:flex;"><span>      Thread.<span style="color:#a6e22e">sleep</span>(1000);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">catch</span> (InterruptedException e) {
-</span></span><span style="display:flex;"><span>    System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Thread interrupted&#34;</span>);
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>});
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>thread.<span style="color:#a6e22e">start</span>();
-</span></span><span style="display:flex;"><span>Thread.<span style="color:#a6e22e">sleep</span>(3000);
-</span></span><span style="display:flex;"><span>thread.<span style="color:#a6e22e">interrupt</span>(); <span style="color:#75715e">// Ngắt thread</span>
-</span></span></code></pre></div><h2 id="synchronization">Synchronization</h2>
-<h3 id="vấn-đề-race-condition">Vấn đề Race Condition</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Counter</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> count <span style="color:#f92672">=</span> 0;
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">increment</span>() {
-</span></span><span style="display:flex;"><span>    count<span style="color:#f92672">++</span>; <span style="color:#75715e">// Không thread-safe!</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getCount</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> count;
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="giải-pháp-synchronized">Giải pháp: synchronized</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Counter</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> count <span style="color:#f92672">=</span> 0;
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">synchronized</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">increment</span>() {
-</span></span><span style="display:flex;"><span>    count<span style="color:#f92672">++</span>;
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">synchronized</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getCount</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> count;
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="synchronized-block">Synchronized Block</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Counter</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> count <span style="color:#f92672">=</span> 0;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">private</span> Object lock <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Object();
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">increment</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">synchronized</span>(lock) {
-</span></span><span style="display:flex;"><span>      count<span style="color:#f92672">++</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h2 id="executorservice-modern-approach">ExecutorService (Modern Approach)</h2>
-<h3 id="thread-pool">Thread Pool</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>ExecutorService executor <span style="color:#f92672">=</span> Executors.<span style="color:#a6e22e">newFixedThreadPool</span>(3);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0; i <span style="color:#f92672">&lt;</span> 10; i<span style="color:#f92672">++</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> taskId <span style="color:#f92672">=</span> i;
-</span></span><span style="display:flex;"><span>  executor.<span style="color:#a6e22e">submit</span>(() <span style="color:#f92672">-&gt;</span> {
-</span></span><span style="display:flex;"><span>    System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Task &#34;</span> <span style="color:#f92672">+</span> taskId <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; by &#34;</span> <span style="color:#f92672">+</span> 
-</span></span><span style="display:flex;"><span>                      Thread.<span style="color:#a6e22e">currentThread</span>().<span style="color:#a6e22e">getName</span>());
-</span></span><span style="display:flex;"><span>  });
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>executor.<span style="color:#a6e22e">shutdown</span>();
-</span></span></code></pre></div><h3 id="callable--future">Callable &amp; Future</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>ExecutorService executor <span style="color:#f92672">=</span> Executors.<span style="color:#a6e22e">newSingleThreadExecutor</span>();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Callable<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> task <span style="color:#f92672">=</span> () <span style="color:#f92672">-&gt;</span> {
-</span></span><span style="display:flex;"><span>  Thread.<span style="color:#a6e22e">sleep</span>(2000);
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> 42;
-</span></span><span style="display:flex;"><span>};
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Future<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> future <span style="color:#f92672">=</span> executor.<span style="color:#a6e22e">submit</span>(task);
-</span></span><span style="display:flex;"><span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Doing other work...&#34;</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Integer result <span style="color:#f92672">=</span> future.<span style="color:#a6e22e">get</span>(); <span style="color:#75715e">// Block cho đến khi có kết quả</span>
-</span></span><span style="display:flex;"><span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Result: &#34;</span> <span style="color:#f92672">+</span> result);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>executor.<span style="color:#a6e22e">shutdown</span>();
-</span></span></code></pre></div><h2 id="completablefuture-java-8">CompletableFuture (Java 8+)</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>CompletableFuture<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> future <span style="color:#f92672">=</span> CompletableFuture.<span style="color:#a6e22e">supplyAsync</span>(() <span style="color:#f92672">-&gt;</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">try</span> {
-</span></span><span style="display:flex;"><span>    Thread.<span style="color:#a6e22e">sleep</span>(2000);
-</span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">catch</span> (InterruptedException e) {
-</span></span><span style="display:flex;"><span>    e.<span style="color:#a6e22e">printStackTrace</span>();
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Hello&#34;</span>;
-</span></span><span style="display:flex;"><span>});
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>future.<span style="color:#a6e22e">thenApply</span>(result <span style="color:#f92672">-&gt;</span> result <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; World&#34;</span>)
-</span></span><span style="display:flex;"><span>      .<span style="color:#a6e22e">thenAccept</span>(System.<span style="color:#a6e22e">out</span>::println);
-</span></span></code></pre></div><h2 id="thread-safe-collections">Thread-Safe Collections</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// Synchronized collections</span>
-</span></span><span style="display:flex;"><span>List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> syncList <span style="color:#f92672">=</span> Collections.<span style="color:#a6e22e">synchronizedList</span>(<span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;</span>());
-</span></span><span style="display:flex;"><span>Map<span style="color:#f92672">&lt;</span>String, Integer<span style="color:#f92672">&gt;</span> syncMap <span style="color:#f92672">=</span> Collections.<span style="color:#a6e22e">synchronizedMap</span>(<span style="color:#66d9ef">new</span> HashMap<span style="color:#f92672">&lt;&gt;</span>());
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// Concurrent collections (Better performance)</span>
-</span></span><span style="display:flex;"><span>ConcurrentHashMap<span style="color:#f92672">&lt;</span>String, Integer<span style="color:#f92672">&gt;</span> map <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ConcurrentHashMap<span style="color:#f92672">&lt;&gt;</span>();
-</span></span><span style="display:flex;"><span>CopyOnWriteArrayList<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> list <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> CopyOnWriteArrayList<span style="color:#f92672">&lt;&gt;</span>();
-</span></span><span style="display:flex;"><span>BlockingQueue<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> queue <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> LinkedBlockingQueue<span style="color:#f92672">&lt;&gt;</span>();
-</span></span></code></pre></div><h2 id="locks-javautilconcurrentlocks">Locks (java.util.concurrent.locks)</h2>
-<h3 id="reentrantlock">ReentrantLock</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Counter</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> count <span style="color:#f92672">=</span> 0;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">private</span> Lock lock <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ReentrantLock();
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">increment</span>() {
-</span></span><span style="display:flex;"><span>    lock.<span style="color:#a6e22e">lock</span>();
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span> {
-</span></span><span style="display:flex;"><span>      count<span style="color:#f92672">++</span>;
-</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">finally</span> {
-</span></span><span style="display:flex;"><span>      lock.<span style="color:#a6e22e">unlock</span>(); <span style="color:#75715e">// Luôn unlock trong finally</span>
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="readwritelock">ReadWriteLock</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Cache</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">private</span> Map<span style="color:#f92672">&lt;</span>String, String<span style="color:#f92672">&gt;</span> data <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashMap<span style="color:#f92672">&lt;&gt;</span>();
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">private</span> ReadWriteLock lock <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ReentrantReadWriteLock();
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">get</span>(String key) {
-</span></span><span style="display:flex;"><span>    lock.<span style="color:#a6e22e">readLock</span>().<span style="color:#a6e22e">lock</span>();
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span> {
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> data.<span style="color:#a6e22e">get</span>(key);
-</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">finally</span> {
-</span></span><span style="display:flex;"><span>      lock.<span style="color:#a6e22e">readLock</span>().<span style="color:#a6e22e">unlock</span>();
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">put</span>(String key, String value) {
-</span></span><span style="display:flex;"><span>    lock.<span style="color:#a6e22e">writeLock</span>().<span style="color:#a6e22e">lock</span>();
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span> {
-</span></span><span style="display:flex;"><span>      data.<span style="color:#a6e22e">put</span>(key, value);
-</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">finally</span> {
-</span></span><span style="display:flex;"><span>      lock.<span style="color:#a6e22e">writeLock</span>().<span style="color:#a6e22e">unlock</span>();
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h2 id="best-practices">Best Practices</h2>
+    <p>Lập trình đa luồng luôn là một chủ đề được nhiều lập trình viên chú ý trong quá trình phát triển phần mềm, phải làm sao để chương trình của mình chạy trơn tru nhất, nhẹ nhàng nhất để người dùng có thiện cảm tốt với sản phẩm của mình. Trong bài viết dưới đây, chúng ta sẽ cùng tìm hiểu về lập trình đa luồng và các thực hiện với ngôn ngữ Java.</p>
 <ol>
-<li><strong>Dùng ExecutorService</strong> thay vì tạo Thread trực tiếp</li>
-<li><strong>Tránh synchronized quá nhiều</strong> - ảnh hưởng performance</li>
-<li><strong>Dùng concurrent collections</strong> khi cần thread-safety</li>
-<li><strong>Luôn shutdown ExecutorService</strong> sau khi dùng</li>
-<li><strong>Cẩn thận với deadlock</strong> - luôn lock theo thứ tự nhất quán</li>
-<li><strong>Dùng ThreadLocal</strong> cho thread-specific data</li>
-<li><strong>Test kỹ concurrent code</strong> - bugs khó reproduce</li>
+<li>Đa luồng là gì ?
+Thread(luồng) là một tiến trình con(sub-process), một đơn vị nhỏ nhất của máy tính có thể thực hiện một công việc riêng biệt. Đa tiến trình và đa luồng là các cách để đạt được đa nhiệm. Trong Java, các luồng được quản lý bởi máy ảo Java(JVM)</li>
 </ol>
-<h2 id="common-pitfalls">Common Pitfalls</h2>
-<h3 id="deadlock">Deadlock</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// ❌ Có thể bị deadlock</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">synchronized</span>(lock1) {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">synchronized</span>(lock2) {
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Critical section</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
+<p>Lợi ích của đa luồng
+Đa luồng không chặn người dùng vì các luồng là độc lập và bạn có thể thực hiện nhiều hành động tại một thời điểm</p>
+<p>Có thể tiết kiệm thời gian vì có thể thực hiện nhiều hành động đồng thời</p>
+<p>Các luồng độc lập nên nó sẽ không gây ảnh hưởng tới các luồng khác nếu exception xảy ra tại một luồng</p>
+<p>Các luồng có thể dùng chung và chia sẻ nguồn tài nguyên trong quá trình chạy, tuy nhiên các luồng vẫn sẽ hoạt động độc lập với nhau</p>
+<p>Nhược điểm của đa luồng
+Xử lý chương trình phức tạp</p>
+<p>Xử lý vấn đề tranh chấp bộ nhớ, đồng bộ dữ liệu khá phức tạp</p>
+<p>Cần phát hiện các luồng bị chặn, block(dead lock) để tránh gây lỗi cho hệ thống</p>
+<ol start="2">
+<li>Đa nhiệm là gì ?
+Đa nhiệm là khả năng chạy đồng thời một hay nhiều chương trình cùng lúc trên một hệ điều hành. Chúng ta dùng đa nhiệm để tối ưu việc sử dụng tài nguyên CPU. Đa nhiệm có thể đạt được qua hai cách:</li>
+</ol>
+<p>Đa nhiệm dựa trên đa tiến trình(Multiprocessing)
+Mỗi tiến trình có một địa chỉ trong bộ nhớ, mỗi tiến trình có một bộ nhớ riêng biệt</p>
+<p>Một tiến trình là nặng</p>
+<p>Sự giao tiếp giữa các tiến trình có chi phí cao</p>
+<p>Sự chuyển đổi giữa một tiến trình sang tiến trình khác đòi hỏi thời gian cho việc lưu và tải các vùng đăng ký bộ nhớ, danh sách, &hellip;</p>
+<p>Đa nhiệm dựa trên đa luồng(Multithreading)
+Luồng sử dụng chung vùng nhớ</p>
+<p>Luồng là nhẹ</p>
+<p>Chi phí giao tiếp giữa các luồng là không cao</p>
+<ol start="3">
+<li>Vòng đời của một Thread trong Java
+Một Thread sẽ trải qua năm trạng thái trong vòng đời của nó. Vòng đời của luồng được quản lý bởi JVM bao gồm có:</li>
+</ol>
+<p>NEW : Đây là trạng thái khi luồng vừa được khởi tạo bằng phương thức khởi tạo của lớp Thread nhưng chưa được start(). Ở trạng thái này, luồng được tạo ra nhưng chưa được cấp phát tài nguyên và cũng chưa chạy. Nếu luồng đang ở trạng thái này mà ta gọi các phương thức ép buộc stop,resume,suspend … sẽ là nguyên nhân sảy ra ngoại lệ IllegalThreadStateException .</p>
+<p>RUNNABLE : Sau khi gọi phương thức start() thì luồng test đã được cấp phát tài nguyên và các lịch điều phối CPU cho luồng test cũng bắt đầu có hiệu lực. Ở đây, chúng ta dùng trạng thái là Runnable chứ không phải Running, vì luồng không thực sự luôn chạy mà tùy vào hệ thống mà có sự điều phối CPU khác nhau.</p>
+<p>WAITING : Thread chờ không giới hạn cho đến khi một luồng khác đánh thức nó.</p>
+<p>TIMED_WAITING : Thread chờ trong một thời gian nhất định, hoặc là có một luồng khác đánh thức nó.</p>
+<p>BLOCKED: Đây là 1 dạng của trạng thái “Not Runnable”, là trạng thái khi Thread vẫn còn sống, nhưng hiện tại không được chọn để chạy. Thread chờ một monitor để unlock một đối tượng mà nó cần.</p>
+<p>TERMINATED : Một thread ở trong trạng thái terminated hoặc dead khi phương thức run() của nó bị thoát.</p>
+<ol start="4">
+<li>Lớp Thread trong Java
+Trong Java, chúng ta có thể tạo ra một luồng bằng cách tạo một đối tượng từ một lớp kế thừa lớp Thread. Để khởi tạo một luồng bằng cách này, chúng ta sẽ phải thực hiện các bước sau:</li>
+</ol>
+<p>Khai báo một lớp kế thừa lớp Thread</p>
+<p>Override lại phương thức run() của lớp này, các dòng lệnh trong phương thức này sẽ được thực thi khi luồng bắt đầu chạy. Sau khi luồng đã thực hiện xong các dòng code trong phương thức run thì luồng sẽ chuyển sang trạng thái hủy.</p>
+<p>Tạo một đối tượng của lớp vừa khai báo.</p>
+<p>Gọi phương thức start() để bắt đầu thực thi luồng.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ThreadSample</span> <span style="color:#66d9ef">extends</span> Thread{
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// Thread khác</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">synchronized</span>(lock2) {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">synchronized</span>(lock1) {
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Critical section</span>
-</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span>() {
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;This is a thread, myThreadName: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">getName</span>());
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="starting-thread-trong-constructor">Starting Thread trong Constructor</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// ❌ Nguy hiểm</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyClass</span> <span style="color:#66d9ef">extends</span> Thread {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">MyClass</span>() {
-</span></span><span style="display:flex;"><span>    start(); <span style="color:#75715e">// Có thể gây vấn đề</span>
-</span></span><span style="display:flex;"><span>  }
+</span></span></code></pre></div><p>Tại sao gọi phương thức start() chứ không phải run() để thực thi luồng?</p>
+<p>Phương thức start() là phương thức đặc biệt được Oracle xây dựng trong lớp Thread, phương thức này sẽ cấp phát tài nguyên cho luồng rồi mới thực thi phương thức run() ở luồng này.</p>
+<p>Do đó, nếu ta gọi phương thức run() thì cũng tương đương với việc gọi một phương thức ở một lớp bình thường và nó sẽ chạy trên luồng thực hiện gọi phương thức chứ không sinh ra một luồng mới.</p>
+<p>Thêm một lưu ý nữa, bạn không thể gọi phương thức start() của Thread hai lần, nếu không sẽ có ngoại lệ IllegalThreadStateException xảy ra.</p>
+<ol start="5">
+<li>Interface Runnable trong Java
+Ngoài cách sử kế thừa lớp Thread trong Java, bạn hoàn toàn có thể sử dụng interface Runnable trong Java để khởi tạo một luồng mới. Để tạo luồng bằng cách sử dụng Runnable, ta phải làm các công việc sau:</li>
+</ol>
+<p>Khai báo một lớp implement Runnable</p>
+<p>Override lại phương thức run() trong lớp này. Việc này tương tự với việc override lại phương thức run() trong cách sử dụng lớp Thread</p>
+<p>Tạo một đối tượng của lớp vừa khai báo</p>
+<p>Tạo một đối tượng Thread bằng constructor: Thread(Runnable runnable). Điều thú vị ở đây là, mặc dù chúng ta vẫn cần một đối tượng Thread để khởi tạo luồng mới, tuy nhiên thay vì việc override lại phương thức run() của nó thì chúng ta lại truyền vào đây một Runnable với các dòng code thực thi chương trình đã được thêm vào trong phương thức run()</p>
+<p>Gọi phương thức start() để bắt đầu thực thi luồng</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PingWorker</span> <span style="color:#66d9ef">implements</span> Runnable {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> Logger LOGGER <span style="color:#f92672">=</span> LogManager.<span style="color:#a6e22e">getLogger</span>(<span style="color:#e6db74">&#34;PingWorker&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">long</span> TIMEOUT_PING <span style="color:#f92672">=</span> 30 <span style="color:#f92672">*</span> 1000L;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span>() {
+</span></span><span style="display:flex;"><span>        LOGGER.<span style="color:#a6e22e">info</span>(<span style="color:#e6db74">&#34;Start ping worker !&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (<span style="color:#66d9ef">true</span>) {
+</span></span><span style="display:flex;"><span>            Packet pingPacket <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Packet();
+</span></span><span style="display:flex;"><span>            pingPacket.<span style="color:#a6e22e">setServiceType</span>(Constants.<span style="color:#a6e22e">PacketServiceType</span>.<span style="color:#a6e22e">PING</span>);
+</span></span><span style="display:flex;"><span>            pingPacket.<span style="color:#a6e22e">setBody</span>(<span style="color:#66d9ef">new</span> JSONObject());
+</span></span><span style="display:flex;"><span>            List<span style="color:#f92672">&lt;</span>Connection<span style="color:#f92672">&gt;</span> allConnections <span style="color:#f92672">=</span> ConnectionManager.<span style="color:#a6e22e">getInstance</span>().<span style="color:#a6e22e">getAllConnections</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> (Connection connection : allConnections) {
+</span></span><span style="display:flex;"><span>                connection.<span style="color:#a6e22e">sendPacket</span>(pingPacket);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>                TimeUnit.<span style="color:#a6e22e">SECONDS</span>.<span style="color:#a6e22e">sleep</span>(30);
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">catch</span> (Exception ex) {
+</span></span><span style="display:flex;"><span>                LOGGER.<span style="color:#a6e22e">error</span>(<span style="color:#e6db74">&#34;Error  when trying to sleep &#34;</span>, ex);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h2 id="kết-luận">Kết luận</h2>
-<p>Multithreading giúp tận dụng tối đa CPU và cải thiện performance. Tuy nhiên, cần hiểu rõ về synchronization và concurrent programming để tránh bugs khó debug!</p>
+</span></span></code></pre></div><p>Khi nào thì nên dùng Runnable
+Vì Runnable là một interface nên nó có thể giúp chúng ta giải quyết bài toán đa kế thừa. Ngoài ra, Thread Pool cũng chấp nhận các đối tượng để nó quản lý là Runnable, việc sử dụng Thread Pool mang lại nhiều hiệu quả trong việc quản lý các luồng</p>
+<p>Trong các trường hợp còn lại, bạn hoàn toàn có thể sử dụng Thread</p>
+<ol start="6">
+<li>Ví dụ minh họa sử dụng đa luồng
+Tạo luồng với Thread</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ThreadSample</span> <span style="color:#66d9ef">extends</span> Thread{
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span>() {
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;This is a thread, myThreadName: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">getName</span>());
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) {
+</span></span><span style="display:flex;"><span>        ThreadSample thread <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ThreadSample();
+</span></span><span style="display:flex;"><span>        ThreadSample thread2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ThreadSample();
+</span></span><span style="display:flex;"><span>        ThreadSample thread3 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ThreadSample();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;CurrentThread &#34;</span> <span style="color:#f92672">+</span> Thread.<span style="color:#a6e22e">currentThread</span>().<span style="color:#a6e22e">getName</span>());
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        thread.<span style="color:#a6e22e">start</span>();
+</span></span><span style="display:flex;"><span>        thread2.<span style="color:#a6e22e">start</span>();
+</span></span><span style="display:flex;"><span>        thread3.<span style="color:#a6e22e">start</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Output chương trình:</strong></p>
+<pre tabindex="0"><code>CurrentThread main
+This is a thread, myThreadName: Thread-0
+This is a thread, myThreadName: Thread-2
+This is a thread, myThreadName: Thread-1
+</code></pre><p>Tạo luồng với interface Runnable</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RunnableSample</span> <span style="color:#66d9ef">implements</span> Runnable {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">long</span> timestamp <span style="color:#f92672">=</span> System.<span style="color:#a6e22e">currentTimeMillis</span>();
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;[%s]Checking timestamp%n&#34;</span>, Thread.<span style="color:#a6e22e">currentThread</span>().<span style="color:#a6e22e">getName</span>());
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;[%s]My timestamp: %d%n&#34;</span>, Thread.<span style="color:#a6e22e">currentThread</span>().<span style="color:#a6e22e">getName</span>(), timestamp);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) {
+</span></span><span style="display:flex;"><span>        Thread thread1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Thread(<span style="color:#66d9ef">new</span> RunnableSample());
+</span></span><span style="display:flex;"><span>        Thread thread2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Thread(<span style="color:#66d9ef">new</span> RunnableSample());
+</span></span><span style="display:flex;"><span>        Thread thread3 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Thread(<span style="color:#66d9ef">new</span> RunnableSample());
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        thread1.<span style="color:#a6e22e">start</span>();
+</span></span><span style="display:flex;"><span>        thread2.<span style="color:#a6e22e">start</span>();
+</span></span><span style="display:flex;"><span>        thread3.<span style="color:#a6e22e">start</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Output chương trình:</strong></p>
+<pre tabindex="0"><code>[Thread-2]Checking timestamp
+[Thread-0]Checking timestamp
+[Thread-0]My timestamp: 1687795285576
+[Thread-1]Checking timestamp
+[Thread-1]My timestamp: 1687795285576
+[Thread-2]My timestamp: 1687795285576
+</code></pre><ol start="7">
+<li>Các phương thức của lớp Thread thường được hay sử dụng</li>
+</ol>
+<table>
+  <thead>
+      <tr>
+          <th>Kiểu trả về</th>
+          <th>Tên phương thức</th>
+          <th>Mô tả</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>void</td>
+          <td>start()</td>
+          <td>Được sử dụng để bắt đầu thực thi một luồng</td>
+      </tr>
+      <tr>
+          <td>void</td>
+          <td>run()</td>
+          <td>Được sử dụng để chạy hành động của một luồng</td>
+      </tr>
+      <tr>
+          <td>static void</td>
+          <td>sleep()</td>
+          <td>Nghỉ một luồng trong một khoảng thời gian</td>
+      </tr>
+      <tr>
+          <td>static Thread</td>
+          <td>currentThread()</td>
+          <td>Trả về tham chiếu tới luồng đang thực thi đối tượng Thread</td>
+      </tr>
+      <tr>
+          <td>void</td>
+          <td>join()</td>
+          <td>Chờ một thread hoàn thành vòng đời của nó</td>
+      </tr>
+      <tr>
+          <td>int</td>
+          <td>getPriority()</td>
+          <td>Trả về giá trị ưu tiên của luồng</td>
+      </tr>
+      <tr>
+          <td>void</td>
+          <td>setPriority(int)</td>
+          <td>Thay đổi giá trị ưu tiên của luồng</td>
+      </tr>
+      <tr>
+          <td>String</td>
+          <td>getName()</td>
+          <td>Trả về tên của luồng</td>
+      </tr>
+      <tr>
+          <td>void</td>
+          <td>setName(String)</td>
+          <td>Thay đổi tên của luồng</td>
+      </tr>
+      <tr>
+          <td>long</td>
+          <td>getId()</td>
+          <td>Trả về id của luồng</td>
+      </tr>
+      <tr>
+          <td>boolean</td>
+          <td>isAlive()</td>
+          <td>Cho biết thread còn sống hay không</td>
+      </tr>
+      <tr>
+          <td>static void</td>
+          <td>yield()</td>
+          <td>Làm cho luồng hiện tại tạm dừng và cho phép các thread khác thực hiện trong một khoảng thời gian</td>
+      </tr>
+      <tr>
+          <td>void</td>
+          <td>suspend()</td>
+          <td>Được sử dụng để tạm dừng một luồng</td>
+      </tr>
+      <tr>
+          <td>void</td>
+          <td>resume()</td>
+          <td>Được sử dụng để tiếp tục luồng đã bị tạm dừng</td>
+      </tr>
+      <tr>
+          <td>void</td>
+          <td>stop()</td>
+          <td>Được dùng để dừng thread</td>
+      </tr>
+      <tr>
+          <td>void</td>
+          <td>destroy()</td>
+          <td>Dùng để phá hủy các nhóm luồng và các nhóm con của nó</td>
+      </tr>
+      <tr>
+          <td>boolean</td>
+          <td>isDaemon()</td>
+          <td>Kiểm tra xem luồng này có phải là daemon thread hay không</td>
+      </tr>
+      <tr>
+          <td>void</td>
+          <td>setDaemon(boolean)</td>
+          <td>Thay đổi việc luồng có phải là daemon hay không</td>
+      </tr>
+      <tr>
+          <td>void</td>
+          <td>interrupt()</td>
+          <td>Làm gián đoạn một luồng trong java. Nếu thread nằm trong trạng thái sleep hoặc wait, nghĩa là sleep() hoặc wait() được gọi ra. Việc gọi phương thức interrupt() trên thread đó sẽ phá vỡ trạng thái sleep hoặc wait và ném ra ngoại lệ InterruptedException. Nếu thread không ở trong trạng thái sleep hoặc wait, việc gọi phương thức interrupt() thực hiện hành vi bình thường và không làm gián đoạn thread nhưng đặt cờ interrupt thành true.</td>
+      </tr>
+      <tr>
+          <td>boolean</td>
+          <td>isInterrupted()</td>
+          <td>Kiểm tra xem luồng có bị interrupt hay không</td>
+      </tr>
+      <tr>
+          <td>static boolean</td>
+          <td>interrupted()</td>
+          <td>Kiểm tra xem luồng hiện tại có bị interrupt hay chưa</td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Kết luận</strong></p>
+<p>Lập trình đa luồng Java mang lại nhiều lợi ích như tăng hiệu suất và tận dụng tài nguyên hệ thống. Tuy nhiên, việc quản lý và đồng bộ hóa luồng đòi hỏi kỹ năng chính xác và phải tránh các vấn đề như data race và deadlock. Trong bài viết này, Stringee đã giúp các bạn có được các kiến thức về lập trình đa luồng với Java, trong các bài viết tiếp theo của series lập trình đa luồng, chúng ta sẽ tìm hiểu về cách phòng tránh deadlock và data race cũng như các kỹ thuật lập trình đa luồng khác.</p>
 
   </div>
 

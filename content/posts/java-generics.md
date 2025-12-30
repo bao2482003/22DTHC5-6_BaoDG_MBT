@@ -7,59 +7,32 @@ image: "https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=1200&h=60
 video: "TMnpcRvj7ow"
 ---
 
-Generics được thêm vào Java 5 nhằm mục đích kiểm tra kiểu dữ liệu ngay tại thời điểm biên dịch (compile-time type checking) và loại bỏ rủi ro lỗi ClassCastException vốn thường xảy ra khi làm việc với các lớp collection. Toàn bộ collection framework cũng đã được viết lại để sử dụng Generics để tăng cường an toàn kiểu dữ liệu (type-safety).
-
-Chúng ta hãy cùng xem cách Generics giúp sử dụng lớp collection an toàn hơn.
-
-```java
-List list = new ArrayList();
-list.add("abc");
-list.add(new Integer(5)); //OK
-
-for(Object obj : list){
- //ép kiểu dẫn đến lỗi ClassCastException lúc chạy
-    String str=(String) obj; 
-}
-```
-
-Đoạn code ví dụ ở trên tuy biên dịch thành công nhưng sẽ gây ra lỗi ClassCastException tại thời điểm chạy (runtime). Lý do là vì ta đang cố ép kiểu (cast) một đối tượng Object trong list sang loại String, trong khi một trong số các phần tử trong đó lại thuộc kiểu Integer.
-
-Kể từ Java 5 trở đi, cách sử dụng collection class đã thay đổi như sau.
-
-```java
-List<String> list1 = new ArrayList<String>(); // java 7 ? List<String> list1 = new ArrayList<>(); 
-list1.add("abc");
-//list1.add(new Integer(5)); //lỗi biên dịch
-
-for(String str : list1){
-     //không cần ép kiểu, tránh được ClassCastException
-}
-```
-
-Hãy chú ý rằng, tại thời điểm khởi tạo list, ta đã chỉ định kiểu phần tử của danh sách là String. Do đó, nếu ta cố gắng thêm bất kỳ đối tượng thuộc kiểu khác vào list, chương trình sẽ báo lỗi ngay tại thời điểm biên dịch. Ngoài ra, trong vòng lặp for, ta không cần phải ép kiểu các phần tử lấy ra từ list nữa, nhờ đó tránh được lỗi ClassCastException tại thời điểm runtime.
-
 Generics không chỉ là một tính năng nâng cao trong Java mà còn là một công cụ mạnh mẽ giúp các lập trình viên xây dựng ứng dụng an toàn, hiệu quả và dễ dàng bảo trì. Với khả năng tổng quát hóa kiểu dữ liệu, Generics mở ra cơ hội giảm thiểu lỗi runtime và tối ưu hóa hiệu suất thông qua việc kiểm tra kiểu ngay tại thời điểm biên dịch. Nếu bạn muốn phát triển các ứng dụng Java hiện đại với chất lượng mã vượt trội, việc hiểu và làm chủ Generics là điều không thể thiếu. Trong bài viết này, chúng ta sẽ cùng khám phá cốt lõi của Generics, từ các khái niệm cơ bản cho đến cách áp dụng với những ví dụ đơn giản dễ hiểu, giúp bạn tự tin triển khai trong mọi dự án Java của mình.
 
-image.png
+<img src="/images/blog/generics.png" alt="Java Generics" style="width: 60%; max-width: 600px; display: block; margin: 20px auto;">
 
 1. Generic trong Java là gì?
 Generics là một tính năng trong Java (từ Java 5) cho phép bạn định nghĩa các lớp, phương thức, và giao diện với kiểu dữ liệu tổng quát. Điều này cung cấp sự kiểm soát kiểu mạnh mẽ, giảm lỗi tại runtime và tăng tính linh hoạt khi làm việc với dữ liệu.
 
 1. Ví dụ không sử dụng Generic:
 
+```java
 List list = new ArrayList();  
 list.add("Apple");  
 list.add(123);  // Không bị kiểm tra kiểu  
 String fruit = (String) list.get(1);  // Gây lỗi ClassCastException
+```
 
 List không được quy định kiểu dữ liệu (Raw Type), nên có thể thêm bất kỳ loại giá trị nào (String, Integer, ...).
 Khi lấy giá trị ra bằng list.get(1) và cố gắng ép kiểu sang String, giá trị thực là 123 (kiểu Integer) sẽ gây lỗi ClassCastException tại runtime.
 2. Ví dụ có sử dụng Generic:
 
+```java
 List<String> list = new ArrayList<>();  
 list.add("Apple");  
 // list.add(123);  // Lỗi compile-time  
 String fruit = list.get(0);  // An toàn và không cần ép kiểu
+```
 
 Sử dụng Generics với List<String> giới hạn chỉ cho phép thêm dữ liệu kiểu String vào danh sách.
 Nếu cố gắng thêm dữ liệu không hợp lệ (ví dụ 123), chương trình sẽ báo lỗi tại compile-time, ngăn ngừa lỗi trước khi chạy chương trình.
@@ -73,6 +46,7 @@ Tham khảo ví dụ ở phần 1 để hiểu rõ hơn nhé mọi người. Gi�
 2. Loại bỏ việc ép kiểu thủ công (No Manual Casting)
 Generics tự động quản lý kiểu dữ liệu, không cần sử dụng (String), (Integer)... thủ công khi truy xuất.
 
+```java
 // Không dùng Generics
 List list = new ArrayList();
 list.add("Generics");
@@ -82,12 +56,14 @@ String value = (String) list.get(0); // Phải ép kiểu thủ công
 List<String> list = new ArrayList<>();
 list.add("Generics");
 String value = list.get(0); // Không cần ép kiểu, an toàn và gọn gàng
+```
 
 Generics tự động xác định kiểu dữ liệu, giúp mã rõ ràng và tránh sai sót do ép kiểu sai.
 3. Tăng khả năng tái sử dụng mã nguồn (Code Reusability)
 Một lớp hoặc phương thức Generic có thể áp dụng cho bất kỳ kiểu dữ liệu nào, thay vì viết riêng cho từng kiểu.
 
- // Generic class
+```java
+// Generic class
 class Box<T> {
     private T item;
     public void setItem(T item) { this.item = item; }
@@ -105,11 +81,13 @@ public class Main {
         System.out.println(intBox.getItem()); // 123
     }
 }
+```
 
 Box<T> chỉ cần định nghĩa một lần, nhưng có thể sử dụng cho cả String, Integer, hay bất kỳ kiểu dữ liệu nào.
 4. Dễ dàng bảo trì và đọc hiểu mã nguồn
 Generics làm cho mã nguồn dễ hiểu hơn, giúp xác định ngay kiểu dữ liệu được sử dụng và giảm lỗi logic.
 
+```java
 // Không dùng Generics
 Map map = new HashMap();
 map.put("key1", 123);
@@ -119,11 +97,13 @@ map.put(456, "value"); // Sai logic, nhưng không bị phát hiện
 Map<String, Integer> map = new HashMap<>();
 map.put("key1", 123);
 // map.put(456, "value"); // Compile-time: Lỗi, đảm bảo đúng logic
+```
 
 Generics giúp định nghĩa rõ ràng rằng Map<String, Integer> chỉ được phép sử dụng khóa là String và giá trị là Integer.
 5. Hạn chế lỗi runtime (Reduced Runtime Errors)
 Bằng cách phát hiện lỗi tại compile-time, Generics loại bỏ nhiều lỗi runtime phổ biến như ClassCastException.
 
+```java
 // Không dùng Generics
 List list = new ArrayList();
 list.add(10);
@@ -140,12 +120,14 @@ list.add(10);
 for (Integer value : list) {
     System.out.println(value); // Không bao giờ lỗi runtime
 }
+```
 
 Không dùng Generics: Chỉ phát hiện lỗi khi chạy chương trình.
 Có Generics: Lỗi sai kiểu bị ngăn chặn ngay tại compile-time.
 3. Generic Classes
 Generic Class là lớp cho phép định nghĩa kiểu dữ liệu tổng quát (Generic) tại thời điểm khai báo. Với Generic Classes, bạn có thể viết mã linh hoạt, dễ tái sử dụng và đảm bảo tính an toàn kiểu.
 
+```java
 class ClassName<T> {
     private T value;
 
@@ -157,11 +139,13 @@ class ClassName<T> {
         return value;
     }
 }
+```
 
 T là một type parameter đại diện cho kiểu dữ liệu (ví dụ: String, Integer,...).
 T có thể là bất kỳ ký tự nào, nhưng thường dùng: T, E, K, V.
 Ví dụ về Generic Class:
 
+```java
 // Định nghĩa Generic Class
 class Box<T> {
     private T item;
@@ -187,9 +171,13 @@ public class Main {
         System.out.println("Integer Box: " + integerBox.getItem());
     }
 }
+```
 
+**Output:**
+```
 String Box: Hello Generics
 Integer Box: 123
+```
 
 Box<String> chỉ nhận và xử lý dữ liệu kiểu String.
 Box<Integer> chỉ nhận và xử lý dữ liệu kiểu Integer.
@@ -197,6 +185,7 @@ Nhiều tham số kiểu (Multiple Type Parameters)
 
 Bạn có thể dùng nhiều tham số kiểu trong một Generic Class.
 
+```java
 class Pair<K, V> {
     private K key;
     private V value;
@@ -214,10 +203,11 @@ class Pair<K, V> {
         return value;
     }
 }
+```
 
-**Bounded Type Parameter**s
-    
+**Bounded Type Parameters**
 
+```java
 public class Main {
     public static void main(String[] args) {
         Pair<String, Integer> pair = new Pair<>("Age", 30);
@@ -225,15 +215,20 @@ public class Main {
         System.out.println("Value: " + pair.getValue());
     }
 }
+```
 
+**Output:**
+```
 Key: Age
 Value: 30
+```
 
 Bạn có thể giới hạn kiểu tham số của Generic Class bằng extends.
 Bounded Type Parameters
 
 Bạn có thể giới hạn kiểu tham số của Generic Class bằng extends.
 
+```java
 class NumberBox<T extends Number> {
     private T number;
 
@@ -259,9 +254,13 @@ public class Main {
         // NumberBox<String> stringBox = new NumberBox<>(); // Lỗi compile-time
     }
 }
+```
 
+**Output:**
+```
 Integer: 100
 Double: 10.5
+```
 
 <T extends Number> giới hạn T chỉ có thể là Number hoặc các lớp con của Number như Integer, Double,...
 4. Generic Method
@@ -269,15 +268,18 @@ Generic Method là phương thức cho phép sử dụng kiểu dữ liệu tổ
 
 Cách khai báo Generic Method
 
+```java
 public <T> ReturnType methodName(T parameter) {
     // Thân phương thức
 }
+```
 
 <T>: Khai báo một tham số kiểu dữ liệu tổng quát (Generic Type).
 T parameter: Sử dụng kiểu dữ liệu Generic làm tham số.
 ReturnType: Phương thức có thể trả về kiểu T hoặc các kiểu khác.
 Ví dụ:
 
+```java
 public class GenericMethodExample {
 
     // Generic method
@@ -296,17 +298,22 @@ public class GenericMethodExample {
         printArray(intArray);
     }
 }
+```
 
+**Output:**
+```
 Apple
 Banana
 Cherry
 1
 2
 3
+```
 
 Phương thức printArray có thể in mọi kiểu dữ liệu (String, Integer,...) nhờ sử dụng T.
 Phương thức generic với giá trị trả về
 
+```java
 public class GenericReturnTypeExample {
 
     // Generic method
@@ -325,21 +332,26 @@ public class GenericReturnTypeExample {
         System.out.println("First integer: " + getFirstElement(intArray));
     }
 }
+```
 
+**Output:**
+```
 First string: Apple
 First integer: 10
+```
 
 Generic Method getFirstElement trả về giá trị kiểu dữ liệu của mảng được truyền vào.
 Bounded Type Parameters in Generic Method
 
 Sử dụng từ khóa extends để giới hạn kiểu dữ liệu tổng quát.
 
+```java
 public class BoundedGenericMethodExample {
 
-// Generic method với kiểu giới hạn
-public static <T extends Number> double sum(T a, T b) {
+    // Generic method với kiểu giới hạn
+    public static <T extends Number> double sum(T a, T b) {
         return a.doubleValue() + b.doubleValue();
-}
+    }
 
     public static void main(String[] args) {
         System.out.println("Sum of 10 and 20: " + sum(10, 20));
@@ -347,17 +359,24 @@ public static <T extends Number> double sum(T a, T b) {
         // sum("Hello", "World"); // Lỗi compile-time
     }
 }
+```
 
+**Output:**
+```
 Sum of 10 and 20: 30.0
 Sum of 3.5 and 4.5: 8.0
+```
 
 <T extends Number>: Giới hạn kiểu T chỉ cho phép Number hoặc các lớp con (như Integer, Double).
 Generic Method trong lớp không Generic
 
-Bạn có thể định nghĩa phương thức generic trong một lớp không generic. public class NonGenericClass {
+Bạn có thể định nghĩa phương thức generic trong một lớp không generic.
 
-//Phương thức generic trong lớp không generic
-public static <T> void printItem(T item) {
+```java
+public class NonGenericClass {
+
+    // Phương thức generic trong lớp không generic
+    public static <T> void printItem(T item) {
         System.out.println("Item: " + item);
     }
 
@@ -366,14 +385,19 @@ public static <T> void printItem(T item) {
         printItem(123);
     }
 }
+```
 
+**Output:**
+```
 Item: Hello
 Item: 123
+```
 
 Wildcards trong Generic Method
 
 Dùng wildcard ? để viết phương thức generic linh hoạt hơn.
 
+```java
 import java.util.List;
 
 public class WildcardExample {
@@ -393,12 +417,16 @@ public class WildcardExample {
         printList(intList);
     }
 }
+```
 
+**Output:**
+```
 Apple
 Banana
 1
 2
 3
+```
 
 Wildcard ?: Cho phép sử dụng danh sách bất kỳ kiểu dữ liệu nào.
 5. Wildcards (?)
@@ -407,6 +435,8 @@ Trong Generics của Java, ký tự đại diện (Wildcard) ? được sử d�
 1. Unbounded Wildcard (?)
 Sử dụng khi kiểu dữ liệu có thể là bất kỳ loại nào.
 Cú pháp: ?
+
+```java
 import java.util.List;
 
 public class UnboundedWildcardExample {
@@ -424,18 +454,24 @@ public class UnboundedWildcardExample {
         printList(intList);
     }
 }
+```
 
+**Output:**
+```
 Apple
 Banana
 1
 2
 3
+```
 
 List<?> cho phép truyền vào bất kỳ kiểu nào.
 Trong thân phương thức, bạn chỉ có thể sử dụng các thao tác được hỗ trợ với Object vì không biết chính xác kiểu của danh sách.
 2. Upper Bounded Wildcard (<? extends T>)
 Giới hạn kiểu dữ liệu là một lớp cụ thể hoặc các lớp con của nó.
 Cú pháp: <? extends T>
+
+```java
 import java.util.List;
 
 public class UpperBoundedWildcardExample {
@@ -455,15 +491,21 @@ public class UpperBoundedWildcardExample {
         System.out.println("Sum of doubles: " + sumNumbers(doubles));
     }
 }
+```
 
+**Output:**
+```
 Sum of integers: 6.0
 Sum of doubles: 7.5
+```
 
 <? extends Number> chỉ chấp nhận Number hoặc các lớp con như Integer, Double.
 Phương thức có thể làm việc với nhiều kiểu dữ liệu liên quan đến số.
 3. Lower Bounded Wildcard (<? super T>)
 Giới hạn kiểu dữ liệu là một lớp cụ thể hoặc các lớp cha của nó.
 Cú pháp: <? super T>
+
+```java
 import java.util.List;
 import java.util.ArrayList;
 
@@ -482,9 +524,13 @@ public class LowerBoundedWildcardExample {
         }
     }
 }
+```
 
+**Output:**
+```
 10
 20
+```
 
 <? super Integer> chỉ chấp nhận Integer hoặc các lớp cha như Number, Object.
 Có thể thêm các giá trị kiểu Integer vào danh sách.

@@ -13,7 +13,7 @@
       <link>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/posts/java-generics/</link>
       <pubDate>Sat, 27 Dec 2025 00:00:00 +0000</pubDate>
       <guid>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/posts/java-generics/</guid>
-      <description>&lt;p&gt;Generics được thêm vào Java 5 nhằm mục đích kiểm tra kiểu dữ liệu ngay tại thời điểm biên dịch (compile-time type checking) và loại bỏ rủi ro lỗi ClassCastException vốn thường xảy ra khi làm việc với các lớp collection. Toàn bộ collection framework cũng đã được viết lại để sử dụng Generics để tăng cường an toàn kiểu dữ liệu (type-safety).&lt;/p&gt;&#xA;&lt;p&gt;Chúng ta hãy cùng xem cách Generics giúp sử dụng lớp collection an toàn hơn.&lt;/p&gt;</description>
+      <description>&lt;p&gt;Generics không chỉ là một tính năng nâng cao trong Java mà còn là một công cụ mạnh mẽ giúp các lập trình viên xây dựng ứng dụng an toàn, hiệu quả và dễ dàng bảo trì. Với khả năng tổng quát hóa kiểu dữ liệu, Generics mở ra cơ hội giảm thiểu lỗi runtime và tối ưu hóa hiệu suất thông qua việc kiểm tra kiểu ngay tại thời điểm biên dịch. Nếu bạn muốn phát triển các ứng dụng Java hiện đại với chất lượng mã vượt trội, việc hiểu và làm chủ Generics là điều không thể thiếu. Trong bài viết này, chúng ta sẽ cùng khám phá cốt lõi của Generics, từ các khái niệm cơ bản cho đến cách áp dụng với những ví dụ đơn giản dễ hiểu, giúp bạn tự tin triển khai trong mọi dự án Java của mình.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

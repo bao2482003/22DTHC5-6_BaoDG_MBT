@@ -3,7 +3,7 @@
 
 <!-- Banner Section -->
 {{ if .Site.Params.banner.enable }}
-<section class="page-banner" id="bannerSlideshow" style="background-image: url('{{ index .Site.Params.banner.backgroundImages 0 }}');">
+<section class="page-banner" id="bannerSlideshow" style="background-image: url('{{ .Site.BaseURL }}{{ index .Site.Params.banner.backgroundImages 0 }}');">
   <div class="banner-overlay"></div>
   <div class="banner-content">
     <h1 class="banner-title">{{ .Site.Params.banner.title }}</h1>
@@ -12,7 +12,10 @@
 </section>
 <script>
   (function() {
-    const bannerImages = {{ .Site.Params.banner.backgroundImages | jsonify }};
+    const baseURL = '{{ .Site.BaseURL }}';
+    const bannerImages = [
+      {{ range $i, $img := .Site.Params.banner.backgroundImages }}{{ if $i }},{{ end }}'{{ $img }}'{{ end }}
+    ];
     let currentImageIndex = 0;
     const bannerElement = document.getElementById('bannerSlideshow');
     
@@ -20,7 +23,7 @@
     
     function changeBannerImage() {
       currentImageIndex = (currentImageIndex + 1) % bannerImages.length;
-      bannerElement.style.backgroundImage = 'url(' + bannerImages[currentImageIndex] + ')';
+      bannerElement.style.backgroundImage = "url('" + baseURL + bannerImages[currentImageIndex] + "')";
     }
     
     setInterval(changeBannerImage, 3000);

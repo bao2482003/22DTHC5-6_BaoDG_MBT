@@ -29,9 +29,9 @@ publishDir = 'docs'
   title = "Kỹ Sư phần mềm"
   subtitle = "Lập trình là nghệ thuật biến đổi ý tưởng thành hiện thực!"
   backgroundImages = [
-    "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80",
-    "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1920&q=80",
-    "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=1920&q=80"
+    "images/banner1.jpg",
+    "images/banner2.jpg",
+    "images/banner3.jpg"
   ]
 
 [params.hero]

@@ -1,678 +1,220 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JavaScript: Closures và Quản Lý Bộ Nhớ | Profile</title>
-  <link rel="stylesheet" href="../../css/style.css">
-  <link rel="icon" href="../../favicon.ico" type="image/x-icon">
-</head>
-<body>
-  <header class="header">
-  <div class="container">
-    <div class="logo">
-      <a href="../../">
-        <span class="logo-icon">🏠</span>
-        <span class="logo-text">Profile</span>
-      </a>
-    </div>
-    
-    <nav class="nav">
-      <div class="search-container">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="11" cy="11" r="8"></circle>
-          <path d="m21 21-4.35-4.35"></path>
-        </svg>
-        <input type="text" id="headerSearchInput" class="header-search-input" placeholder="Tìm kiếm bài viết...">
-        <div id="searchDropdown" class="search-dropdown"></div>
-      </div>
-      
-      <ul class="menu">
-        
-        <li><a href="../../#about">Về tôi</a></li>
-        
-        <li><a href="../../#experience">Kinh nghiệm</a></li>
-        
-        <li><a href="../../#education">Học vấn</a></li>
-        
-        <li><a href="../../#certificates">Chứng chỉ</a></li>
-        
-        <li><a href="../../#contact">Liên hệ</a></li>
-        
-        <li><a href="../../posts">Blog</a></li>
-        
-        <li><a href="../../#gallery">Thư viện ảnh</a></li>
-        
-      </ul>
-      
-      <button class="theme-toggle" aria-label="Toggle dark mode" onclick="toggleTheme()">
-        <span class="theme-icon"></span>
-      </button>
-    </nav>
-  </div>
-</header>
-
-<script>
-  
-  function toggleTheme() {
-    const html = document.documentElement;
-    const currentTheme = html.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    
-    html.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    updateThemeIcon();
-  }
-
-  function updateThemeIcon() {
-    const theme = document.documentElement.getAttribute('data-theme');
-    const icon = document.querySelector('.theme-icon');
-    icon.textContent = theme === 'dark' ? '🌙' : '☀️';
-  }
-
-  
-  (function() {
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    updateThemeIcon();
-  })();
-
-  let searchIndex = [];
-  
-  
-  fetch('https:\/\/bao2482003.github.io\/22DTHC5-6_BaoDG_MBT\/index.json')
-    .then(response => response.json())
-    .then(data => {
-      searchIndex = data;
-      console.log('Search index loaded:', searchIndex.length, 'items');
-    })
-    .catch(error => console.error('Search index error:', error));
-
-  
-  const headerSearchInput = document.getElementById('headerSearchInput');
-  const searchDropdown = document.getElementById('searchDropdown');
-
-  headerSearchInput?.addEventListener('input', function(e) {
-    const query = e.target.value.toLowerCase().trim();
-    
-    if (query.length < 2) {
-      searchDropdown.style.display = 'none';
-      return;
-    }
-
-    const results = searchIndex.filter(item => {
-      return item.title.toLowerCase().includes(query) ||
-             item.content.toLowerCase().includes(query) ||
-             (item.tags && item.tags.some(tag => tag.toLowerCase().includes(query)));
-    });
-
-    if (results.length === 0) {
-      searchDropdown.innerHTML = '<div class="dropdown-no-results">Không tìm thấy kết quả</div>';
-      searchDropdown.style.display = 'block';
-      return;
-    }
-
-    const html = results.slice(0, 5).map(item => {
-      const tagsHtml = item.tags ? item.tags.slice(0, 2).map(tag => `<span class="dropdown-tag">${tag}</span>`).join('') : '';
-      
-      return `
-        <a href="${item.permalink}" class="dropdown-item">
-          <div class="dropdown-title">${highlightText(item.title, query)}</div>
+<!doctype html><html lang=vi><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>JavaScript: Closures và Quản Lý Bộ Nhớ | Profile</title><link rel=stylesheet href=../../css/style.css><link rel=icon href=../../favicon.ico type=image/x-icon></head><body><header class=header><div class=container><div class=logo><a href=../../><span class=logo-icon>🏠</span>
+<span class=logo-text>Profile</span></a></div><nav class=nav><div class=search-container><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+<input type=text id=headerSearchInput class=header-search-input placeholder="Tìm kiếm bài viết..."><div id=searchDropdown class=search-dropdown></div></div><ul class=menu><li><a href=../../#about>Về tôi</a></li><li><a href=../../#experience>Kinh nghiệm</a></li><li><a href=../../#education>Học vấn</a></li><li><a href=../../#certificates>Chứng chỉ</a></li><li><a href=../../#contact>Liên hệ</a></li><li><a href=../../posts>Blog</a></li><li><a href=../../#gallery>Thư viện ảnh</a></li></ul><button class=theme-toggle aria-label="Toggle dark mode" onclick=toggleTheme()>
+<span class=theme-icon></span></button></nav></div></header><script>function toggleTheme(){const e=document.documentElement,n=e.getAttribute("data-theme"),t=n==="dark"?"light":"dark";e.setAttribute("data-theme",t),localStorage.setItem("theme",t),updateThemeIcon()}function updateThemeIcon(){const e=document.documentElement.getAttribute("data-theme"),t=document.querySelector(".theme-icon");t.textContent=e==="dark"?"🌙":"☀️"}(function(){const e=localStorage.getItem("theme")||"light";document.documentElement.setAttribute("data-theme",e),updateThemeIcon()})();let searchIndex=[];fetch("https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/index.json").then(e=>e.json()).then(e=>{searchIndex=e,console.log("Search index loaded:",searchIndex.length,"items")}).catch(e=>console.error("Search index error:",e));const headerSearchInput=document.getElementById("headerSearchInput"),searchDropdown=document.getElementById("searchDropdown");headerSearchInput?.addEventListener("input",function(e){const t=e.target.value.toLowerCase().trim();if(t.length<2){searchDropdown.style.display="none";return}const n=searchIndex.filter(e=>e.title.toLowerCase().includes(t)||e.content.toLowerCase().includes(t)||e.tags&&e.tags.some(e=>e.toLowerCase().includes(t)));if(n.length===0){searchDropdown.innerHTML='<div class="dropdown-no-results">Không tìm thấy kết quả</div>',searchDropdown.style.display="block";return}const s=n.slice(0,5).map(e=>{const n=e.tags?e.tags.slice(0,2).map(e=>`<span class="dropdown-tag">${e}</span>`).join(""):"";return`
+        <a href="${e.permalink}" class="dropdown-item">
+          <div class="dropdown-title">${highlightText(e.title,t)}</div>
           <div class="dropdown-meta">
-            <span class="dropdown-date">${formatDate(item.date)}</span>
-            ${tagsHtml}
+            <span class="dropdown-date">${formatDate(e.date)}</span>
+            ${n}
           </div>
         </a>
-      `;
-    }).join('');
-
-    searchDropdown.innerHTML = html + (results.length > 5 ? `<div class="dropdown-more">Còn ${results.length - 5} kết quả...</div>` : '');
-    searchDropdown.style.display = 'block';
-  });
-
-  
-  document.addEventListener('click', function(e) {
-    if (!e.target.closest('.search-container')) {
-      searchDropdown.style.display = 'none';
-    }
-  });
-
-  
-  headerSearchInput?.addEventListener('focus', function() {
-    if (this.value.trim().length >= 2) {
-      searchDropdown.style.display = 'block';
-    }
-  });
-
-  function highlightText(text, query) {
-    const regex = new RegExp(`(${query})`, 'gi');
-    return text.replace(regex, '<mark>$1</mark>');
-  }
-
-  function formatDate(dateString) {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('vi-VN');
-  }
-</script>
-
-  
-  <main>
-    <article class="blog-post">
-  <div class="post-header">
-    <div class="post-breadcrumb">
-      <a href="../../posts">← Tất cả bài viết</a>
-    </div>
-    
-    <h1 class="post-title">JavaScript: Closures và Quản Lý Bộ Nhớ</h1>
-    
-    
-    <p class="post-description">Closure là gì và tại sao nó quan trọng trong JavaScript</p>
-    
-    
-    <div class="post-meta">
-      <div class="meta-left">
-        <span class="post-date">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-            <line x1="16" y1="2" x2="16" y2="6"></line>
-            <line x1="8" y1="2" x2="8" y2="6"></line>
-            <line x1="3" y1="10" x2="21" y2="10"></line>
-          </svg>
-          27/12/2025
-        </span>
-        <span class="reading-time">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"></circle>
-            <polyline points="12 6 12 12 16 14"></polyline>
-          </svg>
-          3 phút đọc
-        </span>
-      </div>
-      
-      <div class="post-tags">
-        
-        <span class="post-tag">JavaScript</span>
-        
-        <span class="post-tag">Advanced</span>
-        
-      </div>
-      
-    </div>
-  </div>
-
-  
-  <div class="post-featured-image">
-    <img src="https://images.unsplash.com/photo-1605379399642-870262d3d051?w=1200&amp;h=600&amp;fit=crop" alt="JavaScript: Closures và Quản Lý Bộ Nhớ">
-  </div>
-  
-
-  
-
-  <div class="post-content">
-    <h2 id="closure-là-gì">Closure là gì?</h2>
-<p>Closure là một function có thể truy cập biến từ scope bên ngoài của nó, ngay cả sau khi function bên ngoài đã return.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">outer</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">message</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Hello&#39;</span>;
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">inner</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">message</span>); <span style="color:#75715e">// Truy cập được biến message
-</span></span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">inner</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">myFunc</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">outer</span>();
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">myFunc</span>(); <span style="color:#75715e">// &#39;Hello&#39; - closure giữ reference đến message
-</span></span></span></code></pre></div><h2 id="tại-sao-closures-quan-trọng">Tại sao Closures quan trọng?</h2>
-<h3 id="1-data-privacy--encapsulation">1. Data Privacy / Encapsulation</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">createCounter</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">count</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#75715e">// Private variable
-</span></span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">increment</span>() {
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">count</span><span style="color:#f92672">++</span>;
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">count</span>;
-</span></span><span style="display:flex;"><span>    },
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">decrement</span>() {
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">count</span><span style="color:#f92672">--</span>;
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">count</span>;
-</span></span><span style="display:flex;"><span>    },
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">getCount</span>() {
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">count</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  };
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">counter</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createCounter</span>();
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">counter</span>.<span style="color:#a6e22e">increment</span>()); <span style="color:#75715e">// 1
-</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">counter</span>.<span style="color:#a6e22e">increment</span>()); <span style="color:#75715e">// 2
-</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">counter</span>.<span style="color:#a6e22e">getCount</span>());  <span style="color:#75715e">// 2
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// count không thể truy cập trực tiếp từ bên ngoài
-</span></span></span></code></pre></div><h3 id="2-function-factories">2. Function Factories</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">createMultiplier</span>(<span style="color:#a6e22e">multiplier</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">number</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">number</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">multiplier</span>;
-</span></span><span style="display:flex;"><span>  };
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">double</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createMultiplier</span>(<span style="color:#ae81ff">2</span>);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">triple</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createMultiplier</span>(<span style="color:#ae81ff">3</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">double</span>(<span style="color:#ae81ff">5</span>)); <span style="color:#75715e">// 10
-</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">triple</span>(<span style="color:#ae81ff">5</span>)); <span style="color:#75715e">// 15
-</span></span></span></code></pre></div><h3 id="3-event-handlers">3. Event Handlers</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">setupButton</span>(<span style="color:#a6e22e">buttonId</span>, <span style="color:#a6e22e">message</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">button</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#a6e22e">buttonId</span>);
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">button</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;click&#39;</span>, <span style="color:#66d9ef">function</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Closure giữ reference đến message
-</span></span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">alert</span>(<span style="color:#a6e22e">message</span>);
-</span></span><span style="display:flex;"><span>  });
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">setupButton</span>(<span style="color:#e6db74">&#39;btn1&#39;</span>, <span style="color:#e6db74">&#39;Button 1 clicked!&#39;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">setupButton</span>(<span style="color:#e6db74">&#39;btn2&#39;</span>, <span style="color:#e6db74">&#39;Button 2 clicked!&#39;</span>);
-</span></span></code></pre></div><h2 id="closure-trong-loops---vấn-đề-phổ-biến">Closure trong Loops - Vấn đề phổ biến</h2>
-<h3 id="-vấn-đề-với-var">❌ Vấn đề với var</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">setTimeout</span>(<span style="color:#66d9ef">function</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">i</span>); <span style="color:#75715e">// 3, 3, 3 (không phải 0, 1, 2)
-</span></span></span><span style="display:flex;"><span>  }, <span style="color:#ae81ff">1000</span>);
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="-giải-pháp-1-iife">✅ Giải pháp 1: IIFE</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
-</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">j</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">setTimeout</span>(<span style="color:#66d9ef">function</span>() {
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">j</span>); <span style="color:#75715e">// 0, 1, 2
-</span></span></span><span style="display:flex;"><span>    }, <span style="color:#ae81ff">1000</span>);
-</span></span><span style="display:flex;"><span>  })(<span style="color:#a6e22e">i</span>);
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="-giải-pháp-2-let-es6">✅ Giải pháp 2: let (ES6)</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">setTimeout</span>(<span style="color:#66d9ef">function</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">i</span>); <span style="color:#75715e">// 0, 1, 2
-</span></span></span><span style="display:flex;"><span>  }, <span style="color:#ae81ff">1000</span>);
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h2 id="use-cases-thực-tế">Use Cases thực tế</h2>
-<h3 id="1-module-pattern">1. Module Pattern</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Calculator</span> <span style="color:#f92672">=</span> (<span style="color:#66d9ef">function</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// Private variables
-</span></span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// Private function
-</span></span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">operation</span>, <span style="color:#a6e22e">value</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">operation</span><span style="color:#e6db74">}</span><span style="color:#e6db74">: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">value</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// Public API
-</span></span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">num</span>) {
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">result</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">num</span>;
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Add&#39;</span>, <span style="color:#a6e22e">num</span>);
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>;
-</span></span><span style="display:flex;"><span>    },
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">subtract</span>(<span style="color:#a6e22e">num</span>) {
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">result</span> <span style="color:#f92672">-=</span> <span style="color:#a6e22e">num</span>;
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Subtract&#39;</span>, <span style="color:#a6e22e">num</span>);
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>;
-</span></span><span style="display:flex;"><span>    },
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">getResult</span>() {
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>;
-</span></span><span style="display:flex;"><span>    },
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">reset</span>() {
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  };
-</span></span><span style="display:flex;"><span>})();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Calculator</span>.<span style="color:#a6e22e">add</span>(<span style="color:#ae81ff">10</span>).<span style="color:#a6e22e">subtract</span>(<span style="color:#ae81ff">3</span>).<span style="color:#a6e22e">add</span>(<span style="color:#ae81ff">5</span>);
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">Calculator</span>.<span style="color:#a6e22e">getResult</span>()); <span style="color:#75715e">// 12
-</span></span></span></code></pre></div><h3 id="2-memoization-caching">2. Memoization (Caching)</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">memoize</span>(<span style="color:#a6e22e">fn</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cache</span> <span style="color:#f92672">=</span> {};
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">function</span>(...<span style="color:#a6e22e">args</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">key</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">args</span>);
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">cache</span>[<span style="color:#a6e22e">key</span>]) {
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;From cache&#39;</span>);
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">cache</span>[<span style="color:#a6e22e">key</span>];
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Calculating...&#39;</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fn</span>(...<span style="color:#a6e22e">args</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">cache</span>[<span style="color:#a6e22e">key</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">result</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>;
-</span></span><span style="display:flex;"><span>  };
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fibonacci</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">memoize</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">n</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">n</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">n</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fibonacci</span>(<span style="color:#a6e22e">n</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> <span style="color:#a6e22e">fibonacci</span>(<span style="color:#a6e22e">n</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>);
-</span></span><span style="display:flex;"><span>});
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">fibonacci</span>(<span style="color:#ae81ff">10</span>)); <span style="color:#75715e">// Calculating...
-</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">fibonacci</span>(<span style="color:#ae81ff">10</span>)); <span style="color:#75715e">// From cache
-</span></span></span></code></pre></div><h3 id="3-debounce">3. Debounce</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">debounce</span>(<span style="color:#a6e22e">func</span>, <span style="color:#a6e22e">delay</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">timeoutId</span>;
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">function</span>(...<span style="color:#a6e22e">args</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">clearTimeout</span>(<span style="color:#a6e22e">timeoutId</span>);
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">timeoutId</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">setTimeout</span>(() =&gt; {
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">func</span>.<span style="color:#a6e22e">apply</span>(<span style="color:#66d9ef">this</span>, <span style="color:#a6e22e">args</span>);
-</span></span><span style="display:flex;"><span>    }, <span style="color:#a6e22e">delay</span>);
-</span></span><span style="display:flex;"><span>  };
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// Sử dụng
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">searchInput</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;search&#39;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">handleSearch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">debounce</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">event</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Searching for:&#39;</span>, <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span>);
-</span></span><span style="display:flex;"><span>}, <span style="color:#ae81ff">500</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">searchInput</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;input&#39;</span>, <span style="color:#a6e22e">handleSearch</span>);
-</span></span></code></pre></div><h3 id="4-partial-application">4. Partial Application</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">partial</span>(<span style="color:#a6e22e">fn</span>, ...<span style="color:#a6e22e">fixedArgs</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">function</span>(...<span style="color:#a6e22e">remainingArgs</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fn</span>(...<span style="color:#a6e22e">fixedArgs</span>, ...<span style="color:#a6e22e">remainingArgs</span>);
-</span></span><span style="display:flex;"><span>  };
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">greet</span>(<span style="color:#a6e22e">greeting</span>, <span style="color:#a6e22e">name</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">greeting</span><span style="color:#e6db74">}</span><span style="color:#e6db74">, </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">name</span><span style="color:#e6db74">}</span><span style="color:#e6db74">!`</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">sayHello</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">partial</span>(<span style="color:#a6e22e">greet</span>, <span style="color:#e6db74">&#39;Hello&#39;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">sayHi</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">partial</span>(<span style="color:#a6e22e">greet</span>, <span style="color:#e6db74">&#39;Hi&#39;</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">sayHello</span>(<span style="color:#e6db74">&#39;Bảo&#39;</span>)); <span style="color:#75715e">// &#39;Hello, Bảo!&#39;
-</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">sayHi</span>(<span style="color:#e6db74">&#39;An&#39;</span>));     <span style="color:#75715e">// &#39;Hi, An!&#39;
-</span></span></span></code></pre></div><h2 id="memory-considerations">Memory Considerations</h2>
-<p>Closures giữ reference đến outer scope, có thể gây memory leak nếu không cẩn thận:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#75715e">// ❌ Memory leak
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">setupButton</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Array(<span style="color:#ae81ff">1000000</span>).<span style="color:#a6e22e">fill</span>(<span style="color:#e6db74">&#39;data&#39;</span>);
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;btn&#39;</span>).<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;click&#39;</span>, <span style="color:#66d9ef">function</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Clicked&#39;</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Closure giữ reference đến data dù không dùng
-</span></span></span><span style="display:flex;"><span>  });
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// ✅ Tốt hơn
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">setupButton</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Array(<span style="color:#ae81ff">1000000</span>).<span style="color:#a6e22e">fill</span>(<span style="color:#e6db74">&#39;data&#39;</span>);
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dataLength</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">length</span>; <span style="color:#75715e">// Chỉ giữ những gì cần
-</span></span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;btn&#39;</span>).<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;click&#39;</span>, <span style="color:#66d9ef">function</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Clicked, data length:&#39;</span>, <span style="color:#a6e22e">dataLength</span>);
-</span></span><span style="display:flex;"><span>  });
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h2 id="best-practices">Best Practices</h2>
-<ol>
-<li><strong>Chỉ closure những gì cần thiết</strong> - tránh giữ reference không cần</li>
-<li><strong>Dùng let/const trong loops</strong> thay vì var</li>
-<li><strong>Clean up event listeners</strong> để tránh memory leaks</li>
-<li><strong>Document closure dependencies</strong> rõ ràng</li>
-</ol>
-<h2 id="kết-luận">Kết luận</h2>
-<p>Closures là một trong những khái niệm quan trọng nhất trong JavaScript. Hiểu rõ closures giúp bạn viết code mạnh mẽ, maintainable và tận dụng được sức mạnh của JavaScript!</p>
-
-  </div>
-
-  
-  <div class="comments-section">
-    <h3 class="comments-title">💬 Bình luận <span id="commentCount"></span></h3>
-    
-    
-    <div class="comment-form">
-      <input type="text" id="commentName" placeholder="Tên của bạn" maxlength="50">
-      <textarea id="commentText" placeholder="Viết bình luận của bạn..." rows="3" maxlength="500"></textarea>
-      <button onclick="addComment()" class="submit-comment">Gửi bình luận</button>
-    </div>
-
-    
-    <div class="comment-filter">
-      <button onclick="filterComments('top')" class="filter-btn active" id="filter-top">👍 Chất lượng nhất</button>
-      <button onclick="filterComments('newest')" class="filter-btn" id="filter-newest">🕐 Mới nhất</button>
-    </div>
-
-    
-    <div id="commentsList" class="comments-list"></div>
-    
-    <button id="showAllBtn" class="show-all-btn" onclick="showAllComments()" style="display:none;">
-      Xem tất cả bình luận
-    </button>
-  </div>
-
-  
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
-
-  <script>
-    
-    const firebaseConfig = {
-  apiKey: "AIzaSyAdjhCEVyCd-Lr5M6wIrcVIdUGZK5nnMRQ",
-  authDomain: "project-profile-e5576.firebaseapp.com",
-  databaseURL: "https://project-profile-e5576-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "project-profile-e5576",
-  storageBucket: "project-profile-e5576.firebasestorage.app",
-  messagingSenderId: "141833177870",
-  appId: "1:141833177870:web:510eb87ec5b5749d9e255f",
-  measurementId: "G-8EZ42LZQ09"
-};
-
-    
-    firebase.initializeApp(firebaseConfig);
-    const database = firebase.database();
-    
-    const POST_ID = '\/posts\/javascript-closures\/'.replace(/\//g, '_');
-    let currentFilter = 'top';
-    let showAll = false;
-    let commentsCache = [];
-
-    function getComments() {
-      return commentsCache;
-    }
-
-    function loadCommentsFromFirebase() {
-      const commentsRef = database.ref('comments/' + POST_ID);
-      commentsRef.on('value', (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-          commentsCache = Object.values(data).map(comment => ({
-            ...comment,
-            likedBy: comment.likedBy || [],
-            likes: comment.likes || 0
-          }));
-        } else {
-          commentsCache = [];
-        }
-        renderComments();
-      });
-    }
-
-    function addComment() {
-      const name = document.getElementById('commentName').value.trim();
-      const text = document.getElementById('commentText').value.trim();
-      
-      if (!name || !text) {
-        alert('Vui lòng nhập tên và nội dung bình luận!');
-        return;
-      }
-
-      const newComment = {
-        id: Date.now(),
-        name: name,
-        text: text,
-        likes: 0,
-        timestamp: new Date().toISOString(),
-        likedBy: []
-      };
-
-      
-      const commentsRef = database.ref('comments/' + POST_ID);
-      commentsRef.push(newComment).then(() => {
-        document.getElementById('commentName').value = '';
-        document.getElementById('commentText').value = '';
-      }).catch((error) => {
-        alert('Lỗi khi gửi bình luận: ' + error.message);
-      });
-    }
-
-    function likeComment(commentId) {
-      const userId = getUserId();
-      const commentsRef = database.ref('comments/' + POST_ID);
-      
-      commentsRef.once('value').then((snapshot) => {
-        const comments = snapshot.val();
-        if (!comments) return;
-        
-        
-        let commentKey = null;
-        let comment = null;
-        
-        Object.keys(comments).forEach(key => {
-          if (comments[key].id === commentId) {
-            commentKey = key;
-            comment = comments[key];
-          }
-        });
-        
-        if (comment && commentKey) {
-          const likedBy = comment.likedBy || [];
-          const likedIndex = likedBy.indexOf(userId);
-          
-          if (likedIndex > -1) {
-            likedBy.splice(likedIndex, 1);
-            comment.likes = Math.max(0, (comment.likes || 0) - 1);
-          } else {
-            likedBy.push(userId);
-            comment.likes = (comment.likes || 0) + 1;
-          }
-          
-          comment.likedBy = likedBy;
-          
-          
-          database.ref('comments/' + POST_ID + '/' + commentKey).set(comment);
-        }
-      });
-    }
-
-    function getUserId() {
-      let userId = localStorage.getItem('userId');
-      if (!userId) {
-        userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-        localStorage.setItem('userId', userId);
-      }
-      return userId;
-    }
-
-    function formatDate(timestamp) {
-      const date = new Date(timestamp);
-      const now = new Date();
-      const diff = Math.floor((now - date) / 1000);
-
-      if (diff < 60) return 'vừa xong';
-      if (diff < 3600) return Math.floor(diff / 60) + ' phút trước';
-      if (diff < 86400) return Math.floor(diff / 3600) + ' giờ trước';
-      if (diff < 2592000) return Math.floor(diff / 86400) + ' ngày trước';
-      
-      return date.toLocaleDateString('vi-VN');
-    }
-
-    function filterComments(filter) {
-      currentFilter = filter;
-      
-      document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.classList.remove('active');
-      });
-      document.getElementById('filter-' + filter).classList.add('active');
-      
-      renderComments();
-    }
-
-    function showAllComments() {
-      showAll = true;
-      renderComments();
-    }
-
-    function renderComments() {
-      let comments = getComments();
-      
-      
-      const countSpan = document.getElementById('commentCount');
-      if (comments.length > 0) {
-        countSpan.textContent = `(${comments.length})`;
-      } else {
-        countSpan.textContent = '';
-      }
-      
-      if (currentFilter === 'top') {
-        comments.sort((a, b) => b.likes - a.likes);
-      } else {
-        comments.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-      }
-
-      const userId = getUserId();
-      const displayComments = showAll ? comments : comments.slice(0, 3);
-      
-      const html = displayComments.map(comment => {
-        const likedBy = comment.likedBy || [];
-        const likes = comment.likes || 0;
-        const hasLiked = likedBy.includes(userId);
-        return `
+      `}).join("");searchDropdown.innerHTML=s+(n.length>5?`<div class="dropdown-more">Còn ${n.length-5} kết quả...</div>`:""),searchDropdown.style.display="block"}),document.addEventListener("click",function(e){e.target.closest(".search-container")||(searchDropdown.style.display="none")}),headerSearchInput?.addEventListener("focus",function(){this.value.trim().length>=2&&(searchDropdown.style.display="block")});function highlightText(e,t){const n=new RegExp(`(${t})`,"gi");return e.replace(n,"<mark>$1</mark>")}function formatDate(e){const t=new Date(e);return t.toLocaleDateString("vi-VN")}</script><main><article class=blog-post><div class=post-header><div class=post-breadcrumb><a href=../../posts>← Tất cả bài viết</a></div><h1 class=post-title>JavaScript: Closures và Quản Lý Bộ Nhớ</h1><p class=post-description>Closure là gì và tại sao nó quan trọng trong JavaScript</p><div class=post-meta><div class=meta-left><span class=post-date><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+27/12/2025
+</span><span class=reading-time><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+3 phút đọc</span></div><div class=post-tags><span class=post-tag>JavaScript</span>
+<span class=post-tag>Advanced</span></div></div></div><div class=post-featured-image><img src="https://images.unsplash.com/photo-1605379399642-870262d3d051?w=1200&amp;h=600&amp;fit=crop" alt="JavaScript: Closures và Quản Lý Bộ Nhớ"></div><div class=post-content><h2 id=closure-là-gì>Closure là gì?</h2><p>Closure là một function có thể truy cập biến từ scope bên ngoài của nó, ngay cả sau khi function bên ngoài đã return.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>outer</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>message</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;Hello&#39;</span>;
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>inner</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>message</span>); <span style=color:#75715e>// Truy cập được biến message
+</span></span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>inner</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>myFunc</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>outer</span>();
+</span></span><span style=display:flex><span><span style=color:#a6e22e>myFunc</span>(); <span style=color:#75715e>// &#39;Hello&#39; - closure giữ reference đến message
+</span></span></span></code></pre></div><h2 id=tại-sao-closures-quan-trọng>Tại sao Closures quan trọng?</h2><h3 id=1-data-privacy--encapsulation>1. Data Privacy / Encapsulation</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>createCounter</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>count</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#75715e>// Private variable
+</span></span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>increment</span>() {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>count</span><span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>count</span>;
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>decrement</span>() {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>count</span><span style=color:#f92672>--</span>;
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>count</span>;
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>getCount</span>() {
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>count</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  };
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>counter</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createCounter</span>();
+</span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>counter</span>.<span style=color:#a6e22e>increment</span>()); <span style=color:#75715e>// 1
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>counter</span>.<span style=color:#a6e22e>increment</span>()); <span style=color:#75715e>// 2
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>counter</span>.<span style=color:#a6e22e>getCount</span>());  <span style=color:#75715e>// 2
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// count không thể truy cập trực tiếp từ bên ngoài
+</span></span></span></code></pre></div><h3 id=2-function-factories>2. Function Factories</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>createMultiplier</span>(<span style=color:#a6e22e>multiplier</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>function</span>(<span style=color:#a6e22e>number</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>number</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>multiplier</span>;
+</span></span><span style=display:flex><span>  };
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>double</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createMultiplier</span>(<span style=color:#ae81ff>2</span>);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>triple</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createMultiplier</span>(<span style=color:#ae81ff>3</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#66d9ef>double</span>(<span style=color:#ae81ff>5</span>)); <span style=color:#75715e>// 10
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>triple</span>(<span style=color:#ae81ff>5</span>)); <span style=color:#75715e>// 15
+</span></span></span></code></pre></div><h3 id=3-event-handlers>3. Event Handlers</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setupButton</span>(<span style=color:#a6e22e>buttonId</span>, <span style=color:#a6e22e>message</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>button</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#a6e22e>buttonId</span>);
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>button</span>.<span style=color:#a6e22e>addEventListener</span>(<span style=color:#e6db74>&#39;click&#39;</span>, <span style=color:#66d9ef>function</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Closure giữ reference đến message
+</span></span></span><span style=display:flex><span>    <span style=color:#a6e22e>alert</span>(<span style=color:#a6e22e>message</span>);
+</span></span><span style=display:flex><span>  });
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>setupButton</span>(<span style=color:#e6db74>&#39;btn1&#39;</span>, <span style=color:#e6db74>&#39;Button 1 clicked!&#39;</span>);
+</span></span><span style=display:flex><span><span style=color:#a6e22e>setupButton</span>(<span style=color:#e6db74>&#39;btn2&#39;</span>, <span style=color:#e6db74>&#39;Button 2 clicked!&#39;</span>);
+</span></span></code></pre></div><h2 id=closure-trong-loops---vấn-đề-phổ-biến>Closure trong Loops - Vấn đề phổ biến</h2><h3 id=-vấn-đề-với-var>❌ Vấn đề với var</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>var</span> <span style=color:#a6e22e>i</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>i</span> <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>3</span>; <span style=color:#a6e22e>i</span><span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>setTimeout</span>(<span style=color:#66d9ef>function</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>i</span>); <span style=color:#75715e>// 3, 3, 3 (không phải 0, 1, 2)
+</span></span></span><span style=display:flex><span>  }, <span style=color:#ae81ff>1000</span>);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=-giải-pháp-1-iife>✅ Giải pháp 1: IIFE</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>var</span> <span style=color:#a6e22e>i</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>i</span> <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>3</span>; <span style=color:#a6e22e>i</span><span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>  (<span style=color:#66d9ef>function</span>(<span style=color:#a6e22e>j</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>setTimeout</span>(<span style=color:#66d9ef>function</span>() {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>j</span>); <span style=color:#75715e>// 0, 1, 2
+</span></span></span><span style=display:flex><span>    }, <span style=color:#ae81ff>1000</span>);
+</span></span><span style=display:flex><span>  })(<span style=color:#a6e22e>i</span>);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=-giải-pháp-2-let-es6>✅ Giải pháp 2: let (ES6)</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>i</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>i</span> <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>3</span>; <span style=color:#a6e22e>i</span><span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>setTimeout</span>(<span style=color:#66d9ef>function</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>i</span>); <span style=color:#75715e>// 0, 1, 2
+</span></span></span><span style=display:flex><span>  }, <span style=color:#ae81ff>1000</span>);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=use-cases-thực-tế>Use Cases thực tế</h2><h3 id=1-module-pattern>1. Module Pattern</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>Calculator</span> <span style=color:#f92672>=</span> (<span style=color:#66d9ef>function</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// Private variables
+</span></span></span><span style=display:flex><span>  <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>result</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// Private function
+</span></span></span><span style=display:flex><span>  <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>operation</span>, <span style=color:#a6e22e>value</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>`</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>operation</span><span style=color:#e6db74>}</span><span style=color:#e6db74>: </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>value</span><span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// Public API
+</span></span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>add</span>(<span style=color:#a6e22e>num</span>) {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>result</span> <span style=color:#f92672>+=</span> <span style=color:#a6e22e>num</span>;
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;Add&#39;</span>, <span style=color:#a6e22e>num</span>);
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>this</span>;
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>subtract</span>(<span style=color:#a6e22e>num</span>) {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>result</span> <span style=color:#f92672>-=</span> <span style=color:#a6e22e>num</span>;
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;Subtract&#39;</span>, <span style=color:#a6e22e>num</span>);
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>this</span>;
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>getResult</span>() {
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>result</span>;
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>reset</span>() {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>result</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>this</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  };
+</span></span><span style=display:flex><span>})();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Calculator</span>.<span style=color:#a6e22e>add</span>(<span style=color:#ae81ff>10</span>).<span style=color:#a6e22e>subtract</span>(<span style=color:#ae81ff>3</span>).<span style=color:#a6e22e>add</span>(<span style=color:#ae81ff>5</span>);
+</span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>Calculator</span>.<span style=color:#a6e22e>getResult</span>()); <span style=color:#75715e>// 12
+</span></span></span></code></pre></div><h3 id=2-memoization-caching>2. Memoization (Caching)</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>memoize</span>(<span style=color:#a6e22e>fn</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>cache</span> <span style=color:#f92672>=</span> {};
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>function</span>(...<span style=color:#a6e22e>args</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>key</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>JSON</span>.<span style=color:#a6e22e>stringify</span>(<span style=color:#a6e22e>args</span>);
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>cache</span>[<span style=color:#a6e22e>key</span>]) {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;From cache&#39;</span>);
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>cache</span>[<span style=color:#a6e22e>key</span>];
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;Calculating...&#39;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>result</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>fn</span>(...<span style=color:#a6e22e>args</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>cache</span>[<span style=color:#a6e22e>key</span>] <span style=color:#f92672>=</span> <span style=color:#a6e22e>result</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>result</span>;
+</span></span><span style=display:flex><span>  };
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>fibonacci</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>memoize</span>(<span style=color:#66d9ef>function</span>(<span style=color:#a6e22e>n</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>n</span> <span style=color:#f92672>&lt;=</span> <span style=color:#ae81ff>1</span>) <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>n</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>fibonacci</span>(<span style=color:#a6e22e>n</span> <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>) <span style=color:#f92672>+</span> <span style=color:#a6e22e>fibonacci</span>(<span style=color:#a6e22e>n</span> <span style=color:#f92672>-</span> <span style=color:#ae81ff>2</span>);
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>fibonacci</span>(<span style=color:#ae81ff>10</span>)); <span style=color:#75715e>// Calculating...
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>fibonacci</span>(<span style=color:#ae81ff>10</span>)); <span style=color:#75715e>// From cache
+</span></span></span></code></pre></div><h3 id=3-debounce>3. Debounce</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>debounce</span>(<span style=color:#a6e22e>func</span>, <span style=color:#a6e22e>delay</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>timeoutId</span>;
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>function</span>(...<span style=color:#a6e22e>args</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>clearTimeout</span>(<span style=color:#a6e22e>timeoutId</span>);
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>timeoutId</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>setTimeout</span>(() =&gt; {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>func</span>.<span style=color:#a6e22e>apply</span>(<span style=color:#66d9ef>this</span>, <span style=color:#a6e22e>args</span>);
+</span></span><span style=display:flex><span>    }, <span style=color:#a6e22e>delay</span>);
+</span></span><span style=display:flex><span>  };
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Sử dụng
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>searchInput</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#39;search&#39;</span>);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>handleSearch</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>debounce</span>(<span style=color:#66d9ef>function</span>(<span style=color:#a6e22e>event</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;Searching for:&#39;</span>, <span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>target</span>.<span style=color:#a6e22e>value</span>);
+</span></span><span style=display:flex><span>}, <span style=color:#ae81ff>500</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>searchInput</span>.<span style=color:#a6e22e>addEventListener</span>(<span style=color:#e6db74>&#39;input&#39;</span>, <span style=color:#a6e22e>handleSearch</span>);
+</span></span></code></pre></div><h3 id=4-partial-application>4. Partial Application</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>partial</span>(<span style=color:#a6e22e>fn</span>, ...<span style=color:#a6e22e>fixedArgs</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>function</span>(...<span style=color:#a6e22e>remainingArgs</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>fn</span>(...<span style=color:#a6e22e>fixedArgs</span>, ...<span style=color:#a6e22e>remainingArgs</span>);
+</span></span><span style=display:flex><span>  };
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>greet</span>(<span style=color:#a6e22e>greeting</span>, <span style=color:#a6e22e>name</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#e6db74>`</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>greeting</span><span style=color:#e6db74>}</span><span style=color:#e6db74>, </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>name</span><span style=color:#e6db74>}</span><span style=color:#e6db74>!`</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>sayHello</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>partial</span>(<span style=color:#a6e22e>greet</span>, <span style=color:#e6db74>&#39;Hello&#39;</span>);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>sayHi</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>partial</span>(<span style=color:#a6e22e>greet</span>, <span style=color:#e6db74>&#39;Hi&#39;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>sayHello</span>(<span style=color:#e6db74>&#39;Bảo&#39;</span>)); <span style=color:#75715e>// &#39;Hello, Bảo!&#39;
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>sayHi</span>(<span style=color:#e6db74>&#39;An&#39;</span>));     <span style=color:#75715e>// &#39;Hi, An!&#39;
+</span></span></span></code></pre></div><h2 id=memory-considerations>Memory Considerations</h2><p>Closures giữ reference đến outer scope, có thể gây memory leak nếu không cẩn thận:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>// ❌ Memory leak
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setupButton</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>data</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Array(<span style=color:#ae81ff>1000000</span>).<span style=color:#a6e22e>fill</span>(<span style=color:#e6db74>&#39;data&#39;</span>);
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#39;btn&#39;</span>).<span style=color:#a6e22e>addEventListener</span>(<span style=color:#e6db74>&#39;click&#39;</span>, <span style=color:#66d9ef>function</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;Clicked&#39;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Closure giữ reference đến data dù không dùng
+</span></span></span><span style=display:flex><span>  });
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// ✅ Tốt hơn
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setupButton</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>data</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Array(<span style=color:#ae81ff>1000000</span>).<span style=color:#a6e22e>fill</span>(<span style=color:#e6db74>&#39;data&#39;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>dataLength</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>length</span>; <span style=color:#75715e>// Chỉ giữ những gì cần
+</span></span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#39;btn&#39;</span>).<span style=color:#a6e22e>addEventListener</span>(<span style=color:#e6db74>&#39;click&#39;</span>, <span style=color:#66d9ef>function</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;Clicked, data length:&#39;</span>, <span style=color:#a6e22e>dataLength</span>);
+</span></span><span style=display:flex><span>  });
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=best-practices>Best Practices</h2><ol><li><strong>Chỉ closure những gì cần thiết</strong> - tránh giữ reference không cần</li><li><strong>Dùng let/const trong loops</strong> thay vì var</li><li><strong>Clean up event listeners</strong> để tránh memory leaks</li><li><strong>Document closure dependencies</strong> rõ ràng</li></ol><h2 id=kết-luận>Kết luận</h2><p>Closures là một trong những khái niệm quan trọng nhất trong JavaScript. Hiểu rõ closures giúp bạn viết code mạnh mẽ, maintainable và tận dụng được sức mạnh của JavaScript!</p></div><div class=comments-section><h3 class=comments-title>💬 Bình luận <span id=commentCount></span></h3><div class=comment-form><input type=text id=commentName placeholder="Tên của bạn" maxlength=50>
+<textarea id=commentText placeholder="Viết bình luận của bạn..." rows=3 maxlength=500></textarea>
+<button onclick=addComment() class=submit-comment>Gửi bình luận</button></div><div class=comment-filter><button onclick='filterComments("top")' class="filter-btn active" id=filter-top>👍 Chất lượng nhất</button>
+<button onclick='filterComments("newest")' class=filter-btn id=filter-newest>🕐 Mới nhất</button></div><div id=commentsList class=comments-list></div><button id=showAllBtn class=show-all-btn onclick=showAllComments() style=display:none>
+Xem tất cả bình luận</button></div><script src=https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js></script><script src=https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js></script><script>const firebaseConfig={apiKey:"AIzaSyAdjhCEVyCd-Lr5M6wIrcVIdUGZK5nnMRQ",authDomain:"project-profile-e5576.firebaseapp.com",databaseURL:"https://project-profile-e5576-default-rtdb.asia-southeast1.firebasedatabase.app",projectId:"project-profile-e5576",storageBucket:"project-profile-e5576.firebasestorage.app",messagingSenderId:"141833177870",appId:"1:141833177870:web:510eb87ec5b5749d9e255f",measurementId:"G-8EZ42LZQ09"};firebase.initializeApp(firebaseConfig);const database=firebase.database(),POST_ID="/posts/javascript-closures/".replace(/\//g,"_");let currentFilter="top",showAll=!1,commentsCache=[];function getComments(){return commentsCache}function loadCommentsFromFirebase(){const e=database.ref("comments/"+POST_ID);e.on("value",e=>{const t=e.val();t?commentsCache=Object.values(t).map(e=>({...e,likedBy:e.likedBy||[],likes:e.likes||0})):commentsCache=[],renderComments()})}function addComment(){const e=document.getElementById("commentName").value.trim(),t=document.getElementById("commentText").value.trim();if(!e||!t){alert("Vui lòng nhập tên và nội dung bình luận!");return}const n={id:Date.now(),name:e,text:t,likes:0,timestamp:(new Date).toISOString(),likedBy:[]},s=database.ref("comments/"+POST_ID);s.push(n).then(()=>{document.getElementById("commentName").value="",document.getElementById("commentText").value=""}).catch(e=>{alert("Lỗi khi gửi bình luận: "+e.message)})}function likeComment(e){const t=getUserId(),n=database.ref("comments/"+POST_ID);n.once("value").then(n=>{const o=n.val();if(!o)return;let i=null,s=null;if(Object.keys(o).forEach(t=>{o[t].id===e&&(i=t,s=o[t])}),s&&i){const e=s.likedBy||[],n=e.indexOf(t);n>-1?(e.splice(n,1),s.likes=Math.max(0,(s.likes||0)-1)):(e.push(t),s.likes=(s.likes||0)+1),s.likedBy=e,database.ref("comments/"+POST_ID+"/"+i).set(s)}})}function getUserId(){let e=localStorage.getItem("userId");return e||(e="user_"+Date.now()+"_"+Math.random().toString(36).substr(2,9),localStorage.setItem("userId",e)),e}function formatDate(e){const n=new Date(e),s=new Date,t=Math.floor((s-n)/1e3);return t<60?"vừa xong":t<3600?Math.floor(t/60)+" phút trước":t<86400?Math.floor(t/3600)+" giờ trước":t<2592e3?Math.floor(t/86400)+" ngày trước":n.toLocaleDateString("vi-VN")}function filterComments(e){currentFilter=e,document.querySelectorAll(".filter-btn").forEach(e=>{e.classList.remove("active")}),document.getElementById("filter-"+e).classList.add("active"),renderComments()}function showAllComments(){showAll=!0,renderComments()}function renderComments(){let e=getComments();const n=document.getElementById("commentCount");e.length>0?n.textContent=`(${e.length})`:n.textContent="",currentFilter==="top"?e.sort((e,t)=>t.likes-e.likes):e.sort((e,t)=>new Date(t.timestamp)-new Date(e.timestamp));const s=getUserId(),o=showAll?e:e.slice(0,3),i=o.map(e=>{const t=e.likedBy||[],n=e.likes||0,o=t.includes(s);return`
           <div class="comment-item">
-            <div class="comment-avatar">${comment.name.charAt(0).toUpperCase()}</div>
+            <div class="comment-avatar">${e.name.charAt(0).toUpperCase()}</div>
             <div class="comment-content">
               <div class="comment-header">
-                <strong>${comment.name}</strong>
-                <span class="comment-time">${formatDate(comment.timestamp)}</span>
+                <strong>${e.name}</strong>
+                <span class="comment-time">${formatDate(e.timestamp)}</span>
               </div>
-              <p class="comment-text">${comment.text}</p>
-              <button onclick="likeComment(${comment.id})" class="like-btn ${hasLiked ? 'liked' : ''}">
-                ❤️ ${likes}
+              <p class="comment-text">${e.text}</p>
+              <button onclick="likeComment(${e.id})" class="like-btn ${o?"liked":""}">
+                ❤️ ${n}
               </button>
             </div>
           </div>
-        `;
-      }).join('');
-
-      document.getElementById('commentsList').innerHTML = html || '<p class="no-comments">Chưa có bình luận nào. Hãy là người đầu tiên!</p>';
-      
-      const showAllBtn = document.getElementById('showAllBtn');
-      if (comments.length > 3 && !showAll) {
-        showAllBtn.style.display = 'block';
-        showAllBtn.textContent = `Xem tất cả ${comments.length} bình luận`;
-      } else {
-        showAllBtn.style.display = 'none';
-      }
-    }
-
-    
-    loadCommentsFromFirebase();
-  </script>
-
-  <div class="post-footer">
-    <a href="../../posts" class="back-to-blog">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <line x1="19" y1="12" x2="5" y2="12"></line>
-        <polyline points="12 19 5 12 12 5"></polyline>
-      </svg>
-      Xem tất cả bài viết
-    </a>
-  </div>
-</article>
-  </main>
-  
-  <footer class="footer">
-  <div class="container">
-    <p>&copy; 2025 Dương Gia Bảo. All rights reserved.</p>
-  </div>
-</footer>
-
-</body>
-</html>
+        `}).join("");document.getElementById("commentsList").innerHTML=i||'<p class="no-comments">Chưa có bình luận nào. Hãy là người đầu tiên!</p>';const t=document.getElementById("showAllBtn");e.length>3&&!showAll?(t.style.display="block",t.textContent=`Xem tất cả ${e.length} bình luận`):t.style.display="none"}loadCommentsFromFirebase()</script><div class=post-footer><a href=../../posts class=back-to-blog><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+Xem tất cả bài viết</a></div></article></main><footer class=footer><div class=container><p>&copy; 2025 Dương Gia Bảo. All rights reserved.</p></div></footer></body></html>

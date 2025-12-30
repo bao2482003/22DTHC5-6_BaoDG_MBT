@@ -1,749 +1,126 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Java: Lập Trình Đa Luồng Cơ Bản | Profile</title>
-  <link rel="stylesheet" href="../../css/style.css">
-  <link rel="icon" href="../../favicon.ico" type="image/x-icon">
-</head>
-<body>
-  <header class="header">
-  <div class="container">
-    <div class="logo">
-      <a href="../../">
-        <span class="logo-icon">🏠</span>
-        <span class="logo-text">Profile</span>
-      </a>
-    </div>
-    
-    <nav class="nav">
-      <div class="search-container">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="11" cy="11" r="8"></circle>
-          <path d="m21 21-4.35-4.35"></path>
-        </svg>
-        <input type="text" id="headerSearchInput" class="header-search-input" placeholder="Tìm kiếm bài viết...">
-        <div id="searchDropdown" class="search-dropdown"></div>
-      </div>
-      
-      <ul class="menu">
-        
-        <li><a href="../../#about">Về tôi</a></li>
-        
-        <li><a href="../../#experience">Kinh nghiệm</a></li>
-        
-        <li><a href="../../#education">Học vấn</a></li>
-        
-        <li><a href="../../#certificates">Chứng chỉ</a></li>
-        
-        <li><a href="../../#contact">Liên hệ</a></li>
-        
-        <li><a href="../../posts">Blog</a></li>
-        
-        <li><a href="../../#gallery">Thư viện ảnh</a></li>
-        
-      </ul>
-      
-      <button class="theme-toggle" aria-label="Toggle dark mode" onclick="toggleTheme()">
-        <span class="theme-icon"></span>
-      </button>
-    </nav>
-  </div>
-</header>
-
-<script>
-  
-  function toggleTheme() {
-    const html = document.documentElement;
-    const currentTheme = html.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    
-    html.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    updateThemeIcon();
-  }
-
-  function updateThemeIcon() {
-    const theme = document.documentElement.getAttribute('data-theme');
-    const icon = document.querySelector('.theme-icon');
-    icon.textContent = theme === 'dark' ? '🌙' : '☀️';
-  }
-
-  
-  (function() {
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    updateThemeIcon();
-  })();
-
-  let searchIndex = [];
-  
-  
-  fetch('https:\/\/bao2482003.github.io\/22DTHC5-6_BaoDG_MBT\/index.json')
-    .then(response => response.json())
-    .then(data => {
-      searchIndex = data;
-      console.log('Search index loaded:', searchIndex.length, 'items');
-    })
-    .catch(error => console.error('Search index error:', error));
-
-  
-  const headerSearchInput = document.getElementById('headerSearchInput');
-  const searchDropdown = document.getElementById('searchDropdown');
-
-  headerSearchInput?.addEventListener('input', function(e) {
-    const query = e.target.value.toLowerCase().trim();
-    
-    if (query.length < 2) {
-      searchDropdown.style.display = 'none';
-      return;
-    }
-
-    const results = searchIndex.filter(item => {
-      return item.title.toLowerCase().includes(query) ||
-             item.content.toLowerCase().includes(query) ||
-             (item.tags && item.tags.some(tag => tag.toLowerCase().includes(query)));
-    });
-
-    if (results.length === 0) {
-      searchDropdown.innerHTML = '<div class="dropdown-no-results">Không tìm thấy kết quả</div>';
-      searchDropdown.style.display = 'block';
-      return;
-    }
-
-    const html = results.slice(0, 5).map(item => {
-      const tagsHtml = item.tags ? item.tags.slice(0, 2).map(tag => `<span class="dropdown-tag">${tag}</span>`).join('') : '';
-      
-      return `
-        <a href="${item.permalink}" class="dropdown-item">
-          <div class="dropdown-title">${highlightText(item.title, query)}</div>
+<!doctype html><html lang=vi><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Java: Lập Trình Đa Luồng Cơ Bản | Profile</title><link rel=stylesheet href=../../css/style.css><link rel=icon href=../../favicon.ico type=image/x-icon></head><body><header class=header><div class=container><div class=logo><a href=../../><span class=logo-icon>🏠</span>
+<span class=logo-text>Profile</span></a></div><nav class=nav><div class=search-container><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+<input type=text id=headerSearchInput class=header-search-input placeholder="Tìm kiếm bài viết..."><div id=searchDropdown class=search-dropdown></div></div><ul class=menu><li><a href=../../#about>Về tôi</a></li><li><a href=../../#experience>Kinh nghiệm</a></li><li><a href=../../#education>Học vấn</a></li><li><a href=../../#certificates>Chứng chỉ</a></li><li><a href=../../#contact>Liên hệ</a></li><li><a href=../../posts>Blog</a></li><li><a href=../../#gallery>Thư viện ảnh</a></li></ul><button class=theme-toggle aria-label="Toggle dark mode" onclick=toggleTheme()>
+<span class=theme-icon></span></button></nav></div></header><script>function toggleTheme(){const e=document.documentElement,n=e.getAttribute("data-theme"),t=n==="dark"?"light":"dark";e.setAttribute("data-theme",t),localStorage.setItem("theme",t),updateThemeIcon()}function updateThemeIcon(){const e=document.documentElement.getAttribute("data-theme"),t=document.querySelector(".theme-icon");t.textContent=e==="dark"?"🌙":"☀️"}(function(){const e=localStorage.getItem("theme")||"light";document.documentElement.setAttribute("data-theme",e),updateThemeIcon()})();let searchIndex=[];fetch("https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/index.json").then(e=>e.json()).then(e=>{searchIndex=e,console.log("Search index loaded:",searchIndex.length,"items")}).catch(e=>console.error("Search index error:",e));const headerSearchInput=document.getElementById("headerSearchInput"),searchDropdown=document.getElementById("searchDropdown");headerSearchInput?.addEventListener("input",function(e){const t=e.target.value.toLowerCase().trim();if(t.length<2){searchDropdown.style.display="none";return}const n=searchIndex.filter(e=>e.title.toLowerCase().includes(t)||e.content.toLowerCase().includes(t)||e.tags&&e.tags.some(e=>e.toLowerCase().includes(t)));if(n.length===0){searchDropdown.innerHTML='<div class="dropdown-no-results">Không tìm thấy kết quả</div>',searchDropdown.style.display="block";return}const s=n.slice(0,5).map(e=>{const n=e.tags?e.tags.slice(0,2).map(e=>`<span class="dropdown-tag">${e}</span>`).join(""):"";return`
+        <a href="${e.permalink}" class="dropdown-item">
+          <div class="dropdown-title">${highlightText(e.title,t)}</div>
           <div class="dropdown-meta">
-            <span class="dropdown-date">${formatDate(item.date)}</span>
-            ${tagsHtml}
+            <span class="dropdown-date">${formatDate(e.date)}</span>
+            ${n}
           </div>
         </a>
-      `;
-    }).join('');
-
-    searchDropdown.innerHTML = html + (results.length > 5 ? `<div class="dropdown-more">Còn ${results.length - 5} kết quả...</div>` : '');
-    searchDropdown.style.display = 'block';
-  });
-
-  
-  document.addEventListener('click', function(e) {
-    if (!e.target.closest('.search-container')) {
-      searchDropdown.style.display = 'none';
-    }
-  });
-
-  
-  headerSearchInput?.addEventListener('focus', function() {
-    if (this.value.trim().length >= 2) {
-      searchDropdown.style.display = 'block';
-    }
-  });
-
-  function highlightText(text, query) {
-    const regex = new RegExp(`(${query})`, 'gi');
-    return text.replace(regex, '<mark>$1</mark>');
-  }
-
-  function formatDate(dateString) {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('vi-VN');
-  }
-</script>
-
-  
-  <main>
-    <article class="blog-post">
-  <div class="post-header">
-    <div class="post-breadcrumb">
-      <a href="../../posts">← Tất cả bài viết</a>
-    </div>
-    
-    <h1 class="post-title">Java: Lập Trình Đa Luồng Cơ Bản</h1>
-    
-    
-    <p class="post-description">Tìm hiểu về multithreading và concurrency trong Java</p>
-    
-    
-    <div class="post-meta">
-      <div class="meta-left">
-        <span class="post-date">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-            <line x1="16" y1="2" x2="16" y2="6"></line>
-            <line x1="8" y1="2" x2="8" y2="6"></line>
-            <line x1="3" y1="10" x2="21" y2="10"></line>
-          </svg>
-          27/12/2025
-        </span>
-        <span class="reading-time">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"></circle>
-            <polyline points="12 6 12 12 16 14"></polyline>
-          </svg>
-          9 phút đọc
-        </span>
-      </div>
-      
-      <div class="post-tags">
-        
-        <span class="post-tag">Java</span>
-        
-        <span class="post-tag">Concurrency</span>
-        
-      </div>
-      
-    </div>
-  </div>
-
-  
-  <div class="post-featured-image">
-    <img src="https://images.unsplash.com/photo-1518773553398-650c184e0bb3?w=1200&amp;h=600&amp;fit=crop" alt="Java: Lập Trình Đa Luồng Cơ Bản">
-  </div>
-  
-
-  
-  <div class="post-featured-video">
-    <div class="video-wrapper">
-      <iframe 
-        src="https://www.youtube.com/embed/_SWK7pZQzIg" 
-        title="YouTube video player" 
-        frameborder="0" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-        referrerpolicy="strict-origin-when-cross-origin" 
-        allowfullscreen>
-      </iframe>
-    </div>
-  </div>
-  
-
-  <div class="post-content">
-    <p>Lập trình đa luồng luôn là một chủ đề được nhiều lập trình viên chú ý trong quá trình phát triển phần mềm, phải làm sao để chương trình của mình chạy trơn tru nhất, nhẹ nhàng nhất để người dùng có thiện cảm tốt với sản phẩm của mình. Trong bài viết dưới đây, chúng ta sẽ cùng tìm hiểu về lập trình đa luồng và các thực hiện với ngôn ngữ Java.</p>
-<ol>
-<li>Đa luồng là gì ?
-Thread(luồng) là một tiến trình con(sub-process), một đơn vị nhỏ nhất của máy tính có thể thực hiện một công việc riêng biệt. Đa tiến trình và đa luồng là các cách để đạt được đa nhiệm. Trong Java, các luồng được quản lý bởi máy ảo Java(JVM)</li>
-</ol>
-<p>Lợi ích của đa luồng
-Đa luồng không chặn người dùng vì các luồng là độc lập và bạn có thể thực hiện nhiều hành động tại một thời điểm</p>
-<p>Có thể tiết kiệm thời gian vì có thể thực hiện nhiều hành động đồng thời</p>
-<p>Các luồng độc lập nên nó sẽ không gây ảnh hưởng tới các luồng khác nếu exception xảy ra tại một luồng</p>
-<p>Các luồng có thể dùng chung và chia sẻ nguồn tài nguyên trong quá trình chạy, tuy nhiên các luồng vẫn sẽ hoạt động độc lập với nhau</p>
-<p>Nhược điểm của đa luồng
-Xử lý chương trình phức tạp</p>
-<p>Xử lý vấn đề tranh chấp bộ nhớ, đồng bộ dữ liệu khá phức tạp</p>
-<p>Cần phát hiện các luồng bị chặn, block(dead lock) để tránh gây lỗi cho hệ thống</p>
-<ol start="2">
-<li>Đa nhiệm là gì ?
-Đa nhiệm là khả năng chạy đồng thời một hay nhiều chương trình cùng lúc trên một hệ điều hành. Chúng ta dùng đa nhiệm để tối ưu việc sử dụng tài nguyên CPU. Đa nhiệm có thể đạt được qua hai cách:</li>
-</ol>
-<p>Đa nhiệm dựa trên đa tiến trình(Multiprocessing)
-Mỗi tiến trình có một địa chỉ trong bộ nhớ, mỗi tiến trình có một bộ nhớ riêng biệt</p>
-<p>Một tiến trình là nặng</p>
-<p>Sự giao tiếp giữa các tiến trình có chi phí cao</p>
-<p>Sự chuyển đổi giữa một tiến trình sang tiến trình khác đòi hỏi thời gian cho việc lưu và tải các vùng đăng ký bộ nhớ, danh sách, &hellip;</p>
-<p>Đa nhiệm dựa trên đa luồng(Multithreading)
-Luồng sử dụng chung vùng nhớ</p>
-<p>Luồng là nhẹ</p>
-<p>Chi phí giao tiếp giữa các luồng là không cao</p>
-<ol start="3">
-<li>Vòng đời của một Thread trong Java
-Một Thread sẽ trải qua năm trạng thái trong vòng đời của nó. Vòng đời của luồng được quản lý bởi JVM bao gồm có:</li>
-</ol>
-<p>NEW : Đây là trạng thái khi luồng vừa được khởi tạo bằng phương thức khởi tạo của lớp Thread nhưng chưa được start(). Ở trạng thái này, luồng được tạo ra nhưng chưa được cấp phát tài nguyên và cũng chưa chạy. Nếu luồng đang ở trạng thái này mà ta gọi các phương thức ép buộc stop,resume,suspend … sẽ là nguyên nhân sảy ra ngoại lệ IllegalThreadStateException .</p>
-<p>RUNNABLE : Sau khi gọi phương thức start() thì luồng test đã được cấp phát tài nguyên và các lịch điều phối CPU cho luồng test cũng bắt đầu có hiệu lực. Ở đây, chúng ta dùng trạng thái là Runnable chứ không phải Running, vì luồng không thực sự luôn chạy mà tùy vào hệ thống mà có sự điều phối CPU khác nhau.</p>
-<p>WAITING : Thread chờ không giới hạn cho đến khi một luồng khác đánh thức nó.</p>
-<p>TIMED_WAITING : Thread chờ trong một thời gian nhất định, hoặc là có một luồng khác đánh thức nó.</p>
-<p>BLOCKED: Đây là 1 dạng của trạng thái “Not Runnable”, là trạng thái khi Thread vẫn còn sống, nhưng hiện tại không được chọn để chạy. Thread chờ một monitor để unlock một đối tượng mà nó cần.</p>
-<p>TERMINATED : Một thread ở trong trạng thái terminated hoặc dead khi phương thức run() của nó bị thoát.</p>
-<ol start="4">
-<li>Lớp Thread trong Java
-Trong Java, chúng ta có thể tạo ra một luồng bằng cách tạo một đối tượng từ một lớp kế thừa lớp Thread. Để khởi tạo một luồng bằng cách này, chúng ta sẽ phải thực hiện các bước sau:</li>
-</ol>
-<p>Khai báo một lớp kế thừa lớp Thread</p>
-<p>Override lại phương thức run() của lớp này, các dòng lệnh trong phương thức này sẽ được thực thi khi luồng bắt đầu chạy. Sau khi luồng đã thực hiện xong các dòng code trong phương thức run thì luồng sẽ chuyển sang trạng thái hủy.</p>
-<p>Tạo một đối tượng của lớp vừa khai báo.</p>
-<p>Gọi phương thức start() để bắt đầu thực thi luồng.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ThreadSample</span> <span style="color:#66d9ef">extends</span> Thread{
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span>() {
-</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;This is a thread, myThreadName: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">getName</span>());
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>Tại sao gọi phương thức start() chứ không phải run() để thực thi luồng?</p>
-<p>Phương thức start() là phương thức đặc biệt được Oracle xây dựng trong lớp Thread, phương thức này sẽ cấp phát tài nguyên cho luồng rồi mới thực thi phương thức run() ở luồng này.</p>
-<p>Do đó, nếu ta gọi phương thức run() thì cũng tương đương với việc gọi một phương thức ở một lớp bình thường và nó sẽ chạy trên luồng thực hiện gọi phương thức chứ không sinh ra một luồng mới.</p>
-<p>Thêm một lưu ý nữa, bạn không thể gọi phương thức start() của Thread hai lần, nếu không sẽ có ngoại lệ IllegalThreadStateException xảy ra.</p>
-<ol start="5">
-<li>Interface Runnable trong Java
-Ngoài cách sử kế thừa lớp Thread trong Java, bạn hoàn toàn có thể sử dụng interface Runnable trong Java để khởi tạo một luồng mới. Để tạo luồng bằng cách sử dụng Runnable, ta phải làm các công việc sau:</li>
-</ol>
-<p>Khai báo một lớp implement Runnable</p>
-<p>Override lại phương thức run() trong lớp này. Việc này tương tự với việc override lại phương thức run() trong cách sử dụng lớp Thread</p>
-<p>Tạo một đối tượng của lớp vừa khai báo</p>
-<p>Tạo một đối tượng Thread bằng constructor: Thread(Runnable runnable). Điều thú vị ở đây là, mặc dù chúng ta vẫn cần một đối tượng Thread để khởi tạo luồng mới, tuy nhiên thay vì việc override lại phương thức run() của nó thì chúng ta lại truyền vào đây một Runnable với các dòng code thực thi chương trình đã được thêm vào trong phương thức run()</p>
-<p>Gọi phương thức start() để bắt đầu thực thi luồng</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PingWorker</span> <span style="color:#66d9ef">implements</span> Runnable {
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> Logger LOGGER <span style="color:#f92672">=</span> LogManager.<span style="color:#a6e22e">getLogger</span>(<span style="color:#e6db74">&#34;PingWorker&#34;</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">long</span> TIMEOUT_PING <span style="color:#f92672">=</span> 30 <span style="color:#f92672">*</span> 1000L;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span>() {
-</span></span><span style="display:flex;"><span>        LOGGER.<span style="color:#a6e22e">info</span>(<span style="color:#e6db74">&#34;Start ping worker !&#34;</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (<span style="color:#66d9ef">true</span>) {
-</span></span><span style="display:flex;"><span>            Packet pingPacket <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Packet();
-</span></span><span style="display:flex;"><span>            pingPacket.<span style="color:#a6e22e">setServiceType</span>(Constants.<span style="color:#a6e22e">PacketServiceType</span>.<span style="color:#a6e22e">PING</span>);
-</span></span><span style="display:flex;"><span>            pingPacket.<span style="color:#a6e22e">setBody</span>(<span style="color:#66d9ef">new</span> JSONObject());
-</span></span><span style="display:flex;"><span>            List<span style="color:#f92672">&lt;</span>Connection<span style="color:#f92672">&gt;</span> allConnections <span style="color:#f92672">=</span> ConnectionManager.<span style="color:#a6e22e">getInstance</span>().<span style="color:#a6e22e">getAllConnections</span>();
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> (Connection connection : allConnections) {
-</span></span><span style="display:flex;"><span>                connection.<span style="color:#a6e22e">sendPacket</span>(pingPacket);
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span> {
-</span></span><span style="display:flex;"><span>                TimeUnit.<span style="color:#a6e22e">SECONDS</span>.<span style="color:#a6e22e">sleep</span>(30);
-</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">catch</span> (Exception ex) {
-</span></span><span style="display:flex;"><span>                LOGGER.<span style="color:#a6e22e">error</span>(<span style="color:#e6db74">&#34;Error  when trying to sleep &#34;</span>, ex);
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
+      `}).join("");searchDropdown.innerHTML=s+(n.length>5?`<div class="dropdown-more">Còn ${n.length-5} kết quả...</div>`:""),searchDropdown.style.display="block"}),document.addEventListener("click",function(e){e.target.closest(".search-container")||(searchDropdown.style.display="none")}),headerSearchInput?.addEventListener("focus",function(){this.value.trim().length>=2&&(searchDropdown.style.display="block")});function highlightText(e,t){const n=new RegExp(`(${t})`,"gi");return e.replace(n,"<mark>$1</mark>")}function formatDate(e){const t=new Date(e);return t.toLocaleDateString("vi-VN")}</script><main><article class=blog-post><div class=post-header><div class=post-breadcrumb><a href=../../posts>← Tất cả bài viết</a></div><h1 class=post-title>Java: Lập Trình Đa Luồng Cơ Bản</h1><p class=post-description>Tìm hiểu về multithreading và concurrency trong Java</p><div class=post-meta><div class=meta-left><span class=post-date><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+27/12/2025
+</span><span class=reading-time><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+9 phút đọc</span></div><div class=post-tags><span class=post-tag>Java</span>
+<span class=post-tag>Concurrency</span></div></div></div><div class=post-featured-image><img src="https://images.unsplash.com/photo-1518773553398-650c184e0bb3?w=1200&amp;h=600&amp;fit=crop" alt="Java: Lập Trình Đa Luồng Cơ Bản"></div><div class=post-featured-video><div class=video-wrapper><iframe src=https://www.youtube.com/embed/_SWK7pZQzIg title="YouTube video player" frameborder=0 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy=strict-origin-when-cross-origin allowfullscreen></iframe></div></div><div class=post-content><p>Lập trình đa luồng luôn là một chủ đề được nhiều lập trình viên chú ý trong quá trình phát triển phần mềm, phải làm sao để chương trình của mình chạy trơn tru nhất, nhẹ nhàng nhất để người dùng có thiện cảm tốt với sản phẩm của mình. Trong bài viết dưới đây, chúng ta sẽ cùng tìm hiểu về lập trình đa luồng và các thực hiện với ngôn ngữ Java.</p><ol><li>Đa luồng là gì ?
+Thread(luồng) là một tiến trình con(sub-process), một đơn vị nhỏ nhất của máy tính có thể thực hiện một công việc riêng biệt. Đa tiến trình và đa luồng là các cách để đạt được đa nhiệm. Trong Java, các luồng được quản lý bởi máy ảo Java(JVM)</li></ol><p>Lợi ích của đa luồng
+Đa luồng không chặn người dùng vì các luồng là độc lập và bạn có thể thực hiện nhiều hành động tại một thời điểm</p><p>Có thể tiết kiệm thời gian vì có thể thực hiện nhiều hành động đồng thời</p><p>Các luồng độc lập nên nó sẽ không gây ảnh hưởng tới các luồng khác nếu exception xảy ra tại một luồng</p><p>Các luồng có thể dùng chung và chia sẻ nguồn tài nguyên trong quá trình chạy, tuy nhiên các luồng vẫn sẽ hoạt động độc lập với nhau</p><p>Nhược điểm của đa luồng
+Xử lý chương trình phức tạp</p><p>Xử lý vấn đề tranh chấp bộ nhớ, đồng bộ dữ liệu khá phức tạp</p><p>Cần phát hiện các luồng bị chặn, block(dead lock) để tránh gây lỗi cho hệ thống</p><ol start=2><li>Đa nhiệm là gì ?
+Đa nhiệm là khả năng chạy đồng thời một hay nhiều chương trình cùng lúc trên một hệ điều hành. Chúng ta dùng đa nhiệm để tối ưu việc sử dụng tài nguyên CPU. Đa nhiệm có thể đạt được qua hai cách:</li></ol><p>Đa nhiệm dựa trên đa tiến trình(Multiprocessing)
+Mỗi tiến trình có một địa chỉ trong bộ nhớ, mỗi tiến trình có một bộ nhớ riêng biệt</p><p>Một tiến trình là nặng</p><p>Sự giao tiếp giữa các tiến trình có chi phí cao</p><p>Sự chuyển đổi giữa một tiến trình sang tiến trình khác đòi hỏi thời gian cho việc lưu và tải các vùng đăng ký bộ nhớ, danh sách, &mldr;</p><p>Đa nhiệm dựa trên đa luồng(Multithreading)
+Luồng sử dụng chung vùng nhớ</p><p>Luồng là nhẹ</p><p>Chi phí giao tiếp giữa các luồng là không cao</p><ol start=3><li>Vòng đời của một Thread trong Java
+Một Thread sẽ trải qua năm trạng thái trong vòng đời của nó. Vòng đời của luồng được quản lý bởi JVM bao gồm có:</li></ol><p>NEW : Đây là trạng thái khi luồng vừa được khởi tạo bằng phương thức khởi tạo của lớp Thread nhưng chưa được start(). Ở trạng thái này, luồng được tạo ra nhưng chưa được cấp phát tài nguyên và cũng chưa chạy. Nếu luồng đang ở trạng thái này mà ta gọi các phương thức ép buộc stop,resume,suspend … sẽ là nguyên nhân sảy ra ngoại lệ IllegalThreadStateException .</p><p>RUNNABLE : Sau khi gọi phương thức start() thì luồng test đã được cấp phát tài nguyên và các lịch điều phối CPU cho luồng test cũng bắt đầu có hiệu lực. Ở đây, chúng ta dùng trạng thái là Runnable chứ không phải Running, vì luồng không thực sự luôn chạy mà tùy vào hệ thống mà có sự điều phối CPU khác nhau.</p><p>WAITING : Thread chờ không giới hạn cho đến khi một luồng khác đánh thức nó.</p><p>TIMED_WAITING : Thread chờ trong một thời gian nhất định, hoặc là có một luồng khác đánh thức nó.</p><p>BLOCKED: Đây là 1 dạng của trạng thái “Not Runnable”, là trạng thái khi Thread vẫn còn sống, nhưng hiện tại không được chọn để chạy. Thread chờ một monitor để unlock một đối tượng mà nó cần.</p><p>TERMINATED : Một thread ở trong trạng thái terminated hoặc dead khi phương thức run() của nó bị thoát.</p><ol start=4><li>Lớp Thread trong Java
+Trong Java, chúng ta có thể tạo ra một luồng bằng cách tạo một đối tượng từ một lớp kế thừa lớp Thread. Để khởi tạo một luồng bằng cách này, chúng ta sẽ phải thực hiện các bước sau:</li></ol><p>Khai báo một lớp kế thừa lớp Thread</p><p>Override lại phương thức run() của lớp này, các dòng lệnh trong phương thức này sẽ được thực thi khi luồng bắt đầu chạy. Sau khi luồng đã thực hiện xong các dòng code trong phương thức run thì luồng sẽ chuyển sang trạng thái hủy.</p><p>Tạo một đối tượng của lớp vừa khai báo.</p><p>Gọi phương thức start() để bắt đầu thực thi luồng.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ThreadSample</span> <span style=color:#66d9ef>extends</span> Thread{
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>run</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;This is a thread, myThreadName: &#34;</span> <span style=color:#f92672>+</span> <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>getName</span>());
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Tại sao gọi phương thức start() chứ không phải run() để thực thi luồng?</p><p>Phương thức start() là phương thức đặc biệt được Oracle xây dựng trong lớp Thread, phương thức này sẽ cấp phát tài nguyên cho luồng rồi mới thực thi phương thức run() ở luồng này.</p><p>Do đó, nếu ta gọi phương thức run() thì cũng tương đương với việc gọi một phương thức ở một lớp bình thường và nó sẽ chạy trên luồng thực hiện gọi phương thức chứ không sinh ra một luồng mới.</p><p>Thêm một lưu ý nữa, bạn không thể gọi phương thức start() của Thread hai lần, nếu không sẽ có ngoại lệ IllegalThreadStateException xảy ra.</p><ol start=5><li>Interface Runnable trong Java
+Ngoài cách sử kế thừa lớp Thread trong Java, bạn hoàn toàn có thể sử dụng interface Runnable trong Java để khởi tạo một luồng mới. Để tạo luồng bằng cách sử dụng Runnable, ta phải làm các công việc sau:</li></ol><p>Khai báo một lớp implement Runnable</p><p>Override lại phương thức run() trong lớp này. Việc này tương tự với việc override lại phương thức run() trong cách sử dụng lớp Thread</p><p>Tạo một đối tượng của lớp vừa khai báo</p><p>Tạo một đối tượng Thread bằng constructor: Thread(Runnable runnable). Điều thú vị ở đây là, mặc dù chúng ta vẫn cần một đối tượng Thread để khởi tạo luồng mới, tuy nhiên thay vì việc override lại phương thức run() của nó thì chúng ta lại truyền vào đây một Runnable với các dòng code thực thi chương trình đã được thêm vào trong phương thức run()</p><p>Gọi phương thức start() để bắt đầu thực thi luồng</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>PingWorker</span> <span style=color:#66d9ef>implements</span> Runnable {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> Logger LOGGER <span style=color:#f92672>=</span> LogManager.<span style=color:#a6e22e>getLogger</span>(<span style=color:#e6db74>&#34;PingWorker&#34;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> <span style=color:#66d9ef>long</span> TIMEOUT_PING <span style=color:#f92672>=</span> 30 <span style=color:#f92672>*</span> 1000L;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>run</span>() {
+</span></span><span style=display:flex><span>        LOGGER.<span style=color:#a6e22e>info</span>(<span style=color:#e6db74>&#34;Start ping worker !&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span> (<span style=color:#66d9ef>true</span>) {
+</span></span><span style=display:flex><span>            Packet pingPacket <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Packet();
+</span></span><span style=display:flex><span>            pingPacket.<span style=color:#a6e22e>setServiceType</span>(Constants.<span style=color:#a6e22e>PacketServiceType</span>.<span style=color:#a6e22e>PING</span>);
+</span></span><span style=display:flex><span>            pingPacket.<span style=color:#a6e22e>setBody</span>(<span style=color:#66d9ef>new</span> JSONObject());
+</span></span><span style=display:flex><span>            List<span style=color:#f92672>&lt;</span>Connection<span style=color:#f92672>&gt;</span> allConnections <span style=color:#f92672>=</span> ConnectionManager.<span style=color:#a6e22e>getInstance</span>().<span style=color:#a6e22e>getAllConnections</span>();
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>for</span> (Connection connection : allConnections) {
+</span></span><span style=display:flex><span>                connection.<span style=color:#a6e22e>sendPacket</span>(pingPacket);
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>                TimeUnit.<span style=color:#a6e22e>SECONDS</span>.<span style=color:#a6e22e>sleep</span>(30);
+</span></span><span style=display:flex><span>            } <span style=color:#66d9ef>catch</span> (Exception ex) {
+</span></span><span style=display:flex><span>                LOGGER.<span style=color:#a6e22e>error</span>(<span style=color:#e6db74>&#34;Error  when trying to sleep &#34;</span>, ex);
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
 </span></span></code></pre></div><p>Khi nào thì nên dùng Runnable
-Vì Runnable là một interface nên nó có thể giúp chúng ta giải quyết bài toán đa kế thừa. Ngoài ra, Thread Pool cũng chấp nhận các đối tượng để nó quản lý là Runnable, việc sử dụng Thread Pool mang lại nhiều hiệu quả trong việc quản lý các luồng</p>
-<p>Trong các trường hợp còn lại, bạn hoàn toàn có thể sử dụng Thread</p>
-<ol start="6">
-<li>Ví dụ minh họa sử dụng đa luồng
-Tạo luồng với Thread</li>
-</ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ThreadSample</span> <span style="color:#66d9ef">extends</span> Thread{
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span>() {
-</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;This is a thread, myThreadName: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">getName</span>());
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) {
-</span></span><span style="display:flex;"><span>        ThreadSample thread <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ThreadSample();
-</span></span><span style="display:flex;"><span>        ThreadSample thread2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ThreadSample();
-</span></span><span style="display:flex;"><span>        ThreadSample thread3 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ThreadSample();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;CurrentThread &#34;</span> <span style="color:#f92672">+</span> Thread.<span style="color:#a6e22e">currentThread</span>().<span style="color:#a6e22e">getName</span>());
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        thread.<span style="color:#a6e22e">start</span>();
-</span></span><span style="display:flex;"><span>        thread2.<span style="color:#a6e22e">start</span>();
-</span></span><span style="display:flex;"><span>        thread3.<span style="color:#a6e22e">start</span>();
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p><strong>Output chương trình:</strong></p>
-<pre tabindex="0"><code>CurrentThread main
+Vì Runnable là một interface nên nó có thể giúp chúng ta giải quyết bài toán đa kế thừa. Ngoài ra, Thread Pool cũng chấp nhận các đối tượng để nó quản lý là Runnable, việc sử dụng Thread Pool mang lại nhiều hiệu quả trong việc quản lý các luồng</p><p>Trong các trường hợp còn lại, bạn hoàn toàn có thể sử dụng Thread</p><ol start=6><li>Ví dụ minh họa sử dụng đa luồng
+Tạo luồng với Thread</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ThreadSample</span> <span style=color:#66d9ef>extends</span> Thread{
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>run</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;This is a thread, myThreadName: &#34;</span> <span style=color:#f92672>+</span> <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>getName</span>());
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span>(String<span style=color:#f92672>[]</span> args) {
+</span></span><span style=display:flex><span>        ThreadSample thread <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ThreadSample();
+</span></span><span style=display:flex><span>        ThreadSample thread2 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ThreadSample();
+</span></span><span style=display:flex><span>        ThreadSample thread3 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ThreadSample();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;CurrentThread &#34;</span> <span style=color:#f92672>+</span> Thread.<span style=color:#a6e22e>currentThread</span>().<span style=color:#a6e22e>getName</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        thread.<span style=color:#a6e22e>start</span>();
+</span></span><span style=display:flex><span>        thread2.<span style=color:#a6e22e>start</span>();
+</span></span><span style=display:flex><span>        thread3.<span style=color:#a6e22e>start</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p><strong>Output chương trình:</strong></p><pre tabindex=0><code>CurrentThread main
 This is a thread, myThreadName: Thread-0
 This is a thread, myThreadName: Thread-2
 This is a thread, myThreadName: Thread-1
-</code></pre><p>Tạo luồng với interface Runnable</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RunnableSample</span> <span style="color:#66d9ef">implements</span> Runnable {
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span>() {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">long</span> timestamp <span style="color:#f92672">=</span> System.<span style="color:#a6e22e">currentTimeMillis</span>();
-</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;[%s]Checking timestamp%n&#34;</span>, Thread.<span style="color:#a6e22e">currentThread</span>().<span style="color:#a6e22e">getName</span>());
-</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;[%s]My timestamp: %d%n&#34;</span>, Thread.<span style="color:#a6e22e">currentThread</span>().<span style="color:#a6e22e">getName</span>(), timestamp);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) {
-</span></span><span style="display:flex;"><span>        Thread thread1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Thread(<span style="color:#66d9ef">new</span> RunnableSample());
-</span></span><span style="display:flex;"><span>        Thread thread2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Thread(<span style="color:#66d9ef">new</span> RunnableSample());
-</span></span><span style="display:flex;"><span>        Thread thread3 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Thread(<span style="color:#66d9ef">new</span> RunnableSample());
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        thread1.<span style="color:#a6e22e">start</span>();
-</span></span><span style="display:flex;"><span>        thread2.<span style="color:#a6e22e">start</span>();
-</span></span><span style="display:flex;"><span>        thread3.<span style="color:#a6e22e">start</span>();
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p><strong>Output chương trình:</strong></p>
-<pre tabindex="0"><code>[Thread-2]Checking timestamp
+</code></pre><p>Tạo luồng với interface Runnable</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>RunnableSample</span> <span style=color:#66d9ef>implements</span> Runnable {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>run</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>long</span> timestamp <span style=color:#f92672>=</span> System.<span style=color:#a6e22e>currentTimeMillis</span>();
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>printf</span>(<span style=color:#e6db74>&#34;[%s]Checking timestamp%n&#34;</span>, Thread.<span style=color:#a6e22e>currentThread</span>().<span style=color:#a6e22e>getName</span>());
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>printf</span>(<span style=color:#e6db74>&#34;[%s]My timestamp: %d%n&#34;</span>, Thread.<span style=color:#a6e22e>currentThread</span>().<span style=color:#a6e22e>getName</span>(), timestamp);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span>(String<span style=color:#f92672>[]</span> args) {
+</span></span><span style=display:flex><span>        Thread thread1 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Thread(<span style=color:#66d9ef>new</span> RunnableSample());
+</span></span><span style=display:flex><span>        Thread thread2 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Thread(<span style=color:#66d9ef>new</span> RunnableSample());
+</span></span><span style=display:flex><span>        Thread thread3 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Thread(<span style=color:#66d9ef>new</span> RunnableSample());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        thread1.<span style=color:#a6e22e>start</span>();
+</span></span><span style=display:flex><span>        thread2.<span style=color:#a6e22e>start</span>();
+</span></span><span style=display:flex><span>        thread3.<span style=color:#a6e22e>start</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p><strong>Output chương trình:</strong></p><pre tabindex=0><code>[Thread-2]Checking timestamp
 [Thread-0]Checking timestamp
 [Thread-0]My timestamp: 1687795285576
 [Thread-1]Checking timestamp
 [Thread-1]My timestamp: 1687795285576
 [Thread-2]My timestamp: 1687795285576
-</code></pre><ol start="7">
-<li>Các phương thức của lớp Thread thường được hay sử dụng</li>
-</ol>
-<table>
-  <thead>
-      <tr>
-          <th>Kiểu trả về</th>
-          <th>Tên phương thức</th>
-          <th>Mô tả</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>void</td>
-          <td>start()</td>
-          <td>Được sử dụng để bắt đầu thực thi một luồng</td>
-      </tr>
-      <tr>
-          <td>void</td>
-          <td>run()</td>
-          <td>Được sử dụng để chạy hành động của một luồng</td>
-      </tr>
-      <tr>
-          <td>static void</td>
-          <td>sleep()</td>
-          <td>Nghỉ một luồng trong một khoảng thời gian</td>
-      </tr>
-      <tr>
-          <td>static Thread</td>
-          <td>currentThread()</td>
-          <td>Trả về tham chiếu tới luồng đang thực thi đối tượng Thread</td>
-      </tr>
-      <tr>
-          <td>void</td>
-          <td>join()</td>
-          <td>Chờ một thread hoàn thành vòng đời của nó</td>
-      </tr>
-      <tr>
-          <td>int</td>
-          <td>getPriority()</td>
-          <td>Trả về giá trị ưu tiên của luồng</td>
-      </tr>
-      <tr>
-          <td>void</td>
-          <td>setPriority(int)</td>
-          <td>Thay đổi giá trị ưu tiên của luồng</td>
-      </tr>
-      <tr>
-          <td>String</td>
-          <td>getName()</td>
-          <td>Trả về tên của luồng</td>
-      </tr>
-      <tr>
-          <td>void</td>
-          <td>setName(String)</td>
-          <td>Thay đổi tên của luồng</td>
-      </tr>
-      <tr>
-          <td>long</td>
-          <td>getId()</td>
-          <td>Trả về id của luồng</td>
-      </tr>
-      <tr>
-          <td>boolean</td>
-          <td>isAlive()</td>
-          <td>Cho biết thread còn sống hay không</td>
-      </tr>
-      <tr>
-          <td>static void</td>
-          <td>yield()</td>
-          <td>Làm cho luồng hiện tại tạm dừng và cho phép các thread khác thực hiện trong một khoảng thời gian</td>
-      </tr>
-      <tr>
-          <td>void</td>
-          <td>suspend()</td>
-          <td>Được sử dụng để tạm dừng một luồng</td>
-      </tr>
-      <tr>
-          <td>void</td>
-          <td>resume()</td>
-          <td>Được sử dụng để tiếp tục luồng đã bị tạm dừng</td>
-      </tr>
-      <tr>
-          <td>void</td>
-          <td>stop()</td>
-          <td>Được dùng để dừng thread</td>
-      </tr>
-      <tr>
-          <td>void</td>
-          <td>destroy()</td>
-          <td>Dùng để phá hủy các nhóm luồng và các nhóm con của nó</td>
-      </tr>
-      <tr>
-          <td>boolean</td>
-          <td>isDaemon()</td>
-          <td>Kiểm tra xem luồng này có phải là daemon thread hay không</td>
-      </tr>
-      <tr>
-          <td>void</td>
-          <td>setDaemon(boolean)</td>
-          <td>Thay đổi việc luồng có phải là daemon hay không</td>
-      </tr>
-      <tr>
-          <td>void</td>
-          <td>interrupt()</td>
-          <td>Làm gián đoạn một luồng trong java. Nếu thread nằm trong trạng thái sleep hoặc wait, nghĩa là sleep() hoặc wait() được gọi ra. Việc gọi phương thức interrupt() trên thread đó sẽ phá vỡ trạng thái sleep hoặc wait và ném ra ngoại lệ InterruptedException. Nếu thread không ở trong trạng thái sleep hoặc wait, việc gọi phương thức interrupt() thực hiện hành vi bình thường và không làm gián đoạn thread nhưng đặt cờ interrupt thành true.</td>
-      </tr>
-      <tr>
-          <td>boolean</td>
-          <td>isInterrupted()</td>
-          <td>Kiểm tra xem luồng có bị interrupt hay không</td>
-      </tr>
-      <tr>
-          <td>static boolean</td>
-          <td>interrupted()</td>
-          <td>Kiểm tra xem luồng hiện tại có bị interrupt hay chưa</td>
-      </tr>
-  </tbody>
-</table>
-<p><strong>Kết luận</strong></p>
-<p>Lập trình đa luồng Java mang lại nhiều lợi ích như tăng hiệu suất và tận dụng tài nguyên hệ thống. Tuy nhiên, việc quản lý và đồng bộ hóa luồng đòi hỏi kỹ năng chính xác và phải tránh các vấn đề như data race và deadlock. Trong bài viết này, Stringee đã giúp các bạn có được các kiến thức về lập trình đa luồng với Java, trong các bài viết tiếp theo của series lập trình đa luồng, chúng ta sẽ tìm hiểu về cách phòng tránh deadlock và data race cũng như các kỹ thuật lập trình đa luồng khác.</p>
-
-  </div>
-
-  
-  <div class="comments-section">
-    <h3 class="comments-title">💬 Bình luận <span id="commentCount"></span></h3>
-    
-    
-    <div class="comment-form">
-      <input type="text" id="commentName" placeholder="Tên của bạn" maxlength="50">
-      <textarea id="commentText" placeholder="Viết bình luận của bạn..." rows="3" maxlength="500"></textarea>
-      <button onclick="addComment()" class="submit-comment">Gửi bình luận</button>
-    </div>
-
-    
-    <div class="comment-filter">
-      <button onclick="filterComments('top')" class="filter-btn active" id="filter-top">👍 Chất lượng nhất</button>
-      <button onclick="filterComments('newest')" class="filter-btn" id="filter-newest">🕐 Mới nhất</button>
-    </div>
-
-    
-    <div id="commentsList" class="comments-list"></div>
-    
-    <button id="showAllBtn" class="show-all-btn" onclick="showAllComments()" style="display:none;">
-      Xem tất cả bình luận
-    </button>
-  </div>
-
-  
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
-
-  <script>
-    
-    const firebaseConfig = {
-  apiKey: "AIzaSyAdjhCEVyCd-Lr5M6wIrcVIdUGZK5nnMRQ",
-  authDomain: "project-profile-e5576.firebaseapp.com",
-  databaseURL: "https://project-profile-e5576-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "project-profile-e5576",
-  storageBucket: "project-profile-e5576.firebasestorage.app",
-  messagingSenderId: "141833177870",
-  appId: "1:141833177870:web:510eb87ec5b5749d9e255f",
-  measurementId: "G-8EZ42LZQ09"
-};
-
-    
-    firebase.initializeApp(firebaseConfig);
-    const database = firebase.database();
-    
-    const POST_ID = '\/posts\/java-multithreading\/'.replace(/\//g, '_');
-    let currentFilter = 'top';
-    let showAll = false;
-    let commentsCache = [];
-
-    function getComments() {
-      return commentsCache;
-    }
-
-    function loadCommentsFromFirebase() {
-      const commentsRef = database.ref('comments/' + POST_ID);
-      commentsRef.on('value', (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-          commentsCache = Object.values(data).map(comment => ({
-            ...comment,
-            likedBy: comment.likedBy || [],
-            likes: comment.likes || 0
-          }));
-        } else {
-          commentsCache = [];
-        }
-        renderComments();
-      });
-    }
-
-    function addComment() {
-      const name = document.getElementById('commentName').value.trim();
-      const text = document.getElementById('commentText').value.trim();
-      
-      if (!name || !text) {
-        alert('Vui lòng nhập tên và nội dung bình luận!');
-        return;
-      }
-
-      const newComment = {
-        id: Date.now(),
-        name: name,
-        text: text,
-        likes: 0,
-        timestamp: new Date().toISOString(),
-        likedBy: []
-      };
-
-      
-      const commentsRef = database.ref('comments/' + POST_ID);
-      commentsRef.push(newComment).then(() => {
-        document.getElementById('commentName').value = '';
-        document.getElementById('commentText').value = '';
-      }).catch((error) => {
-        alert('Lỗi khi gửi bình luận: ' + error.message);
-      });
-    }
-
-    function likeComment(commentId) {
-      const userId = getUserId();
-      const commentsRef = database.ref('comments/' + POST_ID);
-      
-      commentsRef.once('value').then((snapshot) => {
-        const comments = snapshot.val();
-        if (!comments) return;
-        
-        
-        let commentKey = null;
-        let comment = null;
-        
-        Object.keys(comments).forEach(key => {
-          if (comments[key].id === commentId) {
-            commentKey = key;
-            comment = comments[key];
-          }
-        });
-        
-        if (comment && commentKey) {
-          const likedBy = comment.likedBy || [];
-          const likedIndex = likedBy.indexOf(userId);
-          
-          if (likedIndex > -1) {
-            likedBy.splice(likedIndex, 1);
-            comment.likes = Math.max(0, (comment.likes || 0) - 1);
-          } else {
-            likedBy.push(userId);
-            comment.likes = (comment.likes || 0) + 1;
-          }
-          
-          comment.likedBy = likedBy;
-          
-          
-          database.ref('comments/' + POST_ID + '/' + commentKey).set(comment);
-        }
-      });
-    }
-
-    function getUserId() {
-      let userId = localStorage.getItem('userId');
-      if (!userId) {
-        userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-        localStorage.setItem('userId', userId);
-      }
-      return userId;
-    }
-
-    function formatDate(timestamp) {
-      const date = new Date(timestamp);
-      const now = new Date();
-      const diff = Math.floor((now - date) / 1000);
-
-      if (diff < 60) return 'vừa xong';
-      if (diff < 3600) return Math.floor(diff / 60) + ' phút trước';
-      if (diff < 86400) return Math.floor(diff / 3600) + ' giờ trước';
-      if (diff < 2592000) return Math.floor(diff / 86400) + ' ngày trước';
-      
-      return date.toLocaleDateString('vi-VN');
-    }
-
-    function filterComments(filter) {
-      currentFilter = filter;
-      
-      document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.classList.remove('active');
-      });
-      document.getElementById('filter-' + filter).classList.add('active');
-      
-      renderComments();
-    }
-
-    function showAllComments() {
-      showAll = true;
-      renderComments();
-    }
-
-    function renderComments() {
-      let comments = getComments();
-      
-      
-      const countSpan = document.getElementById('commentCount');
-      if (comments.length > 0) {
-        countSpan.textContent = `(${comments.length})`;
-      } else {
-        countSpan.textContent = '';
-      }
-      
-      if (currentFilter === 'top') {
-        comments.sort((a, b) => b.likes - a.likes);
-      } else {
-        comments.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-      }
-
-      const userId = getUserId();
-      const displayComments = showAll ? comments : comments.slice(0, 3);
-      
-      const html = displayComments.map(comment => {
-        const likedBy = comment.likedBy || [];
-        const likes = comment.likes || 0;
-        const hasLiked = likedBy.includes(userId);
-        return `
+</code></pre><ol start=7><li>Các phương thức của lớp Thread thường được hay sử dụng</li></ol><table><thead><tr><th>Kiểu trả về</th><th>Tên phương thức</th><th>Mô tả</th></tr></thead><tbody><tr><td>void</td><td>start()</td><td>Được sử dụng để bắt đầu thực thi một luồng</td></tr><tr><td>void</td><td>run()</td><td>Được sử dụng để chạy hành động của một luồng</td></tr><tr><td>static void</td><td>sleep()</td><td>Nghỉ một luồng trong một khoảng thời gian</td></tr><tr><td>static Thread</td><td>currentThread()</td><td>Trả về tham chiếu tới luồng đang thực thi đối tượng Thread</td></tr><tr><td>void</td><td>join()</td><td>Chờ một thread hoàn thành vòng đời của nó</td></tr><tr><td>int</td><td>getPriority()</td><td>Trả về giá trị ưu tiên của luồng</td></tr><tr><td>void</td><td>setPriority(int)</td><td>Thay đổi giá trị ưu tiên của luồng</td></tr><tr><td>String</td><td>getName()</td><td>Trả về tên của luồng</td></tr><tr><td>void</td><td>setName(String)</td><td>Thay đổi tên của luồng</td></tr><tr><td>long</td><td>getId()</td><td>Trả về id của luồng</td></tr><tr><td>boolean</td><td>isAlive()</td><td>Cho biết thread còn sống hay không</td></tr><tr><td>static void</td><td>yield()</td><td>Làm cho luồng hiện tại tạm dừng và cho phép các thread khác thực hiện trong một khoảng thời gian</td></tr><tr><td>void</td><td>suspend()</td><td>Được sử dụng để tạm dừng một luồng</td></tr><tr><td>void</td><td>resume()</td><td>Được sử dụng để tiếp tục luồng đã bị tạm dừng</td></tr><tr><td>void</td><td>stop()</td><td>Được dùng để dừng thread</td></tr><tr><td>void</td><td>destroy()</td><td>Dùng để phá hủy các nhóm luồng và các nhóm con của nó</td></tr><tr><td>boolean</td><td>isDaemon()</td><td>Kiểm tra xem luồng này có phải là daemon thread hay không</td></tr><tr><td>void</td><td>setDaemon(boolean)</td><td>Thay đổi việc luồng có phải là daemon hay không</td></tr><tr><td>void</td><td>interrupt()</td><td>Làm gián đoạn một luồng trong java. Nếu thread nằm trong trạng thái sleep hoặc wait, nghĩa là sleep() hoặc wait() được gọi ra. Việc gọi phương thức interrupt() trên thread đó sẽ phá vỡ trạng thái sleep hoặc wait và ném ra ngoại lệ InterruptedException. Nếu thread không ở trong trạng thái sleep hoặc wait, việc gọi phương thức interrupt() thực hiện hành vi bình thường và không làm gián đoạn thread nhưng đặt cờ interrupt thành true.</td></tr><tr><td>boolean</td><td>isInterrupted()</td><td>Kiểm tra xem luồng có bị interrupt hay không</td></tr><tr><td>static boolean</td><td>interrupted()</td><td>Kiểm tra xem luồng hiện tại có bị interrupt hay chưa</td></tr></tbody></table><p><strong>Kết luận</strong></p><p>Lập trình đa luồng Java mang lại nhiều lợi ích như tăng hiệu suất và tận dụng tài nguyên hệ thống. Tuy nhiên, việc quản lý và đồng bộ hóa luồng đòi hỏi kỹ năng chính xác và phải tránh các vấn đề như data race và deadlock. Trong bài viết này, Stringee đã giúp các bạn có được các kiến thức về lập trình đa luồng với Java, trong các bài viết tiếp theo của series lập trình đa luồng, chúng ta sẽ tìm hiểu về cách phòng tránh deadlock và data race cũng như các kỹ thuật lập trình đa luồng khác.</p></div><div class=comments-section><h3 class=comments-title>💬 Bình luận <span id=commentCount></span></h3><div class=comment-form><input type=text id=commentName placeholder="Tên của bạn" maxlength=50>
+<textarea id=commentText placeholder="Viết bình luận của bạn..." rows=3 maxlength=500></textarea>
+<button onclick=addComment() class=submit-comment>Gửi bình luận</button></div><div class=comment-filter><button onclick='filterComments("top")' class="filter-btn active" id=filter-top>👍 Chất lượng nhất</button>
+<button onclick='filterComments("newest")' class=filter-btn id=filter-newest>🕐 Mới nhất</button></div><div id=commentsList class=comments-list></div><button id=showAllBtn class=show-all-btn onclick=showAllComments() style=display:none>
+Xem tất cả bình luận</button></div><script src=https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js></script><script src=https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js></script><script>const firebaseConfig={apiKey:"AIzaSyAdjhCEVyCd-Lr5M6wIrcVIdUGZK5nnMRQ",authDomain:"project-profile-e5576.firebaseapp.com",databaseURL:"https://project-profile-e5576-default-rtdb.asia-southeast1.firebasedatabase.app",projectId:"project-profile-e5576",storageBucket:"project-profile-e5576.firebasestorage.app",messagingSenderId:"141833177870",appId:"1:141833177870:web:510eb87ec5b5749d9e255f",measurementId:"G-8EZ42LZQ09"};firebase.initializeApp(firebaseConfig);const database=firebase.database(),POST_ID="/posts/java-multithreading/".replace(/\//g,"_");let currentFilter="top",showAll=!1,commentsCache=[];function getComments(){return commentsCache}function loadCommentsFromFirebase(){const e=database.ref("comments/"+POST_ID);e.on("value",e=>{const t=e.val();t?commentsCache=Object.values(t).map(e=>({...e,likedBy:e.likedBy||[],likes:e.likes||0})):commentsCache=[],renderComments()})}function addComment(){const e=document.getElementById("commentName").value.trim(),t=document.getElementById("commentText").value.trim();if(!e||!t){alert("Vui lòng nhập tên và nội dung bình luận!");return}const n={id:Date.now(),name:e,text:t,likes:0,timestamp:(new Date).toISOString(),likedBy:[]},s=database.ref("comments/"+POST_ID);s.push(n).then(()=>{document.getElementById("commentName").value="",document.getElementById("commentText").value=""}).catch(e=>{alert("Lỗi khi gửi bình luận: "+e.message)})}function likeComment(e){const t=getUserId(),n=database.ref("comments/"+POST_ID);n.once("value").then(n=>{const o=n.val();if(!o)return;let i=null,s=null;if(Object.keys(o).forEach(t=>{o[t].id===e&&(i=t,s=o[t])}),s&&i){const e=s.likedBy||[],n=e.indexOf(t);n>-1?(e.splice(n,1),s.likes=Math.max(0,(s.likes||0)-1)):(e.push(t),s.likes=(s.likes||0)+1),s.likedBy=e,database.ref("comments/"+POST_ID+"/"+i).set(s)}})}function getUserId(){let e=localStorage.getItem("userId");return e||(e="user_"+Date.now()+"_"+Math.random().toString(36).substr(2,9),localStorage.setItem("userId",e)),e}function formatDate(e){const n=new Date(e),s=new Date,t=Math.floor((s-n)/1e3);return t<60?"vừa xong":t<3600?Math.floor(t/60)+" phút trước":t<86400?Math.floor(t/3600)+" giờ trước":t<2592e3?Math.floor(t/86400)+" ngày trước":n.toLocaleDateString("vi-VN")}function filterComments(e){currentFilter=e,document.querySelectorAll(".filter-btn").forEach(e=>{e.classList.remove("active")}),document.getElementById("filter-"+e).classList.add("active"),renderComments()}function showAllComments(){showAll=!0,renderComments()}function renderComments(){let e=getComments();const n=document.getElementById("commentCount");e.length>0?n.textContent=`(${e.length})`:n.textContent="",currentFilter==="top"?e.sort((e,t)=>t.likes-e.likes):e.sort((e,t)=>new Date(t.timestamp)-new Date(e.timestamp));const s=getUserId(),o=showAll?e:e.slice(0,3),i=o.map(e=>{const t=e.likedBy||[],n=e.likes||0,o=t.includes(s);return`
           <div class="comment-item">
-            <div class="comment-avatar">${comment.name.charAt(0).toUpperCase()}</div>
+            <div class="comment-avatar">${e.name.charAt(0).toUpperCase()}</div>
             <div class="comment-content">
               <div class="comment-header">
-                <strong>${comment.name}</strong>
-                <span class="comment-time">${formatDate(comment.timestamp)}</span>
+                <strong>${e.name}</strong>
+                <span class="comment-time">${formatDate(e.timestamp)}</span>
               </div>
-              <p class="comment-text">${comment.text}</p>
-              <button onclick="likeComment(${comment.id})" class="like-btn ${hasLiked ? 'liked' : ''}">
-                ❤️ ${likes}
+              <p class="comment-text">${e.text}</p>
+              <button onclick="likeComment(${e.id})" class="like-btn ${o?"liked":""}">
+                ❤️ ${n}
               </button>
             </div>
           </div>
-        `;
-      }).join('');
-
-      document.getElementById('commentsList').innerHTML = html || '<p class="no-comments">Chưa có bình luận nào. Hãy là người đầu tiên!</p>';
-      
-      const showAllBtn = document.getElementById('showAllBtn');
-      if (comments.length > 3 && !showAll) {
-        showAllBtn.style.display = 'block';
-        showAllBtn.textContent = `Xem tất cả ${comments.length} bình luận`;
-      } else {
-        showAllBtn.style.display = 'none';
-      }
-    }
-
-    
-    loadCommentsFromFirebase();
-  </script>
-
-  <div class="post-footer">
-    <a href="../../posts" class="back-to-blog">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <line x1="19" y1="12" x2="5" y2="12"></line>
-        <polyline points="12 19 5 12 12 5"></polyline>
-      </svg>
-      Xem tất cả bài viết
-    </a>
-  </div>
-</article>
-  </main>
-  
-  <footer class="footer">
-  <div class="container">
-    <p>&copy; 2025 Dương Gia Bảo. All rights reserved.</p>
-  </div>
-</footer>
-
-</body>
-</html>
+        `}).join("");document.getElementById("commentsList").innerHTML=i||'<p class="no-comments">Chưa có bình luận nào. Hãy là người đầu tiên!</p>';const t=document.getElementById("showAllBtn");e.length>3&&!showAll?(t.style.display="block",t.textContent=`Xem tất cả ${e.length} bình luận`):t.style.display="none"}loadCommentsFromFirebase()</script><div class=post-footer><a href=../../posts class=back-to-blog><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+Xem tất cả bài viết</a></div></article></main><footer class=footer><div class=container><p>&copy; 2025 Dương Gia Bảo. All rights reserved.</p></div></footer></body></html>

@@ -1,4 +1,44 @@
-﻿Generics không chỉ là một tính năng nâng cao trong Java mà còn là một công cụ mạnh mẽ giúp các lập trình viên xây dựng ứng dụng an toàn, hiệu quả và dễ dàng bảo trì. Với khả năng tổng quát hóa kiểu dữ liệu, Generics mở ra cơ hội giảm thiểu lỗi runtime và tối ưu hóa hiệu suất thông qua việc kiểm tra kiểu ngay tại thời điểm biên dịch. Nếu bạn muốn phát triển các ứng dụng Java hiện đại với chất lượng mã vượt trội, việc hiểu và làm chủ Generics là điều không thể thiếu. Trong bài viết này, chúng ta sẽ cùng khám phá cốt lõi của Generics, từ các khái niệm cơ bản cho đến cách áp dụng với những ví dụ đơn giản dễ hiểu, giúp bạn tự tin triển khai trong mọi dự án Java của mình.
+﻿---
+title: "Generics trong Java: Lợi ích và cách sử dụng tối ưu"
+date: 2025-12-27
+tags: ["Java", "Generics"]
+description: "Hiểu về Generics trong Java và cách sử dụng hiệu quả"
+image: "https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=1200&h=600&fit=crop"
+video: "TMnpcRvj7ow"
+---
+
+Generics được thêm vào Java 5 nhằm mục đích kiểm tra kiểu dữ liệu ngay tại thời điểm biên dịch (compile-time type checking) và loại bỏ rủi ro lỗi ClassCastException vốn thường xảy ra khi làm việc với các lớp collection. Toàn bộ collection framework cũng đã được viết lại để sử dụng Generics để tăng cường an toàn kiểu dữ liệu (type-safety).
+
+Chúng ta hãy cùng xem cách Generics giúp sử dụng lớp collection an toàn hơn.
+
+```java
+List list = new ArrayList();
+list.add("abc");
+list.add(new Integer(5)); //OK
+
+for(Object obj : list){
+ //ép kiểu dẫn đến lỗi ClassCastException lúc chạy
+    String str=(String) obj; 
+}
+```
+
+Đoạn code ví dụ ở trên tuy biên dịch thành công nhưng sẽ gây ra lỗi ClassCastException tại thời điểm chạy (runtime). Lý do là vì ta đang cố ép kiểu (cast) một đối tượng Object trong list sang loại String, trong khi một trong số các phần tử trong đó lại thuộc kiểu Integer.
+
+Kể từ Java 5 trở đi, cách sử dụng collection class đã thay đổi như sau.
+
+```java
+List<String> list1 = new ArrayList<String>(); // java 7 ? List<String> list1 = new ArrayList<>(); 
+list1.add("abc");
+//list1.add(new Integer(5)); //lỗi biên dịch
+
+for(String str : list1){
+     //không cần ép kiểu, tránh được ClassCastException
+}
+```
+
+Hãy chú ý rằng, tại thời điểm khởi tạo list, ta đã chỉ định kiểu phần tử của danh sách là String. Do đó, nếu ta cố gắng thêm bất kỳ đối tượng thuộc kiểu khác vào list, chương trình sẽ báo lỗi ngay tại thời điểm biên dịch. Ngoài ra, trong vòng lặp for, ta không cần phải ép kiểu các phần tử lấy ra từ list nữa, nhờ đó tránh được lỗi ClassCastException tại thời điểm runtime.
+
+Generics không chỉ là một tính năng nâng cao trong Java mà còn là một công cụ mạnh mẽ giúp các lập trình viên xây dựng ứng dụng an toàn, hiệu quả và dễ dàng bảo trì. Với khả năng tổng quát hóa kiểu dữ liệu, Generics mở ra cơ hội giảm thiểu lỗi runtime và tối ưu hóa hiệu suất thông qua việc kiểm tra kiểu ngay tại thời điểm biên dịch. Nếu bạn muốn phát triển các ứng dụng Java hiện đại với chất lượng mã vượt trội, việc hiểu và làm chủ Generics là điều không thể thiếu. Trong bài viết này, chúng ta sẽ cùng khám phá cốt lõi của Generics, từ các khái niệm cơ bản cho đến cách áp dụng với những ví dụ đơn giản dễ hiểu, giúp bạn tự tin triển khai trong mọi dự án Java của mình.
 
 image.png
 

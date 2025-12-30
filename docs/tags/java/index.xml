@@ -9,6 +9,13 @@
     <lastBuildDate>Sat, 27 Dec 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/tags/java/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Generics trong Java: Lợi ích và cách sử dụng tối ưu</title>
+      <link>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/posts/java-generics/</link>
+      <pubDate>Sat, 27 Dec 2025 00:00:00 +0000</pubDate>
+      <guid>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/posts/java-generics/</guid>
+      <description>&lt;p&gt;Generics được thêm vào Java 5 nhằm mục đích kiểm tra kiểu dữ liệu ngay tại thời điểm biên dịch (compile-time type checking) và loại bỏ rủi ro lỗi ClassCastException vốn thường xảy ra khi làm việc với các lớp collection. Toàn bộ collection framework cũng đã được viết lại để sử dụng Generics để tăng cường an toàn kiểu dữ liệu (type-safety).&lt;/p&gt;&#xA;&lt;p&gt;Chúng ta hãy cùng xem cách Generics giúp sử dụng lớp collection an toàn hơn.&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>Java: Lập Trình Đa Luồng Cơ Bản</title>
       <link>https://bao2482003.github.io/22DTHC5-6_BaoDG_MBT/posts/java-multithreading/</link>
       <pubDate>Sat, 27 Dec 2025 00:00:00 +0000</pubDate>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> | Profile</title>
+  <title>Generics trong Java: Lợi ích và cách sử dụng tối ưu | Profile</title>
   <link rel="stylesheet" href="../../css/style.css">
   <link rel="icon" href="../../favicon.ico" type="image/x-icon">
 </head>
@@ -163,8 +163,10 @@
       <a href="../../posts">← Tất cả bài viết</a>
     </div>
     
-    <h1 class="post-title"></h1>
+    <h1 class="post-title">Generics trong Java: Lợi ích và cách sử dụng tối ưu</h1>
     
+    
+    <p class="post-description">Hiểu về Generics trong Java và cách sử dụng hiệu quả</p>
     
     
     <div class="post-meta">
@@ -176,26 +178,71 @@
             <line x1="8" y1="2" x2="8" y2="6"></line>
             <line x1="3" y1="10" x2="21" y2="10"></line>
           </svg>
-          01/01/0001
+          27/12/2025
         </span>
         <span class="reading-time">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="10"></circle>
             <polyline points="12 6 12 12 16 14"></polyline>
           </svg>
-          12 phút đọc
+          13 phút đọc
         </span>
+      </div>
+      
+      <div class="post-tags">
+        
+        <span class="post-tag">Java</span>
+        
+        <span class="post-tag">Generics</span>
+        
       </div>
       
     </div>
   </div>
 
   
+  <div class="post-featured-image">
+    <img src="https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=1200&amp;h=600&amp;fit=crop" alt="Generics trong Java: Lợi ích và cách sử dụng tối ưu">
+  </div>
+  
 
+  
+  <div class="post-featured-video">
+    <div class="video-wrapper">
+      <iframe 
+        src="https://www.youtube.com/embed/TMnpcRvj7ow" 
+        title="YouTube video player" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        referrerpolicy="strict-origin-when-cross-origin" 
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
   
 
   <div class="post-content">
-    <p>Generics không chỉ là một tính năng nâng cao trong Java mà còn là một công cụ mạnh mẽ giúp các lập trình viên xây dựng ứng dụng an toàn, hiệu quả và dễ dàng bảo trì. Với khả năng tổng quát hóa kiểu dữ liệu, Generics mở ra cơ hội giảm thiểu lỗi runtime và tối ưu hóa hiệu suất thông qua việc kiểm tra kiểu ngay tại thời điểm biên dịch. Nếu bạn muốn phát triển các ứng dụng Java hiện đại với chất lượng mã vượt trội, việc hiểu và làm chủ Generics là điều không thể thiếu. Trong bài viết này, chúng ta sẽ cùng khám phá cốt lõi của Generics, từ các khái niệm cơ bản cho đến cách áp dụng với những ví dụ đơn giản dễ hiểu, giúp bạn tự tin triển khai trong mọi dự án Java của mình.</p>
+    <p>Generics được thêm vào Java 5 nhằm mục đích kiểm tra kiểu dữ liệu ngay tại thời điểm biên dịch (compile-time type checking) và loại bỏ rủi ro lỗi ClassCastException vốn thường xảy ra khi làm việc với các lớp collection. Toàn bộ collection framework cũng đã được viết lại để sử dụng Generics để tăng cường an toàn kiểu dữ liệu (type-safety).</p>
+<p>Chúng ta hãy cùng xem cách Generics giúp sử dụng lớp collection an toàn hơn.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>List list <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList();
+</span></span><span style="display:flex;"><span>list.<span style="color:#a6e22e">add</span>(<span style="color:#e6db74">&#34;abc&#34;</span>);
+</span></span><span style="display:flex;"><span>list.<span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">new</span> Integer(5)); <span style="color:#75715e">//OK</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span>(Object obj : list){
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">//ép kiểu dẫn đến lỗi ClassCastException lúc chạy</span>
+</span></span><span style="display:flex;"><span>    String str<span style="color:#f92672">=</span>(String) obj; 
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Đoạn code ví dụ ở trên tuy biên dịch thành công nhưng sẽ gây ra lỗi ClassCastException tại thời điểm chạy (runtime). Lý do là vì ta đang cố ép kiểu (cast) một đối tượng Object trong list sang loại String, trong khi một trong số các phần tử trong đó lại thuộc kiểu Integer.</p>
+<p>Kể từ Java 5 trở đi, cách sử dụng collection class đã thay đổi như sau.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> list1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span>(); <span style="color:#75715e">// java 7 ? List&lt;String&gt; list1 = new ArrayList&lt;&gt;(); </span>
+</span></span><span style="display:flex;"><span>list1.<span style="color:#a6e22e">add</span>(<span style="color:#e6db74">&#34;abc&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//list1.add(new Integer(5)); //lỗi biên dịch</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span>(String str : list1){
+</span></span><span style="display:flex;"><span>     <span style="color:#75715e">//không cần ép kiểu, tránh được ClassCastException</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Hãy chú ý rằng, tại thời điểm khởi tạo list, ta đã chỉ định kiểu phần tử của danh sách là String. Do đó, nếu ta cố gắng thêm bất kỳ đối tượng thuộc kiểu khác vào list, chương trình sẽ báo lỗi ngay tại thời điểm biên dịch. Ngoài ra, trong vòng lặp for, ta không cần phải ép kiểu các phần tử lấy ra từ list nữa, nhờ đó tránh được lỗi ClassCastException tại thời điểm runtime.</p>
+<p>Generics không chỉ là một tính năng nâng cao trong Java mà còn là một công cụ mạnh mẽ giúp các lập trình viên xây dựng ứng dụng an toàn, hiệu quả và dễ dàng bảo trì. Với khả năng tổng quát hóa kiểu dữ liệu, Generics mở ra cơ hội giảm thiểu lỗi runtime và tối ưu hóa hiệu suất thông qua việc kiểm tra kiểu ngay tại thời điểm biên dịch. Nếu bạn muốn phát triển các ứng dụng Java hiện đại với chất lượng mã vượt trội, việc hiểu và làm chủ Generics là điều không thể thiếu. Trong bài viết này, chúng ta sẽ cùng khám phá cốt lõi của Generics, từ các khái niệm cơ bản cho đến cách áp dụng với những ví dụ đơn giản dễ hiểu, giúp bạn tự tin triển khai trong mọi dự án Java của mình.</p>
 <p>image.png</p>
 <ol>
 <li>
